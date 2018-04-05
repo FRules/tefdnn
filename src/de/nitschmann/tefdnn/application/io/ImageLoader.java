@@ -15,13 +15,45 @@ public class ImageLoader {
     private NeuralNetwork nn;
     private Map<String, Integer> pathNeuronTrainingMap = new HashMap<>();
     private Set<String> testPaths = new HashSet<>();
+    private String testImage;
 
     public ImageLoader(NeuralNetwork nn) {
         this.nn = nn;
     }
 
-    public void addTestPath(String path) {
-        testPaths.add(path);
+    public boolean addTestPath(String path) {
+        if (!new File(path).exists()) {
+            System.out.println("Directory doesn't exist.");
+            return false;
+        }
+
+        if (!testPaths.contains(path))
+            testPaths.add(path);
+
+        return true;
+    }
+
+    public boolean removeTestPath(String path) {
+        if (!new File(path).exists()) {
+            System.out.println("Directory doesn't exist.");
+            return false;
+        }
+
+        if (testPaths.contains(path)) {
+            testPaths.remove(path);
+        }
+
+        return true;
+    }
+
+    public boolean setTestImage(String path) {
+        if (!new File(path).exists()) {
+            System.out.println("Directory doesn't exist.");
+            return false;
+        }
+
+        this.testImage = path;
+        return true;
     }
 
     public void addTrainingSet(String path, int neuronWhichShouldFire) {
@@ -98,6 +130,19 @@ public class ImageLoader {
         }
 
         return map;
+    }
+
+    public double[] getTestImage(double meanImage) {
+        File file = new File(this.testImage);
+        try {
+            BufferedImage image = convertToGray(ImageIO.read(file));
+            image = createResizedCopy(image, 28, 28, false);
+            Image img = getImage(image, meanImage);
+            return img.getImageData();
+        } catch (IOException e) {
+
+        }
+        return null;
     }
 
     private Image getImage(BufferedImage image) {

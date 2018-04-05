@@ -88,6 +88,7 @@ public class Console {
     public TrainingEnvironment train(String input, TrainingEnvironment trainingEnvironment) {
         if (input.contains("-ptd:") && input.contains("-tn:")) {
             String path = Parser.parseString(input, "-ptd:");
+            path = path.replace("\"", "");
             int neuron = Parser.parseInt(input, "-tn:");
 
             if (neuron == -1 || neuron >= trainingEnvironment.getFeedForwardNetwork().getOutputLayer().getNeurons().size()) {
@@ -149,19 +150,22 @@ public class Console {
     public boolean test(String input, TrainingEnvironment trainedEnvironment) {
         if (input.contains("-ptd:")) {
             String path = Parser.parseString(input, "-ptd:");
+            path = path.replace("\"", "");
 
-            imageLoader.addTestPath(path);
+            if (!imageLoader.addTestPath(path)) {
+                return false;
+            }
             Map<String, double[]> testData = imageLoader.getTestImages(imageLoader.getTrainingData().getMeanImage());
 
             Map<String, double[]> testDataAfterAutoencoder = new HashMap<>();
             if (trainedEnvironment.getAutoEncoderNetwork() != null) {
                 Iterator it = testData.entrySet().iterator();
                 while (it.hasNext()) {
-                    Map.Entry pair = (Map.Entry)it.next();
+                    Map.Entry pair = (Map.Entry) it.next();
                     trainedEnvironment.getAutoEncoderNetwork().setInput(trainedEnvironment.getAutoEncoderNetwork(), (double[]) pair.getValue());
                     List<Double> result = trainedEnvironment.getAutoEncoderNetwork().test(trainedEnvironment.getAutoEncoderNetwork());
                     double[] res = new double[result.size()];
-                    for(int i = 0; i < result.size(); i++) {
+                    for (int i = 0; i < result.size(); i++) {
                         res[i] = result.get(i);
                     }
                     testDataAfterAutoencoder.put((String) pair.getKey(), res);
@@ -176,13 +180,32 @@ public class Console {
                 Map.Entry pair = (Map.Entry) it.next();
                 trainedEnvironment.getFeedForwardNetwork().setInput(trainedEnvironment.getFeedForwardNetwork(), (double[]) pair.getValue());
                 List<Double> result = trainedEnvironment.getFeedForwardNetwork().test(trainedEnvironment.getFeedForwardNetwork());
+                System.out.println(pair.getKey());
                 System.out.println(result);
-                saveResult(trainedEnvironment, (String)pair.getKey(), result.toString());
+                saveResult(trainedEnvironment, (String) pair.getKey(), result.toString());
             }
+            imageLoader.removeTestPath(path);
+            return true;
+        } else if (input.contains("-ps:")) {
+            // test single picture
+            String path = Parser.parseString(input, "-ps:");
+            path = path.replace("\"", "");
+
+            if (!imageLoader.setTestImage(path)) {
+                return false;
+            }
+            double[] testData = imageLoader.getTestImage(imageLoader.getTrainingData().getMeanImage());
+
+            trainedEnvironment.getFeedForwardNetwork().setInput(trainedEnvironment.getFeedForwardNetwork(), testData);
+            List<Double> result = trainedEnvironment.getFeedForwardNetwork().test(trainedEnvironment.getFeedForwardNetwork());
+            System.out.println(path);
+            System.out.println(result);
             return true;
         } else {
             System.out.println("parameters not specified correctly. Test takes following arguments:");
-            System.out.println("-pTD: path to image directory which contains testing gdata, required");
+            System.out.println("-pTD: path to image directory which contains testing data");
+            System.out.println("-pS: path to single image");
+            System.out.println("Either -pTD or -pS needs to be specified");
             return false;
         }
     }
