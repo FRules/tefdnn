@@ -44,6 +44,7 @@ public class NeuralNetwork {
         this.targetLoss = nn.getTargetLoss();
         this.activationFunction = nn.activationFunction;
         this.trainingType = nn.getTrainingType();
+        this.meanImage = nn.getMeanImage();
         this.inputLayer = new InputLayer(nn.getInputLayer());
         this.outputLayer = new OutputLayer(nn.getOutputLayer());
         ArrayList<HiddenLayer> copiedHiddenLayers = new ArrayList<>();

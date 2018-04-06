@@ -98,7 +98,6 @@ public class TestingView extends JFrame implements ActionListener {
         this.setTitle("Test image");
         this.add(panel);
         this.pack();
-        this.setSize(1024, 80);
         this.setVisible(true);
     }
 
@@ -125,8 +124,6 @@ public class TestingView extends JFrame implements ActionListener {
                 neuronValueList.add(neuronValue);
             }
             this.pack();
-            System.out.println(path);
-            System.out.println(result);
         }
     }
 

@@ -7,7 +7,7 @@ import de.nitschmann.tefdnn.presentation.gui.TestingView;
 public class Main {
 
     public static void main(String[] args) {
-        Database db = new Database("jdbc:hsqldb:file:db/database; shutdown=true", "SA", "" );
+        Database db = new Database("jdbc:hsqldb:file:db/database;shutdown=true;", "SA", "", false);
         Console console = new Console(db);
 
         System.out.println("Console initialized.");

@@ -8,10 +8,7 @@ public class Database {
 
     private Connection con = null;
 
-    /**
-     *  initializes a new database connection
-     */
-    public Database(String connectionString, String user, String password) {
+    public Database(String connectionString, String user, String password, boolean overwrite) {
         try
         {
             Class.forName( "org.hsqldb.jdbcDriver" );
@@ -26,11 +23,22 @@ public class Database {
         {
             con = DriverManager.getConnection(
                     connectionString, user, password);
+            if (overwrite) {
+                clearDatabase();
+                initDatabase();
+            }
         }
         catch ( SQLException e )
         {
             e.printStackTrace();
         }
+    }
+
+    /**
+     *  initializes a new database connection
+     */
+    public Database(String connectionString, String user, String password) {
+        this(connectionString, user, password, false);
     }
 
     public void close() {
