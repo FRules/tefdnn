@@ -1,19 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="2b1ca20d-0026-4ee9-b3d7-cbf1cbdafbf3" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/db/mnistdatabase.lck" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/db/mnistdatabase.properties" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/db/mnistdatabase.script" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/db/database.lck" afterPath="$PROJECT_DIR$/db/database.lck" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/db/database.properties" afterPath="$PROJECT_DIR$/db/database.properties" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/db/database.script" afterPath="$PROJECT_DIR$/db/database.script" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/de/nitschmann/tefdnn/application/Main.java" afterPath="$PROJECT_DIR$/src/de/nitschmann/tefdnn/application/Main.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/de/nitschmann/tefdnn/application/NeuralNetwork.java" afterPath="$PROJECT_DIR$/src/de/nitschmann/tefdnn/application/NeuralNetwork.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/de/nitschmann/tefdnn/persistence/Database.java" afterPath="$PROJECT_DIR$/src/de/nitschmann/tefdnn/persistence/Database.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/de/nitschmann/tefdnn/presentation/Console.java" afterPath="$PROJECT_DIR$/src/de/nitschmann/tefdnn/presentation/Console.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/de/nitschmann/tefdnn/presentation/gui/TestingView.java" afterPath="$PROJECT_DIR$/src/de/nitschmann/tefdnn/presentation/gui/TestingView.java" />
-    </list>
+    <list default="true" id="2b1ca20d-0026-4ee9-b3d7-cbf1cbdafbf3" name="Default" comment="" />
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -32,8 +20,8 @@
       <file leaf-file-name="Console.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/de/nitschmann/tefdnn/presentation/Console.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="622">
-              <caret line="218" column="57" lean-forward="false" selection-start-line="218" selection-start-column="57" selection-end-line="218" selection-end-column="57" />
+            <state relative-caret-position="486">
+              <caret line="210" column="47" lean-forward="false" selection-start-line="210" selection-start-column="47" selection-end-line="210" selection-end-column="47" />
               <folding />
             </state>
           </provider>
@@ -87,17 +75,17 @@
             <state relative-caret-position="527">
               <caret line="33" column="0" lean-forward="false" selection-start-line="33" selection-start-column="0" selection-end-line="33" selection-end-column="0" />
               <folding>
-                <marker date="1523024593862" expanded="true" signature="1399:1439" ph="DROP TABLE I... " />
-                <marker date="1523024593862" expanded="true" signature="1441:1475" ph="DROP TABLE I... " />
-                <marker date="1523024593862" expanded="true" signature="1477:1503" ph="DROP TABLE I... " />
-                <marker date="1523024593862" expanded="true" signature="1505:1532" ph="DROP TABLE I... " />
-                <marker date="1523024593862" expanded="true" signature="1555:1582" ph="DROP TABLE I... " />
-                <marker date="1523024593862" expanded="true" signature="1584:1609" ph="DROP TABLE I... " />
-                <marker date="1523024593862" expanded="true" signature="1873:1904" ph="DELETE FROM " />
-                <marker date="1523024593862" expanded="true" signature="1906:1931" ph="DELETE FROM " />
-                <marker date="1523024593862" expanded="true" signature="1933:1950" ph="DELETE FROM " />
-                <marker date="1523024593862" expanded="true" signature="1952:1970" ph="DELETE FROM " />
-                <marker date="1523024593862" expanded="true" signature="1972:1990" ph="DELETE FROM " />
+                <marker date="1523026067870" expanded="true" signature="1399:1439" ph="DROP TABLE I... " />
+                <marker date="1523026067870" expanded="true" signature="1441:1475" ph="DROP TABLE I... " />
+                <marker date="1523026067870" expanded="true" signature="1477:1503" ph="DROP TABLE I... " />
+                <marker date="1523026067870" expanded="true" signature="1505:1532" ph="DROP TABLE I... " />
+                <marker date="1523026067870" expanded="true" signature="1555:1582" ph="DROP TABLE I... " />
+                <marker date="1523026067870" expanded="true" signature="1584:1609" ph="DROP TABLE I... " />
+                <marker date="1523026067870" expanded="true" signature="1873:1904" ph="DELETE FROM " />
+                <marker date="1523026067870" expanded="true" signature="1906:1931" ph="DELETE FROM " />
+                <marker date="1523026067870" expanded="true" signature="1933:1950" ph="DELETE FROM " />
+                <marker date="1523026067870" expanded="true" signature="1952:1970" ph="DELETE FROM " />
+                <marker date="1523026067870" expanded="true" signature="1972:1990" ph="DELETE FROM " />
               </folding>
             </state>
           </provider>
@@ -119,32 +107,32 @@
             <state relative-caret-position="17">
               <caret line="592" column="39" lean-forward="false" selection-start-line="592" selection-start-column="39" selection-end-line="592" selection-end-column="39" />
               <folding>
-                <marker date="1523022683648" expanded="true" signature="811:1114" ph="CREATE TABLE... IF" />
-                <marker date="1523022683648" expanded="true" signature="1166:1672" ph="CREATE TABLE... IF" />
-                <marker date="1523022683648" expanded="true" signature="1722:1976" ph="CREATE TABLE... IF" />
-                <marker date="1523022683648" expanded="true" signature="2026:2264" ph="CREATE TABLE... IF" />
-                <marker date="1523022683648" expanded="true" signature="2314:2575" ph="CREATE TABLE... IF" />
-                <marker date="1523022683648" expanded="true" signature="2625:3006" ph="CREATE TABLE... iF" />
-                <marker date="1523022683648" expanded="true" signature="4132:4243" ph="INSERT INTO Test... " />
-                <marker date="1523022683648" expanded="true" signature="5488:5555" ph="INSERT INTO TrainingEnvironment... " />
-                <marker date="1523022683648" expanded="true" signature="7457:7542" ph="INSERT INTO TrainingEnvironment... " />
-                <marker date="1523022683648" expanded="true" signature="8568:8723" ph="INSERT INTO NeuralNetwork... " />
-                <marker date="1523022683648" expanded="true" signature="10862:10921" ph="INSERT INTO Layer... " />
-                <marker date="1523022683648" expanded="true" signature="11616:11675" ph="INSERT INTO Layer... " />
-                <marker date="1523022683648" expanded="true" signature="12281:12340" ph="INSERT INTO Layer... " />
-                <marker date="1523022683648" expanded="true" signature="13103:13155" ph="INSERT INTO Neuron... " />
-                <marker date="1523022683648" expanded="true" signature="13832:13895" ph="INSERT INTO Weight... " />
-                <marker date="1523022683648" expanded="true" signature="14673:14741" ph="SELECT id FR... Layer" />
-                <marker date="1523022683648" expanded="true" signature="16658:16733" ph="SELECT feedF... TrainingEnvironment" />
-                <marker date="1523022683648" expanded="true" signature="19118:19161" ph="SELECT id FR... NeuralNetwork" />
-                <marker date="1523022683648" expanded="true" signature="19792:19841" ph="SELECT id FR... TrainingEnvironment" />
-                <marker date="1523022683648" expanded="true" signature="20474:20540" ph="SELECT count... Layer" />
-                <marker date="1523022683648" expanded="true" signature="20812:20890" ph="SELECT id, p... Layer" />
-                <marker date="1523022683648" expanded="true" signature="22051:22185" ph="SELECT name,... NeuralNetwork" />
-                <marker date="1523022683648" expanded="true" signature="24009:24054" ph="SELECT count... Neuron" />
-                <marker date="1523022683648" expanded="true" signature="24667:24719" ph="SELECT count... Layer" />
-                <marker date="1523022683648" expanded="true" signature="25327:25388" ph="SELECT id FR... Neuron" />
-                <marker date="1523022683648" expanded="true" signature="26144:26209" ph="SELECT value... Weight" />
+                <marker date="1523026067866" expanded="true" signature="811:1114" ph="CREATE TABLE... IF" />
+                <marker date="1523026067866" expanded="true" signature="1166:1672" ph="CREATE TABLE... IF" />
+                <marker date="1523026067866" expanded="true" signature="1722:1976" ph="CREATE TABLE... IF" />
+                <marker date="1523026067866" expanded="true" signature="2026:2264" ph="CREATE TABLE... IF" />
+                <marker date="1523026067866" expanded="true" signature="2314:2575" ph="CREATE TABLE... IF" />
+                <marker date="1523026067866" expanded="true" signature="2625:3006" ph="CREATE TABLE... iF" />
+                <marker date="1523026067866" expanded="true" signature="4132:4243" ph="INSERT INTO Test... " />
+                <marker date="1523026067866" expanded="true" signature="5488:5555" ph="INSERT INTO TrainingEnvironment... " />
+                <marker date="1523026067866" expanded="true" signature="7457:7542" ph="INSERT INTO TrainingEnvironment... " />
+                <marker date="1523026067866" expanded="true" signature="8568:8723" ph="INSERT INTO NeuralNetwork... " />
+                <marker date="1523026067866" expanded="true" signature="10862:10921" ph="INSERT INTO Layer... " />
+                <marker date="1523026067866" expanded="true" signature="11616:11675" ph="INSERT INTO Layer... " />
+                <marker date="1523026067866" expanded="true" signature="12281:12340" ph="INSERT INTO Layer... " />
+                <marker date="1523026067866" expanded="true" signature="13103:13155" ph="INSERT INTO Neuron... " />
+                <marker date="1523026067866" expanded="true" signature="13832:13895" ph="INSERT INTO Weight... " />
+                <marker date="1523026067866" expanded="true" signature="14673:14741" ph="SELECT id FR... Layer" />
+                <marker date="1523026067866" expanded="true" signature="16658:16733" ph="SELECT feedF... TrainingEnvironment" />
+                <marker date="1523026067866" expanded="true" signature="19118:19161" ph="SELECT id FR... NeuralNetwork" />
+                <marker date="1523026067866" expanded="true" signature="19792:19841" ph="SELECT id FR... TrainingEnvironment" />
+                <marker date="1523026067866" expanded="true" signature="20474:20540" ph="SELECT count... Layer" />
+                <marker date="1523026067866" expanded="true" signature="20812:20890" ph="SELECT id, p... Layer" />
+                <marker date="1523026067866" expanded="true" signature="22051:22185" ph="SELECT name,... NeuralNetwork" />
+                <marker date="1523026067866" expanded="true" signature="24009:24054" ph="SELECT count... Neuron" />
+                <marker date="1523026067866" expanded="true" signature="24667:24719" ph="SELECT count... Layer" />
+                <marker date="1523026067866" expanded="true" signature="25327:25388" ph="SELECT id FR... Neuron" />
+                <marker date="1523026067866" expanded="true" signature="26144:26209" ph="SELECT value... Weight" />
               </folding>
             </state>
           </provider>
@@ -487,7 +475,7 @@
       <workItem from="1522939887176" duration="306000" />
       <workItem from="1522940436480" duration="7234000" />
       <workItem from="1523013653455" duration="6350000" />
-      <workItem from="1523022688654" duration="3310000" />
+      <workItem from="1523022688654" duration="3603000" />
     </task>
     <servers />
   </component>
@@ -509,11 +497,10 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="17200000" />
+    <option name="totallyTimeSpent" value="17493000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
-    <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -524,7 +511,7 @@
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32979852" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32979852" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
@@ -813,32 +800,32 @@
         <state relative-caret-position="17">
           <caret line="592" column="39" lean-forward="false" selection-start-line="592" selection-start-column="39" selection-end-line="592" selection-end-column="39" />
           <folding>
-            <marker date="1523022683648" expanded="true" signature="811:1114" ph="CREATE TABLE... IF" />
-            <marker date="1523022683648" expanded="true" signature="1166:1672" ph="CREATE TABLE... IF" />
-            <marker date="1523022683648" expanded="true" signature="1722:1976" ph="CREATE TABLE... IF" />
-            <marker date="1523022683648" expanded="true" signature="2026:2264" ph="CREATE TABLE... IF" />
-            <marker date="1523022683648" expanded="true" signature="2314:2575" ph="CREATE TABLE... IF" />
-            <marker date="1523022683648" expanded="true" signature="2625:3006" ph="CREATE TABLE... iF" />
-            <marker date="1523022683648" expanded="true" signature="4132:4243" ph="INSERT INTO Test... " />
-            <marker date="1523022683648" expanded="true" signature="5488:5555" ph="INSERT INTO TrainingEnvironment... " />
-            <marker date="1523022683648" expanded="true" signature="7457:7542" ph="INSERT INTO TrainingEnvironment... " />
-            <marker date="1523022683648" expanded="true" signature="8568:8723" ph="INSERT INTO NeuralNetwork... " />
-            <marker date="1523022683648" expanded="true" signature="10862:10921" ph="INSERT INTO Layer... " />
-            <marker date="1523022683648" expanded="true" signature="11616:11675" ph="INSERT INTO Layer... " />
-            <marker date="1523022683648" expanded="true" signature="12281:12340" ph="INSERT INTO Layer... " />
-            <marker date="1523022683648" expanded="true" signature="13103:13155" ph="INSERT INTO Neuron... " />
-            <marker date="1523022683648" expanded="true" signature="13832:13895" ph="INSERT INTO Weight... " />
-            <marker date="1523022683648" expanded="true" signature="14673:14741" ph="SELECT id FR... Layer" />
-            <marker date="1523022683648" expanded="true" signature="16658:16733" ph="SELECT feedF... TrainingEnvironment" />
-            <marker date="1523022683648" expanded="true" signature="19118:19161" ph="SELECT id FR... NeuralNetwork" />
-            <marker date="1523022683648" expanded="true" signature="19792:19841" ph="SELECT id FR... TrainingEnvironment" />
-            <marker date="1523022683648" expanded="true" signature="20474:20540" ph="SELECT count... Layer" />
-            <marker date="1523022683648" expanded="true" signature="20812:20890" ph="SELECT id, p... Layer" />
-            <marker date="1523022683648" expanded="true" signature="22051:22185" ph="SELECT name,... NeuralNetwork" />
-            <marker date="1523022683648" expanded="true" signature="24009:24054" ph="SELECT count... Neuron" />
-            <marker date="1523022683648" expanded="true" signature="24667:24719" ph="SELECT count... Layer" />
-            <marker date="1523022683648" expanded="true" signature="25327:25388" ph="SELECT id FR... Neuron" />
-            <marker date="1523022683648" expanded="true" signature="26144:26209" ph="SELECT value... Weight" />
+            <marker date="1523026067866" expanded="true" signature="811:1114" ph="CREATE TABLE... IF" />
+            <marker date="1523026067866" expanded="true" signature="1166:1672" ph="CREATE TABLE... IF" />
+            <marker date="1523026067866" expanded="true" signature="1722:1976" ph="CREATE TABLE... IF" />
+            <marker date="1523026067866" expanded="true" signature="2026:2264" ph="CREATE TABLE... IF" />
+            <marker date="1523026067866" expanded="true" signature="2314:2575" ph="CREATE TABLE... IF" />
+            <marker date="1523026067866" expanded="true" signature="2625:3006" ph="CREATE TABLE... iF" />
+            <marker date="1523026067866" expanded="true" signature="4132:4243" ph="INSERT INTO Test... " />
+            <marker date="1523026067866" expanded="true" signature="5488:5555" ph="INSERT INTO TrainingEnvironment... " />
+            <marker date="1523026067866" expanded="true" signature="7457:7542" ph="INSERT INTO TrainingEnvironment... " />
+            <marker date="1523026067866" expanded="true" signature="8568:8723" ph="INSERT INTO NeuralNetwork... " />
+            <marker date="1523026067866" expanded="true" signature="10862:10921" ph="INSERT INTO Layer... " />
+            <marker date="1523026067866" expanded="true" signature="11616:11675" ph="INSERT INTO Layer... " />
+            <marker date="1523026067866" expanded="true" signature="12281:12340" ph="INSERT INTO Layer... " />
+            <marker date="1523026067866" expanded="true" signature="13103:13155" ph="INSERT INTO Neuron... " />
+            <marker date="1523026067866" expanded="true" signature="13832:13895" ph="INSERT INTO Weight... " />
+            <marker date="1523026067866" expanded="true" signature="14673:14741" ph="SELECT id FR... Layer" />
+            <marker date="1523026067866" expanded="true" signature="16658:16733" ph="SELECT feedF... TrainingEnvironment" />
+            <marker date="1523026067866" expanded="true" signature="19118:19161" ph="SELECT id FR... NeuralNetwork" />
+            <marker date="1523026067866" expanded="true" signature="19792:19841" ph="SELECT id FR... TrainingEnvironment" />
+            <marker date="1523026067866" expanded="true" signature="20474:20540" ph="SELECT count... Layer" />
+            <marker date="1523026067866" expanded="true" signature="20812:20890" ph="SELECT id, p... Layer" />
+            <marker date="1523026067866" expanded="true" signature="22051:22185" ph="SELECT name,... NeuralNetwork" />
+            <marker date="1523026067866" expanded="true" signature="24009:24054" ph="SELECT count... Neuron" />
+            <marker date="1523026067866" expanded="true" signature="24667:24719" ph="SELECT count... Layer" />
+            <marker date="1523026067866" expanded="true" signature="25327:25388" ph="SELECT id FR... Neuron" />
+            <marker date="1523026067866" expanded="true" signature="26144:26209" ph="SELECT value... Weight" />
           </folding>
         </state>
       </provider>
@@ -848,17 +835,17 @@
         <state relative-caret-position="527">
           <caret line="33" column="0" lean-forward="false" selection-start-line="33" selection-start-column="0" selection-end-line="33" selection-end-column="0" />
           <folding>
-            <marker date="1523024593862" expanded="true" signature="1399:1439" ph="DROP TABLE I... " />
-            <marker date="1523024593862" expanded="true" signature="1441:1475" ph="DROP TABLE I... " />
-            <marker date="1523024593862" expanded="true" signature="1477:1503" ph="DROP TABLE I... " />
-            <marker date="1523024593862" expanded="true" signature="1505:1532" ph="DROP TABLE I... " />
-            <marker date="1523024593862" expanded="true" signature="1555:1582" ph="DROP TABLE I... " />
-            <marker date="1523024593862" expanded="true" signature="1584:1609" ph="DROP TABLE I... " />
-            <marker date="1523024593862" expanded="true" signature="1873:1904" ph="DELETE FROM " />
-            <marker date="1523024593862" expanded="true" signature="1906:1931" ph="DELETE FROM " />
-            <marker date="1523024593862" expanded="true" signature="1933:1950" ph="DELETE FROM " />
-            <marker date="1523024593862" expanded="true" signature="1952:1970" ph="DELETE FROM " />
-            <marker date="1523024593862" expanded="true" signature="1972:1990" ph="DELETE FROM " />
+            <marker date="1523026067870" expanded="true" signature="1399:1439" ph="DROP TABLE I... " />
+            <marker date="1523026067870" expanded="true" signature="1441:1475" ph="DROP TABLE I... " />
+            <marker date="1523026067870" expanded="true" signature="1477:1503" ph="DROP TABLE I... " />
+            <marker date="1523026067870" expanded="true" signature="1505:1532" ph="DROP TABLE I... " />
+            <marker date="1523026067870" expanded="true" signature="1555:1582" ph="DROP TABLE I... " />
+            <marker date="1523026067870" expanded="true" signature="1584:1609" ph="DROP TABLE I... " />
+            <marker date="1523026067870" expanded="true" signature="1873:1904" ph="DELETE FROM " />
+            <marker date="1523026067870" expanded="true" signature="1906:1931" ph="DELETE FROM " />
+            <marker date="1523026067870" expanded="true" signature="1933:1950" ph="DELETE FROM " />
+            <marker date="1523026067870" expanded="true" signature="1952:1970" ph="DELETE FROM " />
+            <marker date="1523026067870" expanded="true" signature="1972:1990" ph="DELETE FROM " />
           </folding>
         </state>
       </provider>
@@ -899,8 +886,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/de/nitschmann/tefdnn/presentation/Console.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="622">
-          <caret line="218" column="57" lean-forward="false" selection-start-line="218" selection-start-column="57" selection-end-line="218" selection-end-column="57" />
+        <state relative-caret-position="486">
+          <caret line="210" column="47" lean-forward="false" selection-start-line="210" selection-start-column="47" selection-end-line="210" selection-end-column="47" />
           <folding />
         </state>
       </provider>
