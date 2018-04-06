@@ -4,9 +4,8 @@
     <list default="true" id="2b1ca20d-0026-4ee9-b3d7-cbf1cbdafbf3" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/db/database.lck" afterPath="$PROJECT_DIR$/db/database.lck" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/de/nitschmann/tefdnn/application/Main.java" afterPath="$PROJECT_DIR$/src/de/nitschmann/tefdnn/application/Main.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/de/nitschmann/tefdnn/presentation/Console.java" afterPath="$PROJECT_DIR$/src/de/nitschmann/tefdnn/presentation/Console.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/de/nitschmann/tefdnn/presentation/gui/TestingView.java" afterPath="$PROJECT_DIR$/src/de/nitschmann/tefdnn/presentation/gui/TestingView.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/db/database.properties" afterPath="$PROJECT_DIR$/db/database.properties" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/db/database.script" afterPath="$PROJECT_DIR$/db/database.script" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -16,33 +15,28 @@
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="CoverageDataManager">
+    <SUITE FILE_PATH="coverage/implementation$Main.coverage" NAME="Main Coverage Results" MODIFIED="1523016153498" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="true">
+      <FILTER>de.nitschmann.tefdnn.application.*</FILTER>
+    </SUITE>
+  </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="NeuralNetworkImageTest.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/de/nitschmann/tefdnn/test/unittest/NeuralNetworkImageTest.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="4658">
-              <caret line="283" column="33" lean-forward="false" selection-start-line="283" selection-start-column="33" selection-end-line="283" selection-end-column="33" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Main.java" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/de/nitschmann/tefdnn/application/Main.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="119">
-              <caret line="9" column="0" lean-forward="false" selection-start-line="9" selection-start-column="0" selection-end-line="9" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="Console.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/de/nitschmann/tefdnn/presentation/Console.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2159">
-              <caret line="140" column="7" lean-forward="false" selection-start-line="140" selection-start-column="7" selection-end-line="140" selection-end-column="7" />
+            <state relative-caret-position="461">
+              <caret line="129" column="46" lean-forward="false" selection-start-line="129" selection-start-column="35" selection-end-line="129" selection-end-column="46" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Loader.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/de/nitschmann/tefdnn/presentation/Loader.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="359">
+              <caret line="157" column="65" lean-forward="false" selection-start-line="157" selection-start-column="65" selection-end-line="157" selection-end-column="65" />
               <folding />
             </state>
           </provider>
@@ -51,32 +45,80 @@
       <file leaf-file-name="TestingView.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/de/nitschmann/tefdnn/presentation/gui/TestingView.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="306">
-              <caret line="30" column="64" lean-forward="true" selection-start-line="30" selection-start-column="64" selection-end-line="30" selection-end-column="64" />
+            <state relative-caret-position="347">
+              <caret line="127" column="37" lean-forward="true" selection-start-line="127" selection-start-column="37" selection-end-line="127" selection-end-column="37" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#1927#1957#1" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Window.java" pinned="false" current-in-tab="false">
-        <entry file="jar://C:/Program Files/Java/jdk1.8.0_131/src.zip!/java/awt/Window.java">
+      <file leaf-file-name="Saver.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/de/nitschmann/tefdnn/presentation/Saver.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="355">
-              <caret line="800" column="16" lean-forward="false" selection-start-line="800" selection-start-column="16" selection-end-line="800" selection-end-column="16" />
+            <state relative-caret-position="257">
+              <caret line="60" column="28" lean-forward="false" selection-start-line="60" selection-start-column="24" selection-end-line="60" selection-end-column="28" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="NeuralNetwork.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/de/nitschmann/tefdnn/application/NeuralNetwork.java">
+      <file leaf-file-name="Database.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/de/nitschmann/tefdnn/persistence/Database.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="7089">
-              <caret line="465" column="29" lean-forward="false" selection-start-line="465" selection-start-column="29" selection-end-line="465" selection-end-column="29" />
-              <folding />
+            <state relative-caret-position="219">
+              <caret line="77" column="47" lean-forward="false" selection-start-line="77" selection-start-column="24" selection-end-line="77" selection-end-column="47" />
+              <folding>
+                <marker date="1513327095000" expanded="true" signature="1133:1173" ph="DROP TABLE I... " />
+                <marker date="1513327095000" expanded="true" signature="1175:1209" ph="DROP TABLE I... " />
+                <marker date="1513327095000" expanded="true" signature="1211:1237" ph="DROP TABLE I... " />
+                <marker date="1513327095000" expanded="true" signature="1239:1266" ph="DROP TABLE I... " />
+                <marker date="1513327095000" expanded="true" signature="1289:1316" ph="DROP TABLE I... " />
+                <marker date="1513327095000" expanded="true" signature="1318:1343" ph="DROP TABLE I... " />
+                <marker date="1513327095000" expanded="true" signature="1607:1638" ph="DELETE FROM " />
+                <marker date="1513327095000" expanded="true" signature="1640:1665" ph="DELETE FROM " />
+                <marker date="1513327095000" expanded="true" signature="1667:1684" ph="DELETE FROM " />
+                <marker date="1513327095000" expanded="true" signature="1686:1704" ph="DELETE FROM " />
+                <marker date="1513327095000" expanded="true" signature="1706:1724" ph="DELETE FROM " />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Commands.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/de/nitschmann/tefdnn/persistence/Commands.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-663">
+              <caret line="592" column="39" lean-forward="false" selection-start-line="592" selection-start-column="39" selection-end-line="592" selection-end-column="39" />
+              <folding>
+                <marker date="1523021611151" expanded="true" signature="811:1114" ph="CREATE TABLE... IF" />
+                <marker date="1523021611151" expanded="true" signature="1166:1672" ph="CREATE TABLE... IF" />
+                <marker date="1523021611151" expanded="true" signature="1722:1976" ph="CREATE TABLE... IF" />
+                <marker date="1523021611151" expanded="true" signature="2026:2264" ph="CREATE TABLE... IF" />
+                <marker date="1523021611151" expanded="true" signature="2314:2575" ph="CREATE TABLE... IF" />
+                <marker date="1523021611151" expanded="true" signature="2625:3006" ph="CREATE TABLE... iF" />
+                <marker date="1523021611151" expanded="true" signature="4132:4243" ph="INSERT INTO Test... " />
+                <marker date="1523021611151" expanded="true" signature="5488:5555" ph="INSERT INTO TrainingEnvironment... " />
+                <marker date="1523021611151" expanded="true" signature="7457:7542" ph="INSERT INTO TrainingEnvironment... " />
+                <marker date="1523021611151" expanded="true" signature="8568:8723" ph="INSERT INTO NeuralNetwork... " />
+                <marker date="1523021611151" expanded="true" signature="10862:10921" ph="INSERT INTO Layer... " />
+                <marker date="1523021611151" expanded="true" signature="11616:11675" ph="INSERT INTO Layer... " />
+                <marker date="1523021611151" expanded="true" signature="12281:12340" ph="INSERT INTO Layer... " />
+                <marker date="1523021611151" expanded="true" signature="13103:13155" ph="INSERT INTO Neuron... " />
+                <marker date="1523021611151" expanded="true" signature="13832:13895" ph="INSERT INTO Weight... " />
+                <marker date="1523021611151" expanded="true" signature="14673:14741" ph="SELECT id FR... Layer" />
+                <marker date="1523021611151" expanded="true" signature="16658:16733" ph="SELECT feedF... TrainingEnvironment" />
+                <marker date="1523021611151" expanded="true" signature="19118:19161" ph="SELECT id FR... NeuralNetwork" />
+                <marker date="1523021611151" expanded="true" signature="19792:19841" ph="SELECT id FR... TrainingEnvironment" />
+                <marker date="1523021611151" expanded="true" signature="20474:20540" ph="SELECT count... Layer" />
+                <marker date="1523021611151" expanded="true" signature="20812:20890" ph="SELECT id, p... Layer" />
+                <marker date="1523021611151" expanded="true" signature="22051:22185" ph="SELECT name,... NeuralNetwork" />
+                <marker date="1523021611151" expanded="true" signature="24009:24054" ph="SELECT count... Neuron" />
+                <marker date="1523021611151" expanded="true" signature="24667:24719" ph="SELECT count... Layer" />
+                <marker date="1523021611151" expanded="true" signature="25327:25388" ph="SELECT id FR... Neuron" />
+                <marker date="1523021611151" expanded="true" signature="26144:26209" ph="SELECT value... Weight" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -84,19 +126,59 @@
       <file leaf-file-name="ImageLoader.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/de/nitschmann/tefdnn/application/io/ImageLoader.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="833">
-              <caret line="59" column="26" lean-forward="false" selection-start-line="59" selection-start-column="26" selection-end-line="59" selection-end-column="26" />
-              <folding />
+            <state relative-caret-position="194">
+              <caret line="76" column="24" lean-forward="false" selection-start-line="76" selection-start-column="24" selection-end-line="76" selection-end-column="24" />
+              <folding>
+                <element signature="e#553#554#0" expanded="true" />
+                <element signature="e#581#582#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ImageIO.java" pinned="false" current-in-tab="false">
-        <entry file="jar://C:/Program Files/Java/jdk1.8.0_131/src.zip!/javax/imageio/ImageIO.java">
+      <file leaf-file-name="NeuralNetwork.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/de/nitschmann/tefdnn/application/NeuralNetwork.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="20383">
-              <caret line="1295" column="32" lean-forward="false" selection-start-line="1295" selection-start-column="32" selection-end-line="1295" selection-end-column="32" />
-              <folding />
+            <state relative-caret-position="185">
+              <caret line="365" column="16" lean-forward="false" selection-start-line="365" selection-start-column="16" selection-end-line="365" selection-end-column="16" />
+              <folding>
+                <element signature="e#13917#13918#0" expanded="true" />
+                <element signature="e#13959#13960#0" expanded="true" />
+                <element signature="e#14056#14057#0" expanded="true" />
+                <element signature="e#14093#14094#0" expanded="true" />
+                <element signature="e#14203#14204#0" expanded="true" />
+                <element signature="e#14243#14244#0" expanded="true" />
+                <element signature="e#14563#14564#0" expanded="true" />
+                <element signature="e#14619#14620#0" expanded="true" />
+                <element signature="e#17128#17129#0" expanded="true" />
+                <element signature="e#17160#17161#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Backpropagation.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/de/nitschmann/tefdnn/application/training/Backpropagation.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="194">
+              <caret line="107" column="25" lean-forward="false" selection-start-line="107" selection-start-column="25" selection-end-line="107" selection-end-column="25" />
+              <folding>
+                <element signature="e#248#249#0" expanded="true" />
+                <element signature="e#308#309#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Image.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/de/nitschmann/tefdnn/application/io/Image.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="272">
+              <caret line="20" column="18" lean-forward="false" selection-start-line="20" selection-start-column="18" selection-end-line="20" selection-end-column="18" />
+              <folding>
+                <element signature="e#432#433#0" expanded="true" />
+                <element signature="e#464#465#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -113,6 +195,10 @@
   <component name="FindInProjectRecents">
     <findStrings>
       <find>imageloader</find>
+      <find>meanimage</find>
+      <find>this.nn</find>
+      <find>nn</find>
+      <find>train</find>
       <find>test</find>
     </findStrings>
   </component>
@@ -129,9 +215,14 @@
       <list>
         <option value="$PROJECT_DIR$/src/de/nitschmann/tefdnn/test/unittest/BackpropagationTest.java" />
         <option value="$PROJECT_DIR$/src/de/nitschmann/tefdnn/application/io/ImageLoader.java" />
+        <option value="$PROJECT_DIR$/src/de/nitschmann/tefdnn/application/Main.java" />
+        <option value="$PROJECT_DIR$/src/de/nitschmann/tefdnn/presentation/Saver.java" />
+        <option value="$PROJECT_DIR$/src/de/nitschmann/tefdnn/presentation/Loader.java" />
+        <option value="$PROJECT_DIR$/src/de/nitschmann/tefdnn/application/training/Backpropagation.java" />
+        <option value="$PROJECT_DIR$/src/de/nitschmann/tefdnn/application/NeuralNetwork.java" />
         <option value="$PROJECT_DIR$/src/de/nitschmann/tefdnn/presentation/Console.java" />
         <option value="$PROJECT_DIR$/src/de/nitschmann/tefdnn/presentation/gui/TestingView.java" />
-        <option value="$PROJECT_DIR$/src/de/nitschmann/tefdnn/application/Main.java" />
+        <option value="$PROJECT_DIR$/src/de/nitschmann/tefdnn/persistence/Commands.java" />
       </list>
     </option>
   </component>
@@ -141,7 +232,7 @@
     <detection-done>true</detection-done>
     <sorting>DEFINITION_ORDER</sorting>
   </component>
-  <component name="ProjectFrameBounds" extendedState="6">
+  <component name="ProjectFrameBounds" extendedState="7">
     <option name="x" value="742" />
     <option name="y" value="47" />
     <option name="width" value="1936" />
@@ -190,6 +281,14 @@
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="tefdnn" type="462c0819:PsiDirectoryNode" />
               <item name="application" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="implementation" type="b2602c69:ProjectViewProjectNode" />
+              <item name="tefdnn2" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="tefdnn" type="462c0819:PsiDirectoryNode" />
+              <item name="application" type="462c0819:PsiDirectoryNode" />
+              <item name="io" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="implementation" type="b2602c69:ProjectViewProjectNode" />
@@ -391,7 +490,7 @@
       <updated>1522872639389</updated>
       <workItem from="1522939887176" duration="306000" />
       <workItem from="1522940436480" duration="7234000" />
-      <workItem from="1523013653455" duration="1816000" />
+      <workItem from="1523013653455" duration="6350000" />
     </task>
     <servers />
   </component>
@@ -413,10 +512,10 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="9356000" />
+    <option name="totallyTimeSpent" value="13890000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
+    <frame x="-8" y="-8" width="1936" height="1056" extended-state="7" />
     <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -429,6 +528,7 @@
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32979852" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Coverage" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3296875" sideWeight="0.5" order="-1" side_tool="true" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
@@ -456,7 +556,27 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="4" />
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/de/nitschmann/tefdnn/persistence/Commands.java</url>
+          <line>220</line>
+          <properties />
+          <option name="timeStamp" value="4" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/de/nitschmann/tefdnn/presentation/Saver.java</url>
+          <line>71</line>
+          <properties />
+          <option name="timeStamp" value="5" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/de/nitschmann/tefdnn/persistence/Commands.java</url>
+          <line>175</line>
+          <properties />
+          <option name="timeStamp" value="7" />
+        </line-breakpoint>
+      </breakpoints>
+      <option name="time" value="8" />
     </breakpoint-manager>
     <watches-manager />
   </component>
@@ -483,7 +603,6 @@
           <caret line="56" column="39" lean-forward="false" selection-start-line="56" selection-start-column="39" selection-end-line="56" selection-end-column="39" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#1927#1957#1" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -492,7 +611,18 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="7905">
           <caret line="465" column="29" lean-forward="false" selection-start-line="465" selection-start-column="29" selection-end-line="465" selection-end-column="29" />
-          <folding />
+          <folding>
+            <element signature="e#13917#13918#0" expanded="true" />
+            <element signature="e#13959#13960#0" expanded="true" />
+            <element signature="e#14056#14057#0" expanded="true" />
+            <element signature="e#14093#14094#0" expanded="true" />
+            <element signature="e#14203#14204#0" expanded="true" />
+            <element signature="e#14243#14244#0" expanded="true" />
+            <element signature="e#14563#14564#0" expanded="true" />
+            <element signature="e#14619#14620#0" expanded="true" />
+            <element signature="e#17128#17129#0" expanded="true" />
+            <element signature="e#17160#17161#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -588,26 +718,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/de/nitschmann/tefdnn/presentation/Console.java">
+    <entry file="file://$PROJECT_DIR$/src/de/nitschmann/tefdnn/application/Main.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2159">
-          <caret line="140" column="7" lean-forward="false" selection-start-line="140" selection-start-column="7" selection-end-line="140" selection-end-column="7" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/de/nitschmann/tefdnn/application/NeuralNetwork.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="7089">
-          <caret line="465" column="29" lean-forward="false" selection-start-line="465" selection-start-column="29" selection-end-line="465" selection-end-column="29" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/de/nitschmann/tefdnn/application/io/ImageLoader.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="833">
-          <caret line="59" column="26" lean-forward="false" selection-start-line="59" selection-start-column="26" selection-end-line="59" selection-end-column="26" />
+        <state relative-caret-position="306">
+          <caret line="20" column="5" lean-forward="true" selection-start-line="20" selection-start-column="5" selection-end-line="20" selection-end-column="5" />
           <folding />
         </state>
       </provider>
@@ -620,22 +734,164 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/de/nitschmann/tefdnn/presentation/gui/TestingView.java">
+    <entry file="file://$PROJECT_DIR$/src/de/nitschmann/tefdnn/application/TrainingEnvironment.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="306">
-          <caret line="30" column="64" lean-forward="true" selection-start-line="30" selection-start-column="64" selection-end-line="30" selection-end-column="64" />
+        <state relative-caret-position="422">
+          <caret line="53" column="0" lean-forward="false" selection-start-line="53" selection-start-column="0" selection-end-line="53" selection-end-column="0" />
           <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#1927#1957#1" expanded="true" />
+            <element signature="e#1057#1058#0" expanded="false" />
+            <element signature="e#1089#1090#0" expanded="false" />
+            <element signature="e#1348#1349#0" expanded="false" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/de/nitschmann/tefdnn/application/Main.java">
+    <entry file="file://$PROJECT_DIR$/src/de/nitschmann/tefdnn/application/io/TrainingData.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="119">
-          <caret line="9" column="0" lean-forward="false" selection-start-line="9" selection-start-column="0" selection-end-line="9" selection-end-column="0" />
+        <state relative-caret-position="85">
+          <caret line="5" column="26" lean-forward="false" selection-start-line="5" selection-start-column="26" selection-end-line="5" selection-end-column="26" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/de/nitschmann/tefdnn/presentation/Loader.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="359">
+          <caret line="157" column="65" lean-forward="false" selection-start-line="157" selection-start-column="65" selection-end-line="157" selection-end-column="65" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/de/nitschmann/tefdnn/application/training/Backpropagation.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="194">
+          <caret line="107" column="25" lean-forward="false" selection-start-line="107" selection-start-column="25" selection-end-line="107" selection-end-column="25" />
+          <folding>
+            <element signature="e#248#249#0" expanded="true" />
+            <element signature="e#308#309#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/de/nitschmann/tefdnn/application/io/Image.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="272">
+          <caret line="20" column="18" lean-forward="false" selection-start-line="20" selection-start-column="18" selection-end-line="20" selection-end-column="18" />
+          <folding>
+            <element signature="e#432#433#0" expanded="true" />
+            <element signature="e#464#465#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/de/nitschmann/tefdnn/application/NeuralNetwork.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="185">
+          <caret line="365" column="16" lean-forward="false" selection-start-line="365" selection-start-column="16" selection-end-line="365" selection-end-column="16" />
+          <folding>
+            <element signature="e#13917#13918#0" expanded="true" />
+            <element signature="e#13959#13960#0" expanded="true" />
+            <element signature="e#14056#14057#0" expanded="true" />
+            <element signature="e#14093#14094#0" expanded="true" />
+            <element signature="e#14203#14204#0" expanded="true" />
+            <element signature="e#14243#14244#0" expanded="true" />
+            <element signature="e#14563#14564#0" expanded="true" />
+            <element signature="e#14619#14620#0" expanded="true" />
+            <element signature="e#17128#17129#0" expanded="true" />
+            <element signature="e#17160#17161#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/de/nitschmann/tefdnn/application/io/ImageLoader.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="194">
+          <caret line="76" column="24" lean-forward="false" selection-start-line="76" selection-start-column="24" selection-end-line="76" selection-end-column="24" />
+          <folding>
+            <element signature="e#553#554#0" expanded="true" />
+            <element signature="e#581#582#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/de/nitschmann/tefdnn/presentation/Console.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="461">
+          <caret line="129" column="46" lean-forward="false" selection-start-line="129" selection-start-column="35" selection-end-line="129" selection-end-column="46" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/de/nitschmann/tefdnn/presentation/gui/TestingView.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="347">
+          <caret line="127" column="37" lean-forward="true" selection-start-line="127" selection-start-column="37" selection-end-line="127" selection-end-column="37" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/de/nitschmann/tefdnn/presentation/Saver.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="257">
+          <caret line="60" column="28" lean-forward="false" selection-start-line="60" selection-start-column="24" selection-end-line="60" selection-end-column="28" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/de/nitschmann/tefdnn/persistence/Database.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="219">
+          <caret line="77" column="47" lean-forward="false" selection-start-line="77" selection-start-column="24" selection-end-line="77" selection-end-column="47" />
+          <folding>
+            <marker date="1513327095000" expanded="true" signature="1133:1173" ph="DROP TABLE I... " />
+            <marker date="1513327095000" expanded="true" signature="1175:1209" ph="DROP TABLE I... " />
+            <marker date="1513327095000" expanded="true" signature="1211:1237" ph="DROP TABLE I... " />
+            <marker date="1513327095000" expanded="true" signature="1239:1266" ph="DROP TABLE I... " />
+            <marker date="1513327095000" expanded="true" signature="1289:1316" ph="DROP TABLE I... " />
+            <marker date="1513327095000" expanded="true" signature="1318:1343" ph="DROP TABLE I... " />
+            <marker date="1513327095000" expanded="true" signature="1607:1638" ph="DELETE FROM " />
+            <marker date="1513327095000" expanded="true" signature="1640:1665" ph="DELETE FROM " />
+            <marker date="1513327095000" expanded="true" signature="1667:1684" ph="DELETE FROM " />
+            <marker date="1513327095000" expanded="true" signature="1686:1704" ph="DELETE FROM " />
+            <marker date="1513327095000" expanded="true" signature="1706:1724" ph="DELETE FROM " />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/de/nitschmann/tefdnn/persistence/Commands.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-663">
+          <caret line="592" column="39" lean-forward="false" selection-start-line="592" selection-start-column="39" selection-end-line="592" selection-end-column="39" />
+          <folding>
+            <marker date="1523021611151" expanded="true" signature="811:1114" ph="CREATE TABLE... IF" />
+            <marker date="1523021611151" expanded="true" signature="1166:1672" ph="CREATE TABLE... IF" />
+            <marker date="1523021611151" expanded="true" signature="1722:1976" ph="CREATE TABLE... IF" />
+            <marker date="1523021611151" expanded="true" signature="2026:2264" ph="CREATE TABLE... IF" />
+            <marker date="1523021611151" expanded="true" signature="2314:2575" ph="CREATE TABLE... IF" />
+            <marker date="1523021611151" expanded="true" signature="2625:3006" ph="CREATE TABLE... iF" />
+            <marker date="1523021611151" expanded="true" signature="4132:4243" ph="INSERT INTO Test... " />
+            <marker date="1523021611151" expanded="true" signature="5488:5555" ph="INSERT INTO TrainingEnvironment... " />
+            <marker date="1523021611151" expanded="true" signature="7457:7542" ph="INSERT INTO TrainingEnvironment... " />
+            <marker date="1523021611151" expanded="true" signature="8568:8723" ph="INSERT INTO NeuralNetwork... " />
+            <marker date="1523021611151" expanded="true" signature="10862:10921" ph="INSERT INTO Layer... " />
+            <marker date="1523021611151" expanded="true" signature="11616:11675" ph="INSERT INTO Layer... " />
+            <marker date="1523021611151" expanded="true" signature="12281:12340" ph="INSERT INTO Layer... " />
+            <marker date="1523021611151" expanded="true" signature="13103:13155" ph="INSERT INTO Neuron... " />
+            <marker date="1523021611151" expanded="true" signature="13832:13895" ph="INSERT INTO Weight... " />
+            <marker date="1523021611151" expanded="true" signature="14673:14741" ph="SELECT id FR... Layer" />
+            <marker date="1523021611151" expanded="true" signature="16658:16733" ph="SELECT feedF... TrainingEnvironment" />
+            <marker date="1523021611151" expanded="true" signature="19118:19161" ph="SELECT id FR... NeuralNetwork" />
+            <marker date="1523021611151" expanded="true" signature="19792:19841" ph="SELECT id FR... TrainingEnvironment" />
+            <marker date="1523021611151" expanded="true" signature="20474:20540" ph="SELECT count... Layer" />
+            <marker date="1523021611151" expanded="true" signature="20812:20890" ph="SELECT id, p... Layer" />
+            <marker date="1523021611151" expanded="true" signature="22051:22185" ph="SELECT name,... NeuralNetwork" />
+            <marker date="1523021611151" expanded="true" signature="24009:24054" ph="SELECT count... Neuron" />
+            <marker date="1523021611151" expanded="true" signature="24667:24719" ph="SELECT count... Layer" />
+            <marker date="1523021611151" expanded="true" signature="25327:25388" ph="SELECT id FR... Neuron" />
+            <marker date="1523021611151" expanded="true" signature="26144:26209" ph="SELECT value... Weight" />
+          </folding>
         </state>
       </provider>
     </entry>
