@@ -2,11 +2,6 @@ package de.nitschmann.tefdnn.application.training;
 
 import de.nitschmann.tefdnn.application.*;
 
-import javax.naming.NameNotFoundException;
-import java.io.*;
-import java.util.ArrayList;
-import java.util.List;
-
 public class Backpropagation {
 
     private IActivationFunction activationFunction;
