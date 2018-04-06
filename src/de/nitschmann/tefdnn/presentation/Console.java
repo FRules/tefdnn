@@ -87,6 +87,8 @@ public class Console {
      * @return
      */
     public TrainingEnvironment train(String input, TrainingEnvironment trainingEnvironment) {
+        double meanImage = 0;
+
         if (input.contains("-ptd:") && input.contains("-tn:")) {
             String path = Parser.parseString(input, "-ptd:");
             path = path.replace("\"", "");
@@ -99,6 +101,7 @@ public class Console {
             imageLoader.addTrainingSet(path, neuron);
 
             TrainingData trainingData = imageLoader.getTrainingData();
+            meanImage = trainingData.getMeanImage();
 
             if (trainingEnvironment.getAutoEncoderNetwork() != null) {
                 trainingEnvironment.getAutoEncoderNetwork().setTrainSet(trainingData.getImages());
@@ -107,6 +110,7 @@ public class Console {
 
             trainingEnvironment.getFeedForwardNetwork().setTrainSet(trainingData.getImages());
             trainingEnvironment.getFeedForwardNetwork().setEstimatedResults(trainingData.getEstimatedResults());
+
             return null;
         } else if (input.contains("-s")) {
             if (!configurator.isProperlyConfigured(trainingEnvironment)) {
@@ -119,10 +123,11 @@ public class Console {
                 trainedAE = trainingEnvironment.getAutoEncoderNetwork().train(trainingEnvironment.getAutoEncoderNetwork());
             }
             NeuralNetwork trainedFF = trainingEnvironment.getFeedForwardNetwork().train(trainingEnvironment.getFeedForwardNetwork());
+            trainedFF.setMeanImage(meanImage);
             TrainingEnvironment trainedEnvironment = new TrainingEnvironment(trainedFF, trainedAE);
             this.trainedEnvironment = trainedEnvironment;
             System.out.println("Training done");
-            TestingView view = new TestingView(trainedEnvironment, imageLoader);
+            TestingView view = new TestingView(trainedEnvironment);
             view.setVisible(true);
             return trainedEnvironment;
         } else {
@@ -197,7 +202,7 @@ public class Console {
             if (!imageLoader.setTestImage(path)) {
                 return false;
             }
-            double[] testData = imageLoader.getTestImage(imageLoader.getTrainingData().getMeanImage());
+            double[] testData = imageLoader.getTestImage(trainedEnvironment.getFeedForwardNetwork().getMeanImage());
 
             trainedEnvironment.getFeedForwardNetwork().setInput(trainedEnvironment.getFeedForwardNetwork(), testData);
             List<Double> result = trainedEnvironment.getFeedForwardNetwork().test(trainedEnvironment.getFeedForwardNetwork());

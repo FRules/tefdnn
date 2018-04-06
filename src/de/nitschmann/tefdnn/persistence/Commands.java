@@ -42,6 +42,7 @@ public class Commands {
                     "targetLoss DOUBLE, " +
                     "trainingType INT, " +
                     "maxEpoch INT, " +
+                    "meanImage DOUBLE, " +
                     "PRIMARY KEY(id))"
             );
 
@@ -215,7 +216,7 @@ public class Commands {
         try {
             PreparedStatement pStmt;
             ResultSet rs;
-            pStmt = con.prepareStatement("INSERT INTO NeuralNetwork (name, learningRate, activationFunction, momentum, targetLoss, maxEpoch, trainingType) VALUES (?, ?, ?, ?, ?, ?, ?)",
+            pStmt = con.prepareStatement("INSERT INTO NeuralNetwork (name, learningRate, activationFunction, momentum, targetLoss, maxEpoch, trainingType, meanImage) VALUES (?, ?, ?, ?, ?, ?, ?, ?)",
                     Statement.RETURN_GENERATED_KEYS);
             pStmt.setString(1, neuralNetwork.getName());
             pStmt.setDouble(2, neuralNetwork.getLearningRate());
@@ -247,6 +248,7 @@ public class Commands {
                         pStmt.setInt(7, 1);
                 }
             }
+            pStmt.setDouble(8, neuralNetwork.getMeanImage());
 
             pStmt.executeUpdate();
 
@@ -565,12 +567,12 @@ public class Commands {
                 weightsHiddenLayer.add(initNeurons(con, rs.getInt(1)));
             }
 
-            pStmt = con.prepareStatement("SELECT name, learningRate, maxEpoch, momentum, targetLoss, trainingType, activationFunction FROM NeuralNetwork WHERE id = ?");
+            pStmt = con.prepareStatement("SELECT name, learningRate, maxEpoch, momentum, targetLoss, trainingType, activationFunction, meanImage FROM NeuralNetwork WHERE id = ?");
             pStmt.setInt(1, neuralNetworkId);
             rs = pStmt.executeQuery();
             String name = "";
             int maxEpoch = 0, trainingType = 0, activationFunction = 0;
-            double targetLoss = 0, momentum = 0, learningRate = 0;
+            double targetLoss = 0, momentum = 0, learningRate = 0, meanImage = 0;
             while (rs.next()) {
                 name = rs.getString(1);
                 learningRate = rs.getDouble(2);
@@ -579,6 +581,7 @@ public class Commands {
                 targetLoss = rs.getDouble(5);
                 trainingType = rs.getInt(6);
                 activationFunction = rs.getInt(7);
+                meanImage = rs.getDouble(8);
             }
 
             NeuralNetwork nn = new NeuralNetwork();
@@ -587,6 +590,7 @@ public class Commands {
             nn.setMaxEpoch(maxEpoch);
             nn.setMomentum(momentum);
             nn.setTargetLoss(targetLoss);
+            nn.setMeanImage(meanImage);
             if (trainingType == 1) {
                 nn.setTrainingType(TrainingType.BACKPROPAGATION);
             }

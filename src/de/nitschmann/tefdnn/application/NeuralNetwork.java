@@ -22,6 +22,7 @@ public class NeuralNetwork {
     private double targetLoss;
     private double learningRate;
     private double momentum;
+    private double meanImage;
     private NeuralNetworkType neuralNetworkType;
 
     /**
@@ -327,6 +328,22 @@ public class NeuralNetwork {
      */
     public double[][] getTrainSet() {
         return trainSet;
+    }
+
+    /**
+     * sets the mean image
+     * @param meanImage
+     */
+    public void setMeanImage(double meanImage) {
+        this.meanImage = meanImage;
+    }
+
+    /**
+     * returns the mean image
+     * @return
+     */
+    public double getMeanImage() {
+        return this.meanImage;
     }
 
     /**

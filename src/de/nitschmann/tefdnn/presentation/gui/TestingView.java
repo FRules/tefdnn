@@ -23,9 +23,9 @@ public class TestingView extends JFrame implements ActionListener {
     private ArrayList<JLabel> neuronNumberList = new ArrayList<>();
     private ArrayList<JLabel> neuronValueList = new ArrayList<>();
 
-    public TestingView(TrainingEnvironment trainedEnvironment, ImageLoader imageLoader) {
+    public TestingView(TrainingEnvironment trainedEnvironment) {
         this.trainedEnvironment = trainedEnvironment;
-        this.imageLoader = imageLoader;
+        this.imageLoader = new ImageLoader(trainedEnvironment.getFeedForwardNetwork());
 
         inputField = new JTextField();
         inputField.setText("Enter path to image or drag and drop...");
@@ -112,13 +112,13 @@ public class TestingView extends JFrame implements ActionListener {
             if (!imageLoader.setTestImage(path)) {
                 return;
             }
-            double[] testData = imageLoader.getTestImage(imageLoader.getTrainingData().getMeanImage());
+            double[] testData = imageLoader.getTestImage(trainedEnvironment.getFeedForwardNetwork().getMeanImage());
 
             trainedEnvironment.getFeedForwardNetwork().setInput(trainedEnvironment.getFeedForwardNetwork(), testData);
             ArrayList<Double> result = trainedEnvironment.getFeedForwardNetwork().test(trainedEnvironment.getFeedForwardNetwork());
             for(int i = 0; i < result.size(); i++) {
                 JLabel neuronNumber = new JLabel("Neuron " + i);
-                JLabel neuronValue = new JLabel(result.get(i).toString() + " %");
+                JLabel neuronValue = new JLabel(String.format("%.4f",result.get(i) * 100) + " %");
                 panel.add(neuronNumber);
                 panel.add(neuronValue);
                 neuronNumberList.add(neuronNumber);
