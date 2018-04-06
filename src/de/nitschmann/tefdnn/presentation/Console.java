@@ -6,6 +6,7 @@ import de.nitschmann.tefdnn.application.TrainingEnvironment;
 import de.nitschmann.tefdnn.application.io.ImageLoader;
 import de.nitschmann.tefdnn.application.io.TrainingData;
 import de.nitschmann.tefdnn.persistence.Database;
+import de.nitschmann.tefdnn.presentation.gui.TestingView;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -121,6 +122,8 @@ public class Console {
             TrainingEnvironment trainedEnvironment = new TrainingEnvironment(trainedFF, trainedAE);
             this.trainedEnvironment = trainedEnvironment;
             System.out.println("Training done");
+            TestingView view = new TestingView(trainedEnvironment, imageLoader);
+            view.setVisible(true);
             return trainedEnvironment;
         } else {
             System.out.println("parameters not specified correctly. Train takes following arguments:");

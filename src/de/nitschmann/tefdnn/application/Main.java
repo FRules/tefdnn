@@ -2,6 +2,7 @@ package de.nitschmann.tefdnn.application;
 
 import de.nitschmann.tefdnn.persistence.Database;
 import de.nitschmann.tefdnn.presentation.Console;
+import de.nitschmann.tefdnn.presentation.gui.TestingView;
 
 public class Main {
 
