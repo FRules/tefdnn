@@ -18,6 +18,7 @@ init [-nFF:] [-nAE:]
 
 #### Clean Initialization
 These switches should be used when you want to initialize a completely empty training environment. 
+
 | Switch | Effect |
 | ------ | -------|
 | n      | Name of the training environment |
@@ -29,6 +30,7 @@ These switches should be used when you want to initialize a completely empty tra
 
 #### Loading a training environment
 These switches should be used when you want to load a training environment from the database. Of course it is necessary you already created a training environment and saved it to the database (we discuss this later)
+
 | Switch | Effect |
 | ------ | -------|
 | nS     | Name of the training environment you want to load |
