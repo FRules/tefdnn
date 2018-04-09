@@ -7,6 +7,11 @@ import de.nitschmann.tefdnn.presentation.gui.TestingView;
 public class Main {
 
     public static void main(String[] args) {
+
+        SensitivityAnalysis analysis = new SensitivityAnalysis();
+        analysis.startAllScenarios();
+        return;
+/*
         Database db = new Database("jdbc:hsqldb:file:db/database;shutdown=true;", "SA", "", false);
         Console console = new Console(db);
 
@@ -18,5 +23,6 @@ public class Main {
                 return;
             }
         }
+        */
     }
 }

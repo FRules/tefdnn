@@ -48,7 +48,7 @@ conf [-nff] [-lr:] [-tt:] [-af:] [-me:] [-tl:] [-mom:]
 | nff    | Configures not the entire training environment but just the fully connected feed forward network |
 | lr     | Learning rate, double |
 | tt     | Training Type. Right now, only backpropagation is supported and its bound to integer 1 |
-| af     | Activation function. Right now, two activation functions are implemented which are ReLU (1) and Sigmoid (2). |
+| af     | Activation function. Right now, three activation functions are implemented which are ReLU (1), Sigmoid (2) and Tanh (3). |
 | me     | Maximum number of epochs, integer |
 | tl     | Target loss, double |
 | mom    | Momentum, double |

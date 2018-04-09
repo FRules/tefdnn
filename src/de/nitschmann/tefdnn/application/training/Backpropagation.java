@@ -2,9 +2,14 @@ package de.nitschmann.tefdnn.application.training;
 
 import de.nitschmann.tefdnn.application.*;
 
+import java.io.FileWriter;
+import java.io.IOException;
+import java.nio.file.Paths;
+
 public class Backpropagation {
 
     private IActivationFunction activationFunction;
+    private String sensitivityAnalysisDataPath;
 
     public Backpropagation(IActivationFunction activationFunction) {
         this.activationFunction = activationFunction;
@@ -62,6 +67,82 @@ public class Backpropagation {
             System.out.println("Epoch: " + epoch + ", Mean Loss: " + meanLoss);
             epoch++;
         }
+        return nn;
+
+    }
+
+    /**
+     * Trains the neural network with backpropagation algorithm.
+     * This method is necessary for fetching information for sensitivity analysis
+     *
+     * @param nn       Neural Network which should be trained
+     * @param filename The filename of the generated csv file
+     * @return trained Neural Network
+     * @see NeuralNetwork
+     */
+    public NeuralNetwork sensitivityAnalysis(NeuralNetwork nn, String filename) throws IOException {
+        this.sensitivityAnalysisDataPath = Paths.get("sensitivityAnalysisData").toAbsolutePath().toString();
+        int epoch = 0;
+        double meanLoss = Integer.MAX_VALUE;
+
+        String sensitivityData = "";
+
+        while (meanLoss > nn.getTargetLoss()) {
+
+            double loss = 0;
+
+            if (epoch > nn.getMaxEpoch()) {
+                break;
+            }
+
+            // We iterate over the whole train set
+            for (int i = 0; i < nn.getTrainSet().length; i++) {
+                // We initialize the input layer neurons with the train set data.
+                // We start at 1 because the first neuron is the bias.
+                for (int j = 1; j < nn.getInputLayer().getCountOfNeurons(); j++) {
+                    nn.getInputLayer().getNeurons().get(j).setOutputValue(nn.getTrainSet()[i][j - 1]);
+                    nn.getInputLayer().getNeurons().get(j).setSumOfInputValues(nn.getTrainSet()[i][j - 1]);
+                }
+
+                for (int j = 0; j < nn.getOutputLayer().getCountOfNeurons(); j++) {
+                    nn.getOutputLayer().getNeurons().get(j).setEstimatedValue(nn.getEstimatedResults()[i][j]);
+                }
+
+                // We need to save the weights because the backpropagation algorithm changes the weights instantly.
+                // Because the old weights are still needed for the algorithm for further calculation, its necessary
+                // to save them.
+                saveWeights(nn);
+
+                // Forward the data through the network
+                nn = forward(nn);
+
+                // Set the loss of the output neurons after we've forward propagated through one entry of the trainset.
+                //loss += calcLoss(nn);
+                loss += calcLoss(nn);
+
+                // Backpropagate the error through the network and adjust weights
+                nn = backpropagate(nn);
+            }
+
+            meanLoss = loss / nn.getTrainSet().length;
+            System.out.println("Epoch: " + epoch + ", Mean Loss: " + meanLoss);
+            // We need to log the loss - this is the actual important part of this method.
+            // The tests with R need the loss in a log file.
+
+            sensitivityData += meanLoss + ",";
+
+            epoch++;
+        }
+        // Remove last comma
+        sensitivityData = sensitivityData.substring(0, sensitivityData.length() - 1);
+        // Add new line
+        sensitivityData += "\n";
+
+        FileWriter fileWriter = new FileWriter(sensitivityAnalysisDataPath + "\\" + filename);
+        fileWriter.write(sensitivityData);
+        fileWriter.flush();
+        fileWriter.close();
+
         return nn;
 
     }

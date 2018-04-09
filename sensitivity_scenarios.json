@@ -1,0 +1,42 @@
+{
+  "scenario_01" : {
+    "activation" : "sigmoid",
+    "learningRate" : "0.01",
+    "momentum" : "0.95"
+  },
+  "scenario_02" : {
+    "activation" : "sigmoid",
+    "learningRate" : "0.1",
+    "momentum" : "0.5"
+  },
+  "scenario_03" : {
+    "activation" : "sigmoid",
+    "learningRate" : "0.5",
+    "momentum" : "0.1"
+  },
+  "scenario_04" : {
+    "activation" : "sigmoid",
+    "learningRate" : "1.0",
+    "momentum" : "0.0"
+  },
+  "scenario_05" : {
+    "activation" : "tanh",
+    "learningRate" : "0.01",
+    "momentum" : "0.95"
+  },
+  "scenario_06" : {
+    "activation" : "tanh",
+    "learningRate" : "0.1",
+    "momentum" : "0.5"
+  },
+  "scenario_07" : {
+    "activation" : "tanh",
+    "learningRate" : "0.5",
+    "momentum" : "0.1"
+  },
+  "scenario_08" : {
+    "activation" : "tanh",
+    "learningRate" : "0.1",
+    "momentum" : "0.0"
+  }
+}

@@ -140,6 +140,9 @@ public class Configurator {
                     case 2:
                         setActivationFunction(ActivationFunctionType.SIGMOID, trainingEnvironment, configOnlyFF);
                         break;
+                    case 3:
+                        setActivationFunction(ActivationFunctionType.TANH, trainingEnvironment, configOnlyFF);
+                        break;
                     default:
                         setActivationFunction(ActivationFunctionType.RELU, trainingEnvironment, configOnlyFF);
                         System.out.println("Training type not found. Using default.");

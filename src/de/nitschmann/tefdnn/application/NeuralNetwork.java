@@ -2,6 +2,7 @@ package de.nitschmann.tefdnn.application;
 
 import de.nitschmann.tefdnn.application.training.*;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -298,6 +299,9 @@ public class NeuralNetwork {
             case SIGMOID:
                 this.activationFunction = new Sigmoid();
                 break;
+            case TANH:
+                this.activationFunction = new Tanh();
+                break;
             default:
                 this.activationFunction = new Relu();
                 break;
@@ -393,6 +397,24 @@ public class NeuralNetwork {
         if (nn.getTrainingType() == TrainingType.BACKPROPAGATION) {
             Backpropagation backpropagation = new Backpropagation(this.activationFunction);
             return new NeuralNetwork(backpropagation.train(nn));
+        }
+
+        return null;
+    }
+
+    /**
+     * Does basically the same as train but logs the information for sensitivity analysis
+     * @param nn
+     * The neural network which should learn / which we need to fetch sensitivity data from
+     * @param filename
+     * The name of the generated csv file (scenario_01.csv for example)
+     * @return
+     * The trained neural network
+     */
+    public NeuralNetwork sensitivityAnalysis(NeuralNetwork nn, String filename) throws IOException {
+        if (nn.getTrainingType() == TrainingType.BACKPROPAGATION) {
+            Backpropagation backpropagation = new Backpropagation(this.activationFunction);
+            return new NeuralNetwork(backpropagation.sensitivityAnalysis(nn, filename));
         }
 
         return null;

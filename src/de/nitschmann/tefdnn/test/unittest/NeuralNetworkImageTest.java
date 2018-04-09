@@ -287,7 +287,7 @@ public class NeuralNetworkImageTest {
         nn.setTrainingType(TrainingType.BACKPROPAGATION);
         nn.setLearningRate(0.01);
         nn.setMomentum(0.95);
-        nn.setTargetLoss(0.001);
+        nn.setTargetLoss(0.0005);
         nn.setMaxEpoch(4000);
         nn.setActivationFunction(ActivationFunctionType.SIGMOID);
 
