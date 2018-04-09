@@ -17,6 +17,8 @@ public class NeuralNetworkImageTest {
     private String busPathTest;
     private String pkwPathTraining;
     private String pkwPathTest;
+    private String minibusPathTraining;
+    private String minibusPathTest;
 
     @Before
     public void initializePaths() {
@@ -28,8 +30,10 @@ public class NeuralNetworkImageTest {
 
         busPathTraining = Paths.get("data/bus/Training").toAbsolutePath().toString();
         pkwPathTraining = Paths.get("data/pkw/Training").toAbsolutePath().toString();
+        minibusPathTraining = Paths.get("data/minibus/Training").toAbsolutePath().toString();
         busPathTest = Paths.get("data/bus/Test").toAbsolutePath().toString();
         pkwPathTest = Paths.get("data/pkw/Test").toAbsolutePath().toString();
+        minibusPathTest = Paths.get("data/minibus/Test").toAbsolutePath().toString();
 
         /*
         mnistPathToZeroes = Paths.get("data/mnist/training/0").toAbsolutePath().toString();
@@ -263,15 +267,17 @@ public class NeuralNetworkImageTest {
     */
 
     @Test
-    public void busVsPkwTest() {
+    public void busVsPkwVsMinibusTest() {
         NeuralNetwork nn = new NeuralNetwork();
-        nn.initNetwork(784, 40, 2, 1);
+        nn.initNetwork(784, 40, 3, 1);
 
         ImageLoader imageLoader = new ImageLoader(nn);
         imageLoader.addTrainingSet(busPathTraining, 0);
         imageLoader.addTrainingSet(pkwPathTraining, 1);
+        imageLoader.addTrainingSet(minibusPathTraining, 2);
         imageLoader.addTestPath(busPathTest);
         imageLoader.addTestPath(pkwPathTest);
+        imageLoader.addTestPath(minibusPathTest);
 
         TrainingData trainingData = imageLoader.getTrainingData();
         Map<String, double[]> testData = imageLoader.getTestImages(trainingData.getMeanImage());
@@ -281,7 +287,7 @@ public class NeuralNetworkImageTest {
         nn.setTrainingType(TrainingType.BACKPROPAGATION);
         nn.setLearningRate(0.01);
         nn.setMomentum(0.95);
-        nn.setTargetLoss(0.0005);
+        nn.setTargetLoss(0.001);
         nn.setMaxEpoch(4000);
         nn.setActivationFunction(ActivationFunctionType.SIGMOID);
 
@@ -295,12 +301,15 @@ public class NeuralNetworkImageTest {
             List<Double> result = trained.test(trained);
             System.out.printf("Image path: %s\t\tresult: %s\n", imagePath, result.toString());
 
-            if (imagePath.contains("bus")) {
+            if (imagePath.contains(busPathTest)) {
                 // Neuron 0 was trained, so we check if the neuron with index 0 has the highest value
-                Assert.assertTrue(result.get(0) > result.get(1));
-            } else if (imagePath.endsWith("pkw")) {
-                // Neuron 1 was trained, so we check if the neuron with index 1 has the highest vlaue
-                Assert.assertTrue(result.get(1) > result.get(0));
+                Assert.assertTrue(result.get(0) > result.get(1) && result.get(0) > result.get(2));
+            } else if (imagePath.contains(pkwPathTest)) {
+                // Neuron 1 was trained, so we check if the neuron with index 1 has the highest value
+                Assert.assertTrue(result.get(1) > result.get(0) && result.get(1) > result.get(2));
+            } else if (imagePath.contains(minibusPathTest)) {
+                // Neuron 2 was trained, so we check if the neuron with index 2 has the highest value
+                Assert.assertTrue(result.get(2) > result.get(0) && result.get(2) > result.get(1));
             }
         }
     }
