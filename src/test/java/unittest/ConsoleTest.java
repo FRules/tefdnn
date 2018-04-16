@@ -8,15 +8,31 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.nio.file.Paths;
+
 public class ConsoleTest {
 
     private Database db;
+    private String pathTraining1;
+    private String pathTraining2;
+    private String pathTest;
 
     @Before
-    public void initDatabase() {
+    public void before() {
+        initDatabase();
+        initPaths();
+    }
+
+    private void initDatabase() {
         db = new Database("jdbc:hsqldb:file:db/database; shutdown=true", "SA", "" );
         db.dropTables();
         db.initDatabase();
+    }
+
+    private void initPaths() {
+        pathTraining1 = Paths.get("data/mnist/Training/0").toAbsolutePath().toString();
+        pathTraining2 = Paths.get("data/mnist/Training/1").toAbsolutePath().toString();
+        pathTest = Paths.get("data/mnist/Test/0").toAbsolutePath().toString();
     }
 
     @After
@@ -165,8 +181,8 @@ public class ConsoleTest {
         String conf = "conf -me: 20  -af: 1 -lr: 0.001 -mom: 0.5 -tt: 1 -nff";
         c.conf(conf, trainingEnvironment);
 
-        String tr1 = "train -ptd: C:\\Users\\nitschmann\\Documents\\NeuralNetworkTraining\\geometrics\\Training\\0 -tn: 0";
-        String tr2 = "train -ptd: C:\\Users\\nitschmann\\Documents\\NeuralNetworkTraining\\geometrics\\Training\\1 -tn: 1";
+        String tr1 = "train -ptd: " + pathTraining1 + " -tn: 0";
+        String tr2 = "train -ptd: " + pathTraining2 + " -tn: 1";
         String trs = "train -s";
         c.train(tr1, trainingEnvironment);
         c.train(tr2, trainingEnvironment);
@@ -185,14 +201,14 @@ public class ConsoleTest {
         String conf = "conf -me: 20 -tl:0.1 -af: 1 -lr: 0.001 -mom: 0.5 -tt: 1 -nff";
         c.conf(conf, trainingEnvironment);
 
-        String tr1 = "train -ptd: C:\\Users\\nitschmann\\Documents\\NeuralNetworkTraining\\geometrics\\Training\\0 -tn: 0";
-        String tr2 = "train -ptd: C:\\Users\\nitschmann\\Documents\\NeuralNetworkTraining\\geometrics\\Training\\1 -tn: 1";
+        String tr1 = "train -ptd: " + pathTraining1 + " -tn: 0";
+        String tr2 = "train -ptd: " + pathTraining2 + " -tn: 1";
         String trs = "train -s";
         c.train(tr1, trainingEnvironment);
         c.train(tr2, trainingEnvironment);
         TrainingEnvironment trainedEnvironment = c.train(trs, trainingEnvironment);
 
-        String test = "test -ptd: C:\\Users\\nitschmann\\Documents\\NeuralNetworkTraining\\xorSmall\\Test";
+        String test = "test -ptd: " + pathTest;
         Assert.assertTrue(c.test(test, trainedEnvironment));
     }
 
@@ -206,14 +222,14 @@ public class ConsoleTest {
         String conf = "conf -me: 20 -tl:0.1 -af: 1 -lr: 0.001 -mom: 0.5 -tt: 1";
         c.conf(conf, trainingEnvironment);
 
-        String tr1 = "train -ptd: C:\\Users\\nitschmann\\Documents\\NeuralNetworkTraining\\geometrics\\Training\\0 -tn: 0";
-        String tr2 = "train -ptd: C:\\Users\\nitschmann\\Documents\\NeuralNetworkTraining\\geometrics\\Training\\1 -tn: 1";
+        String tr1 = "train -ptd: " + pathTraining1 + " -tn: 0";
+        String tr2 = "train -ptd: " + pathTraining2 + " -tn: 1";
         String trs = "train -s";
         c.train(tr1, trainingEnvironment);
         c.train(tr2, trainingEnvironment);
         TrainingEnvironment trainedEnvironment = c.train(trs, trainingEnvironment);
 
-        String test = "test -ptd: C:\\Users\\nitschmann\\Documents\\NeuralNetworkTraining\\xorSmall\\Test";
+        String test = "test -ptd: " + pathTest;
         Assert.assertTrue(c.test(test, trainedEnvironment));
     }
 
@@ -228,8 +244,8 @@ public class ConsoleTest {
         String conf = "conf -me: 20  -af: 1 -lr: 0.001 -mom: 0.5 -tt: 1";
         c.conf(conf, trainingEnvironment);
 
-        String tr1 = "train -ptd: C:\\Users\\nitschmann\\Documents\\NeuralNetworkTraining\\geometrics\\Training\\0 -tn: 0";
-        String tr2 = "train -ptd: C:\\Users\\nitschmann\\Documents\\NeuralNetworkTraining\\geometrics\\Training\\1 -tn: 1";
+        String tr1 = "train -ptd: " + pathTraining1 + " -tn: 0";
+        String tr2 = "train -ptd: " + pathTraining2 + " -tn: 1";
         String trs = "train -s";
         c.train(tr1, trainingEnvironment);
         c.train(tr2, trainingEnvironment);
