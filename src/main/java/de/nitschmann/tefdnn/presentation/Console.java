@@ -123,9 +123,13 @@ public class Console {
             NeuralNetwork trainedFF = trainingEnvironment.getFeedForwardNetwork().train(trainingEnvironment.getFeedForwardNetwork());
             TrainingEnvironment trainedEnvironment = new TrainingEnvironment(trainedFF, trainedAE);
             this.trainedEnvironment = trainedEnvironment;
+            // We might want to show directly the gui. Unfortunately, since this application gets tested with travis-ci which is not
+            // able to show guis, we comment it out.
+            /*
             System.out.println("Training done");
             TestingView view = new TestingView(trainedEnvironment);
             view.setVisible(true);
+            */
             return trainedEnvironment;
         } else {
             System.out.println("parameters not specified correctly. Train takes following arguments:");
