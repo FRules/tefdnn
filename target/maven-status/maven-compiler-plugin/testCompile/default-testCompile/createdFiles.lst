@@ -1,0 +1,9 @@
+unittest\BackpropagationTest.class
+unittest\NeuralNetworkXorTest.class
+unittest\NeuralNetworkImageTest.class
+unittest\ConsoleTest.class
+init\Initialization.class
+unittest\LossFunctionTest.class
+unittest\TrainingTest.class
+init\Weights.class
+unittest\ConsoleTestInit.class
