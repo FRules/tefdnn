@@ -6,4 +6,4 @@ addons:
 jdk:
   - oraclejdk8
 script: mvn clean install
-sudo: false
+sudo: true
