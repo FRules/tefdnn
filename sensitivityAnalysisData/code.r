@@ -28,6 +28,27 @@ c(sd(scenario01_data),sd(scenario02_data),sd(scenario03_data),sd(scenario04_data
 # --- most frequent values - scenario01_data
 sort(table(scenario01_data),decreasing=TRUE)[1:3]
 
+# --- most frequent values - scenario02_data
+sort(table(scenario02_data),decreasing=TRUE)[1:3]
+
+# --- most frequent values - scenario03_data
+sort(table(scenario03_data),decreasing=TRUE)[1:3]
+
+# --- most frequent values - scenario04_data
+sort(table(scenario04_data),decreasing=TRUE)[1:3]
+
+# --- most frequent values - scenario05_data
+sort(table(scenario05_data),decreasing=TRUE)[1:3]
+
+# --- most frequent values - scenario06_data
+sort(table(scenario06_data),decreasing=TRUE)[1:3]
+
+# --- most frequent values - scenario07_data
+sort(table(scenario07_data),decreasing=TRUE)[1:3]
+
+# --- most frequent values - scenario08_data
+sort(table(scenario08_data),decreasing=TRUE)[1:3]
+
 svg("boxplot.svg",height = 10,width = 10)
 boxplot(scenario01_data,scenario02_data,scenario03_data,scenario04_data,scenario05_data,scenario06_data,scenario07_data,scenario08_data,names=c("Scenario 01","Scenario 02","Scenario 03","Scenario 04","Scenario 05","Scenario 06","Scenario 07","Scenario 08"))
 dev.off()
