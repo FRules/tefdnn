@@ -52,6 +52,12 @@ public class Neuron {
     private int neuronId;
 
     /**
+     * A neuron has a name which need to be specified so we can output it in the graphical user interface
+     * or in the console which class was recognized.
+     */
+    private String name;
+
+    /**
      * We use momentum, therefore we have to save the old delta values of each output weight
      */
     private Map<Integer, Double> oldDeltaW_ij = new HashMap<>();
@@ -87,6 +93,7 @@ public class Neuron {
         this.sumOfInputValues = neuron.sumOfInputValues;
         this.outputValue = neuron.outputValue;
         this.neuronId = neuron.neuronId;
+        this.name = neuron.name;
     }
 
     /**
@@ -168,6 +175,14 @@ public class Neuron {
 
     public double getEstimatedValue() {
         return this.estimatedValue;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getName() {
+        return this.name;
     }
 
     public Map<Integer, Double> getOldDeltaW_ij() {

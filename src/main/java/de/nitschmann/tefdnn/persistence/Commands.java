@@ -59,6 +59,7 @@ public class Commands {
                     "id INT IDENTITY, " +
                     "layerId INT NOT NULL, " +
                     "position INT NOT NULL, " +
+                    "name VARCHAR(100), " +
                     "PRIMARY KEY(id))"
             );
 
@@ -336,9 +337,14 @@ public class Commands {
                 if (j == 0 && layerType != "output") {
                     continue;
                 } // Skipping BIAS
-                PreparedStatement pStmt = con.prepareStatement("INSERT INTO Neuron (layerId, position) VALUES (?, ?)", Statement.RETURN_GENERATED_KEYS);
+                PreparedStatement pStmt = con.prepareStatement("INSERT INTO Neuron (layerId, position, name) VALUES (?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
                 pStmt.setInt(1, layerId);
                 pStmt.setInt(2, j);
+                if (layer.getNeurons().get(j).getName() == null) {
+                    pStmt.setString(3, "no name specified");
+                } else {
+                    pStmt.setString(3, layer.getNeurons().get(j).getName());
+                }
                 pStmt.executeUpdate();
                 ResultSet rs = pStmt.getGeneratedKeys();
                 int neuronId = -1;
@@ -659,7 +665,7 @@ public class Commands {
      */
     private static Map<Integer, List<Double>> initNeurons(Connection con, int layerId) {
         try {
-            PreparedStatement pStmt = con.prepareStatement("SELECT id FROM Neuron WHERE layerId = ? ORDER BY position ASC");
+            PreparedStatement pStmt = con.prepareStatement("SELECT id, name FROM Neuron WHERE layerId = ? ORDER BY position ASC");
             pStmt.setInt(1, layerId);
             ResultSet rs = pStmt.executeQuery();
             Map<Integer, List<Double>> map = new HashMap<>();

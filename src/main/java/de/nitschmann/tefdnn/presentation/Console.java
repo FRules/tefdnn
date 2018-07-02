@@ -1,6 +1,7 @@
 package de.nitschmann.tefdnn.presentation;
 
 import de.nitschmann.tefdnn.application.NeuralNetwork;
+import de.nitschmann.tefdnn.application.Neuron;
 import de.nitschmann.tefdnn.application.TrainingEnvironment;
 import de.nitschmann.tefdnn.application.io.ImageLoader;
 import de.nitschmann.tefdnn.application.io.TrainingData;
@@ -87,14 +88,19 @@ public class Console {
      * @return
      */
     public TrainingEnvironment train(String input, TrainingEnvironment trainingEnvironment) {
-        if (input.contains("-ptd:") && input.contains("-tn:")) {
+        if (input.contains("-ptd:") && input.contains("-tn:") && input.contains("-n:")) {
             String path = Parser.parseString(input, "-ptd:");
             path = path.replace("\"", "");
             int neuron = Parser.parseInt(input, "-tn:");
 
+            String name = Parser.parseString(input, "-n:");
+            name = name.substring(0, 1).toUpperCase() + name.substring(1);
+
             if (neuron == -1 || neuron >= trainingEnvironment.getFeedForwardNetwork().getOutputLayer().getNeurons().size()) {
                 System.out.println("stop");
             }
+
+            trainingEnvironment.getFeedForwardNetwork().getOutputLayer().getNeurons().get(neuron).setName(name);
 
             imageLoader.addTrainingSet(path, neuron);
 
@@ -135,6 +141,8 @@ public class Console {
             System.out.println("parameters not specified correctly. Train takes following arguments:");
             System.out.println("-pTD: path to directory which contains training data, required");
             System.out.println("-tN: target output neuron which represents the trained class, required");
+            System.out.println("-n: Name of the class, required");
+            System.out.println("-s: start training");
             return null;
         }
     }
@@ -190,7 +198,11 @@ public class Console {
                 trainedEnvironment.getFeedForwardNetwork().setInput(trainedEnvironment.getFeedForwardNetwork(), (double[]) pair.getValue());
                 List<Double> result = trainedEnvironment.getFeedForwardNetwork().test(trainedEnvironment.getFeedForwardNetwork());
                 System.out.println(pair.getKey());
-                System.out.println(result);
+                for (int i = 0; i < trainedEnvironment.getFeedForwardNetwork().getOutputLayer().getNeurons().size(); i++) {
+                    Neuron n = trainedEnvironment.getFeedForwardNetwork().getOutputLayer().getNeurons().get(i);
+                    System.out.println(n.getName() + ":\t" + result.get(i));
+                }
+                //System.out.println(result);
                 saveResult(trainedEnvironment, (String) pair.getKey(), result.toString());
             }
             imageLoader.removeTestPath(path);
@@ -208,7 +220,10 @@ public class Console {
             trainedEnvironment.getFeedForwardNetwork().setInput(trainedEnvironment.getFeedForwardNetwork(), testData);
             List<Double> result = trainedEnvironment.getFeedForwardNetwork().test(trainedEnvironment.getFeedForwardNetwork());
             System.out.println(path);
-            System.out.println(result);
+            for (int i = 0; i < trainedEnvironment.getFeedForwardNetwork().getOutputLayer().getNeurons().size(); i++) {
+                Neuron n = trainedEnvironment.getFeedForwardNetwork().getOutputLayer().getNeurons().get(i);
+                System.out.println(n.getName() + ":\t" + result.get(i));
+            }
             return true;
         } else if (input.contains("-gui")) {
             TestingView view = new TestingView(trainedEnvironment);

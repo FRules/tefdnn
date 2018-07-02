@@ -51,7 +51,7 @@ public class Parser {
     }
 
     /**
-     * parses the input string and returns the searched parameter as an int
+     * parses the input string and returns the searched parameter as a string
      * @param input
      * @param parameter
      * @return
@@ -67,5 +67,4 @@ public class Parser {
         }
         return value;
     }
-
 }

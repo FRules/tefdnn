@@ -181,8 +181,8 @@ public class ConsoleTest {
         String conf = "conf -me: 20  -af: 1 -lr: 0.001 -mom: 0.5 -tt: 1 -nff";
         c.conf(conf, trainingEnvironment);
 
-        String tr1 = "train -ptd: " + pathTraining1 + " -tn: 0";
-        String tr2 = "train -ptd: " + pathTraining2 + " -tn: 1";
+        String tr1 = "train -ptd: " + pathTraining1 + " -tn: 0 -n: zero";
+        String tr2 = "train -ptd: " + pathTraining2 + " -tn: 1 -n: one";
         String trs = "train -s";
         c.train(tr1, trainingEnvironment);
         c.train(tr2, trainingEnvironment);
@@ -201,8 +201,8 @@ public class ConsoleTest {
         String conf = "conf -me: 20 -tl:0.1 -af: 1 -lr: 0.001 -mom: 0.5 -tt: 1 -nff";
         c.conf(conf, trainingEnvironment);
 
-        String tr1 = "train -ptd: " + pathTraining1 + " -tn: 0";
-        String tr2 = "train -ptd: " + pathTraining2 + " -tn: 1";
+        String tr1 = "train -ptd: " + pathTraining1 + " -tn: 0 -n: zero";
+        String tr2 = "train -ptd: " + pathTraining2 + " -tn: 1 -n: one";
         String trs = "train -s";
         c.train(tr1, trainingEnvironment);
         c.train(tr2, trainingEnvironment);
@@ -222,8 +222,8 @@ public class ConsoleTest {
         String conf = "conf -me: 20 -tl:0.1 -af: 1 -lr: 0.001 -mom: 0.5 -tt: 1";
         c.conf(conf, trainingEnvironment);
 
-        String tr1 = "train -ptd: " + pathTraining1 + " -tn: 0";
-        String tr2 = "train -ptd: " + pathTraining2 + " -tn: 1";
+        String tr1 = "train -ptd: " + pathTraining1 + " -tn: 0 -n: zero";
+        String tr2 = "train -ptd: " + pathTraining2 + " -tn: 1 -n: one";
         String trs = "train -s";
         c.train(tr1, trainingEnvironment);
         c.train(tr2, trainingEnvironment);
@@ -244,8 +244,8 @@ public class ConsoleTest {
         String conf = "conf -me: 20  -af: 1 -lr: 0.001 -mom: 0.5 -tt: 1";
         c.conf(conf, trainingEnvironment);
 
-        String tr1 = "train -ptd: " + pathTraining1 + " -tn: 0";
-        String tr2 = "train -ptd: " + pathTraining2 + " -tn: 1";
+        String tr1 = "train -ptd: " + pathTraining1 + " -tn: 0 -n: zero";
+        String tr2 = "train -ptd: " + pathTraining2 + " -tn: 1 -n: one";
         String trs = "train -s";
         c.train(tr1, trainingEnvironment);
         c.train(tr2, trainingEnvironment);
