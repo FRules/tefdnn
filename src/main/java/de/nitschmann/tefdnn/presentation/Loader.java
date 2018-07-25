@@ -183,5 +183,7 @@ public class Loader {
         System.out.println("   For loading a neural network by feedforward and autoencoder name");
         System.out.println("      -nFF:\tName of feedforward network");
         System.out.println("      -nAE:\tName of autoencoder network");
+        System.out.println("   For loading a neural network via json file");
+        System.out.println("      -json:\tPath to json file");
     }
 }

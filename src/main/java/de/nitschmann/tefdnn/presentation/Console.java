@@ -7,6 +7,7 @@ import de.nitschmann.tefdnn.application.io.ImageLoader;
 import de.nitschmann.tefdnn.application.io.TrainingData;
 import de.nitschmann.tefdnn.persistence.Database;
 import de.nitschmann.tefdnn.presentation.gui.TestingView;
+import de.nitschmann.tefdnn.presentation.json.JsonParser;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -26,6 +27,8 @@ public class Console {
     private Configurator configurator;
     private ImageLoader imageLoader;
     BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+
+    private boolean openGuiAfterTrainingIsCompleted = false;
 
     /**
      * Initializes a new Console - therefore, a database connection is required as well as
@@ -59,6 +62,9 @@ public class Console {
      * @return
      */
     public TrainingEnvironment init(String input) {
+        if (input.contains("-json:")) {
+            return initJson(input);
+        }
         trainingEnvironment = loader.initEnvironment(database, input);
         trainedEnvironment = trainingEnvironment;
         if (trainingEnvironment != null) {
@@ -66,6 +72,43 @@ public class Console {
             System.out.println("Training environment initialized.");
         }
         return trainingEnvironment;
+    }
+
+    private TrainingEnvironment initJson(String input) {
+        String filename = Parser.parseString(input, "-json:");
+
+        JsonParser jsonParser = new JsonParser();
+        try {
+            jsonParser.parse(filename);
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+            return null;
+        }
+
+        trainingEnvironment = loader.initEnvironment(database, jsonParser.getLoadString());
+
+        if (trainingEnvironment != null) {
+            imageLoader = new ImageLoader(trainingEnvironment.getFeedForwardNetwork());
+            System.out.println("Training environment initialized.");
+        }
+
+        conf(jsonParser.getConfigString(), trainingEnvironment);
+        for(String trainString : jsonParser.getTrainStrings()) {
+            train(trainString, trainingEnvironment);
+        }
+        trainedEnvironment = trainingEnvironment;
+
+        if (jsonParser.getStartTrainingImmediately()) {
+            if (jsonParser.getOpenGuiAfterTrainingIsCompleted()) {
+                trainedEnvironment = train("train -s", trainingEnvironment);
+                test("-gui", trainedEnvironment);
+                return trainedEnvironment;
+            } else {
+                return train("train -s", trainingEnvironment);
+            }
+        }
+
+        return trainedEnvironment;
     }
 
     /**
@@ -228,6 +271,8 @@ public class Console {
         } else if (input.contains("-gui")) {
             TestingView view = new TestingView(trainedEnvironment);
             view.setVisible(true);
+            view.toFront();
+            view.repaint();
             return true;
         } else {
             System.out.println("parameters not specified correctly. Test takes following arguments:");
