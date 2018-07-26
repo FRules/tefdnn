@@ -76,7 +76,7 @@ public class Console {
 
     private TrainingEnvironment initJson(String input) {
         String filename = Parser.parseString(input, "-json:");
-
+        filename = filename.replace("\"", "");
         JsonParser jsonParser = new JsonParser();
         try {
             jsonParser.parse(filename);
