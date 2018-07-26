@@ -8,6 +8,58 @@ This project is a simple training environment for deep neural networks. The supp
 
 You can control the application via CLI. There are several commands available.
 
+### JSON Control
+The preferred and easiest method on how to use the application is to control it via a json configuration file.
+
+```
+init -json: pathToJsonConfigurationFile
+```
+
+The JSON file has to have the following scheme:
+
+```
+{
+    "startTrainingImmediately": true,
+    "openGuiAfterTrainingIsCompleted": true,
+    "initialization": {
+        "name": "Test",
+        "countOfInputNeurons": 784,
+        "countOfHiddenNeurons": 40,
+        "countOfOutputNeurons": 3,
+        "countOfHiddenLayers": 1
+    },
+    "configuration": {
+        "learningRate": 0.001,
+        "trainingType": 1,
+        "activationFunction": 2,
+        "maximumNumberOfEpochs": 40,   
+        "targetLoss": 0.005,
+        "momentum": 0.95
+    },
+    "trainingData": [
+        {
+            "pathToDirectory": "/path/to/repo/data/bus/Training",
+            "targetNeuron": 0,
+            "name": "Bus"
+        },
+        {
+            "pathToDirectory": "/path/to/repo/data/pkw/Training",
+            "targetNeuron": 1,
+            "name": "PKW"
+        }
+    ]
+}
+```
+
+If `startTrainingImmediately` is turned off, you have to start the training process manually.
+You can see [in the training section](#training) how this works. Also, if you have the 
+option `openGuiAfterTrainingIsCompleted` toggled on while `startTrainingImmediately` 
+is off, it has no effect. You'd have to start it manually (see [testing section](#testing)). 
+
+Everything else should be pretty clear. The Activation function and the training type accept 
+integers. You can see which integer belongs to which real value 
+[in the configuration section](#configuration).
+
 ### Initialization
 ```
 init [-n:] [-cIN:] [-cHN:] [-cON:] [-cHL:] -[cHNAE:]
@@ -108,13 +160,13 @@ In the repository, there's a data folder which contains examples for classifying
 init -n: "BusVsPkwNetwork" -cIN: 784 -cHN: 40 -cON: 2 -cHL: 1
 
 # Add training path. Neuron 0 fires when busses are recognized, neuron 1 if cars are recognized. Start training.
-train -pTD: "\path\to\repo\data\bus\Training" -tN: 0
-train -pTD: "\path\to\repo\data\pkw\Training" -tN: 1
+train -pTD: "/path/to/repo/data/bus/Training" -tN: 0
+train -pTD: "/path/to/repo/data/pkw/Training" -tN: 1
 train -s
 
 # After training is completed, we can test it. Lets test all busses in testing directory if they get classified 
 # correctly.
-test -pTD: "\path\to\repo\data\bus\Test"
+test -pTD: "/path/to/repo/data/bus/Test"
 
 # Now, we can also bring the gui to front to drag & drop images to it and test single images
 test -gui
@@ -132,5 +184,5 @@ This example is based on example 1. This time, we want to load the network we sa
 init -nFF: "BusVsPkwNetwork"
 
 # Now, we can do the exact same stuff as in #1, like testing images of busses 
-test -pTD: "\path\to\repo\data\bus\Test\"
+test -pTD: "/path/to/repo/data/bus/Test"
 ```
