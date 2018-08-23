@@ -56,7 +56,7 @@ public class Database {
     }
 
     public void dropTables() {
-        String dropString = "DROP TABLE IF EXISTS TrainingEnvironment; DROP TABLE IF EXISTS NeuralNetwork; DROP TABLE IF EXISTS Layer; DROP TABLE IF EXISTS Neuron; " +
+        String dropString = "DROP TABLE IF EXISTS NeuralNetwork; DROP TABLE IF EXISTS Layer; DROP TABLE IF EXISTS Neuron; " +
                 "DROP TABLE IF EXISTS Weight; DROP TABLE IF EXISTS TEST";
         try {
             Statement stmt = con.createStatement();
@@ -68,7 +68,7 @@ public class Database {
     }
 
     public void clearDatabase() {
-        String deleteString = "DELETE FROM TrainingEnvironment; DELETE FROM NeuralNetwork; DELETE FROM Layer; DELETE FROM Neuron; DELETE FROM Weight;";
+        String deleteString = "DELETE FROM NeuralNetwork; DELETE FROM Layer; DELETE FROM Neuron; DELETE FROM Weight;";
         try {
             Statement stmt = con.createStatement();
 
