@@ -2,7 +2,6 @@ package de.nitschmann.tefdnn.presentation;
 
 import de.nitschmann.tefdnn.application.NeuralNetwork;
 import de.nitschmann.tefdnn.application.Neuron;
-import de.nitschmann.tefdnn.application.TrainingEnvironment;
 import de.nitschmann.tefdnn.application.io.ImageLoader;
 import de.nitschmann.tefdnn.application.io.TrainingData;
 import de.nitschmann.tefdnn.persistence.Database;
@@ -12,15 +11,14 @@ import de.nitschmann.tefdnn.presentation.json.JsonParser;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
 public class Console {
 
-    private TrainingEnvironment trainingEnvironment;
-    private TrainingEnvironment trainedEnvironment;
+    private NeuralNetwork neuralNetwork;
+    private NeuralNetwork trainedNeuralNetwork;
     private Database database;
     private Saver saver;
     private Loader loader;
@@ -57,24 +55,24 @@ public class Console {
     }
 
     /**
-     * returns a training environment by the input string
+     * returns a neural network by the input string
      * @param input
      * @return
      */
-    public TrainingEnvironment init(String input) {
+    public NeuralNetwork init(String input) {
         if (input.contains("-json:")) {
             return initJson(input);
         }
-        trainingEnvironment = loader.initEnvironment(database, input);
-        trainedEnvironment = trainingEnvironment;
-        if (trainingEnvironment != null) {
-            imageLoader = new ImageLoader(trainingEnvironment.getFeedForwardNetwork());
-            System.out.println("Training environment initialized.");
+        neuralNetwork = loader.initNeuralNetwork(database, input);
+        trainedNeuralNetwork = neuralNetwork;
+        if (neuralNetwork != null) {
+            imageLoader = new ImageLoader(neuralNetwork);
+            System.out.println("Neural network initialized.");
         }
-        return trainingEnvironment;
+        return neuralNetwork;
     }
 
-    private TrainingEnvironment initJson(String input) {
+    private NeuralNetwork initJson(String input) {
         String filename = Parser.parseString(input, "-json:");
         filename = filename.replace("\"", "");
         JsonParser jsonParser = new JsonParser();
@@ -85,52 +83,52 @@ public class Console {
             return null;
         }
 
-        trainingEnvironment = loader.initEnvironment(database, jsonParser.getLoadString());
+        neuralNetwork = loader.initNeuralNetwork(database, jsonParser.getLoadString());
 
-        if (trainingEnvironment != null) {
-            imageLoader = new ImageLoader(trainingEnvironment.getFeedForwardNetwork());
-            System.out.println("Training environment initialized.");
+        if (neuralNetwork != null) {
+            imageLoader = new ImageLoader(neuralNetwork);
+            System.out.println("Neural network initialized.");
         }
 
-        conf(jsonParser.getConfigString(), trainingEnvironment);
+        conf(jsonParser.getConfigString(), neuralNetwork);
         for(String trainString : jsonParser.getTrainStrings()) {
-            train(trainString, trainingEnvironment);
+            train(trainString, neuralNetwork);
         }
-        trainedEnvironment = trainingEnvironment;
+        trainedNeuralNetwork = neuralNetwork;
 
         if (jsonParser.getStartTrainingImmediately()) {
             if (jsonParser.getOpenGuiAfterTrainingIsCompleted()) {
-                trainedEnvironment = train("train -s", trainingEnvironment);
-                test("-gui", trainedEnvironment);
-                return trainedEnvironment;
+                trainedNeuralNetwork = train("train -s", neuralNetwork);
+                test("-gui", trainedNeuralNetwork);
+                return trainedNeuralNetwork;
             } else {
-                return train("train -s", trainingEnvironment);
+                return train("train -s", trainedNeuralNetwork);
             }
         }
 
-        return trainedEnvironment;
+        return trainedNeuralNetwork;
     }
 
     /**
-     * saves the training environment by the input string
+     * saves the neural network by the input string
      * @param input
      * @return
      */
-    public boolean save(String input, TrainingEnvironment trainingEnvironment) {
-        if (saver.saveEnvironment(database, input, trainingEnvironment)) {
-            System.out.println("Training environment saved.");
+    public boolean save(String input, NeuralNetwork neuralNetwork) {
+        if (saver.saveNeuralNetwork(database, input, neuralNetwork)) {
+            System.out.println("Neural network saved.");
             return true;
         }
         return false;
     }
 
     /**
-     * trains the training environment and returns the trained one
+     * trains the neural network and returns the trained one
      * @param input
-     * @param trainingEnvironment
+     * @param neuralNetwork
      * @return
      */
-    public TrainingEnvironment train(String input, TrainingEnvironment trainingEnvironment) {
+    public NeuralNetwork train(String input, NeuralNetwork neuralNetwork) {
         if (input.contains("-ptd:") && input.contains("-tn:") && input.contains("-n:")) {
             String path = Parser.parseString(input, "-ptd:");
             path = path.replace("\"", "");
@@ -139,39 +137,29 @@ public class Console {
             String name = Parser.parseString(input, "-n:");
             name = name.substring(0, 1).toUpperCase() + name.substring(1);
 
-            if (neuron == -1 || neuron >= trainingEnvironment.getFeedForwardNetwork().getOutputLayer().getNeurons().size()) {
+            if (neuron == -1 || neuron >= neuralNetwork.getOutputLayer().getNeurons().size()) {
                 System.out.println("stop");
             }
 
-            trainingEnvironment.getFeedForwardNetwork().getOutputLayer().getNeurons().get(neuron).setName(name);
+            neuralNetwork.getOutputLayer().getNeurons().get(neuron).setName(name);
 
             imageLoader.addTrainingSet(path, neuron);
 
             TrainingData trainingData = imageLoader.getTrainingData();
 
-            if (trainingEnvironment.getAutoEncoderNetwork() != null) {
-                trainingEnvironment.getAutoEncoderNetwork().setTrainSet(trainingData.getImages());
-                trainingEnvironment.getAutoEncoderNetwork().setEstimatedResults(trainingData.getImages());
-            }
-
-            trainingEnvironment.getFeedForwardNetwork().setTrainSet(trainingData.getImages());
-            trainingEnvironment.getFeedForwardNetwork().setEstimatedResults(trainingData.getEstimatedResults());
-            trainingEnvironment.getFeedForwardNetwork().setMeanImage(trainingData.getMeanImage());
+            neuralNetwork.setTrainSet(trainingData.getImages());
+            neuralNetwork.setEstimatedResults(trainingData.getEstimatedResults());
+            neuralNetwork.setMeanImage(trainingData.getMeanImage());
 
             return null;
         } else if (input.contains("-s")) {
-            if (!configurator.isProperlyConfigured(trainingEnvironment)) {
-                System.out.println("Training environment is not configured properly.");
+            if (!configurator.isProperlyConfigured(neuralNetwork)) {
+                System.out.println("Neural network is not configured properly.");
                 return null;
             }
             System.out.println("Training...");
-            NeuralNetwork trainedAE = null;
-            if (trainingEnvironment.getAutoEncoderNetwork() != null) {
-                trainedAE = trainingEnvironment.getAutoEncoderNetwork().train(trainingEnvironment.getAutoEncoderNetwork());
-            }
-            NeuralNetwork trainedFF = trainingEnvironment.getFeedForwardNetwork().train(trainingEnvironment.getFeedForwardNetwork());
-            TrainingEnvironment trainedEnvironment = new TrainingEnvironment(trainedFF, trainedAE);
-            this.trainedEnvironment = trainedEnvironment;
+            NeuralNetwork trainedNeuralNetwork = neuralNetwork.train(neuralNetwork);
+            this.trainedNeuralNetwork = trainedNeuralNetwork;
             // We might want to show directly the gui. Unfortunately, since this application gets tested with travis-ci which is not
             // able to show guis, we comment it out.
             /*
@@ -179,7 +167,7 @@ public class Console {
             TestingView view = new TestingView(trainedEnvironment);
             view.setVisible(true);
             */
-            return trainedEnvironment;
+            return trainedNeuralNetwork;
         } else {
             System.out.println("parameters not specified correctly. Train takes following arguments:");
             System.out.println("-pTD: path to directory which contains training data, required");
@@ -191,23 +179,23 @@ public class Console {
     }
 
     /**
-     * saves the results of the specified training environment to the database
-     * @param env
+     * saves the results of the specified neural network to the database
+     * @param neuralNetwork
      * @param pathToImage
      * @param result
      */
-    public void saveResult(TrainingEnvironment env, String pathToImage, String result) {
-        if (saver.saveResult(database, env, pathToImage, result)) {
+    public void saveResult(NeuralNetwork neuralNetwork, String pathToImage, String result) {
+        if (saver.saveResult(database, neuralNetwork, pathToImage, result)) {
             System.out.println("Result saved in database.");
         }
     }
 
     /**
-     * tests a training environment by the input string and saves the results to the database
+     * tests a neural network by the input string and saves the results to the database
      * @param input
-     * @param trainedEnvironment
+     * @param trainedNeuralNetwork
      */
-    public boolean test(String input, TrainingEnvironment trainedEnvironment) {
+    public boolean test(String input, NeuralNetwork trainedNeuralNetwork) {
         if (input.contains("-ptd:")) {
             String path = Parser.parseString(input, "-ptd:");
             path = path.replace("\"", "");
@@ -217,36 +205,18 @@ public class Console {
             }
             Map<String, double[]> testData = imageLoader.getTestImages(imageLoader.getTrainingData().getMeanImage());
 
-            Map<String, double[]> testDataAfterAutoencoder = new HashMap<>();
-            if (trainedEnvironment.getAutoEncoderNetwork() != null) {
-                Iterator it = testData.entrySet().iterator();
-                while (it.hasNext()) {
-                    Map.Entry pair = (Map.Entry) it.next();
-                    trainedEnvironment.getAutoEncoderNetwork().setInput(trainedEnvironment.getAutoEncoderNetwork(), (double[]) pair.getValue());
-                    List<Double> result = trainedEnvironment.getAutoEncoderNetwork().test(trainedEnvironment.getAutoEncoderNetwork());
-                    double[] res = new double[result.size()];
-                    for (int i = 0; i < result.size(); i++) {
-                        res[i] = result.get(i);
-                    }
-                    testDataAfterAutoencoder.put((String) pair.getKey(), res);
-                }
-            }
-            if (testDataAfterAutoencoder.size() != 0) {
-                testData = testDataAfterAutoencoder;
-            }
-
             Iterator it = testData.entrySet().iterator();
             while (it.hasNext()) {
                 Map.Entry pair = (Map.Entry) it.next();
-                trainedEnvironment.getFeedForwardNetwork().setInput(trainedEnvironment.getFeedForwardNetwork(), (double[]) pair.getValue());
-                List<Double> result = trainedEnvironment.getFeedForwardNetwork().test(trainedEnvironment.getFeedForwardNetwork());
+                trainedNeuralNetwork.setInput(trainedNeuralNetwork, (double[]) pair.getValue());
+                List<Double> result = trainedNeuralNetwork.test(trainedNeuralNetwork);
                 System.out.println(pair.getKey());
-                for (int i = 0; i < trainedEnvironment.getFeedForwardNetwork().getOutputLayer().getNeurons().size(); i++) {
-                    Neuron n = trainedEnvironment.getFeedForwardNetwork().getOutputLayer().getNeurons().get(i);
+                for (int i = 0; i < trainedNeuralNetwork.getOutputLayer().getNeurons().size(); i++) {
+                    Neuron n = trainedNeuralNetwork.getOutputLayer().getNeurons().get(i);
                     System.out.println(n.getName() + ":\t" + result.get(i));
                 }
                 //System.out.println(result);
-                saveResult(trainedEnvironment, (String) pair.getKey(), result.toString());
+                saveResult(trainedNeuralNetwork, (String) pair.getKey(), result.toString());
             }
             imageLoader.removeTestPath(path);
             return true;
@@ -258,18 +228,18 @@ public class Console {
             if (!imageLoader.setTestImage(path)) {
                 return false;
             }
-            double[] testData = imageLoader.getTestImage(trainedEnvironment.getFeedForwardNetwork().getMeanImage());
+            double[] testData = imageLoader.getTestImage(trainedNeuralNetwork.getMeanImage());
 
-            trainedEnvironment.getFeedForwardNetwork().setInput(trainedEnvironment.getFeedForwardNetwork(), testData);
-            List<Double> result = trainedEnvironment.getFeedForwardNetwork().test(trainedEnvironment.getFeedForwardNetwork());
+            trainedNeuralNetwork.setInput(trainedNeuralNetwork, testData);
+            List<Double> result = trainedNeuralNetwork.test(trainedNeuralNetwork);
             System.out.println(path);
-            for (int i = 0; i < trainedEnvironment.getFeedForwardNetwork().getOutputLayer().getNeurons().size(); i++) {
-                Neuron n = trainedEnvironment.getFeedForwardNetwork().getOutputLayer().getNeurons().get(i);
+            for (int i = 0; i < trainedNeuralNetwork.getOutputLayer().getNeurons().size(); i++) {
+                Neuron n = trainedNeuralNetwork.getOutputLayer().getNeurons().get(i);
                 System.out.println(n.getName() + ":\t" + result.get(i));
             }
             return true;
         } else if (input.contains("-gui")) {
-            TestingView view = new TestingView(trainedEnvironment);
+            TestingView view = new TestingView(trainedNeuralNetwork);
             view.setVisible(true);
             view.toFront();
             view.repaint();
@@ -285,13 +255,13 @@ public class Console {
     }
 
     /**
-     * configues the training environment by the input string
+     * configues the neural network by the input string
      * @param input
-     * @param trainingEnvironment
+     * @param neuralNetwork
      */
-    public boolean conf(String input, TrainingEnvironment trainingEnvironment) {
-        if (configurator.configureEnvironment(input, trainingEnvironment)) {
-            System.out.println("Training environment configured.");
+    public boolean conf(String input, NeuralNetwork neuralNetwork) {
+        if (configurator.configureNeuralNetwork(input, neuralNetwork)) {
+            System.out.println("Neural network configured.");
             return true;
         }
         return false;
@@ -306,29 +276,29 @@ public class Console {
         if (input.startsWith("init")) {
             init(input);
         } else if (input.startsWith("save")) {
-            if (trainingEnvironment == null) {
-                System.out.println("Training environment is null. You gotta initialize it first.");
+            if (neuralNetwork == null) {
+                System.out.println("Neural network is null. You gotta initialize it first.");
                 return;
             }
-            save(input, trainingEnvironment);
+            save(input, neuralNetwork);
         } else if (input.startsWith("train")) {
-            if (trainingEnvironment == null) {
-                System.out.println("Training environment is null. You gotta initialize it first.");
+            if (neuralNetwork == null) {
+                System.out.println("Neural network is null. You gotta initialize it first.");
                 return;
             }
-            train(input, trainingEnvironment);
+            train(input, neuralNetwork);
         } else if (input.startsWith("test")) {
-            if (trainingEnvironment == null) {
-                System.out.println("Training environment is null. You gotta initialize it first.");
+            if (neuralNetwork == null) {
+                System.out.println("Neural network is null. You gotta initialize it first.");
                 return;
             }
-            test(input, trainedEnvironment);
+            test(input, neuralNetwork);
         } else if (input.startsWith("conf")) {
-            if (trainingEnvironment == null) {
-                System.out.println("Training environment is null. You gotta initialize it first.");
+            if (neuralNetwork == null) {
+                System.out.println("Neural network is null. You gotta initialize it first.");
                 return;
             }
-            conf(input, trainingEnvironment);
+            conf(input, neuralNetwork);
         } else {
             System.out.println("Command was not found");
         }

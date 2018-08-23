@@ -1,6 +1,6 @@
 package de.nitschmann.tefdnn.persistence;
 
-import de.nitschmann.tefdnn.application.TrainingEnvironment;
+import de.nitschmann.tefdnn.application.NeuralNetwork;
 
 import java.sql.*;
 
@@ -78,27 +78,15 @@ public class Database {
         }
     }
 
-    public boolean saveResult(TrainingEnvironment trainingEnvironment, String pathToImage, String result) {
-        return Commands.saveResults(con, trainingEnvironment, pathToImage, result);
+    public boolean saveResult(NeuralNetwork neuralNetwork, String pathToImage, String result) {
+        return Commands.saveResults(con, neuralNetwork, pathToImage, result);
     }
 
-    public boolean save(TrainingEnvironment trainingEnvironment) {
-        return Commands.saveTrainingEnvironment(con, trainingEnvironment);
+    public boolean save(NeuralNetwork neuralNetwork) {
+        return Commands.saveNeuralNetwork(con, neuralNetwork);
     }
 
-    public boolean saveJustFeedforward(TrainingEnvironment trainingEnvironment) {
-        return Commands.saveTrainingEnvironmentJustFeedforward(con, trainingEnvironment);
-    }
-
-    public TrainingEnvironment initTrainingEnvironment(String systemName) {
-        return Commands.initTrainingEnvironment(con, systemName);
-    }
-
-    public TrainingEnvironment initTrainingEnvironmentJustFeedforward(String feedforwardName) {
-        return Commands.initTrainingEnvironmentJustFeedforward(con, feedforwardName);
-    }
-
-    public TrainingEnvironment initTrainingEnvironment(String feedForwardName, String autoEncoderName) {
-        return Commands.initTrainingEnvironment(con, feedForwardName, autoEncoderName);
+    public NeuralNetwork initNeuralNetwork(String neuralNetworkName) {
+        return Commands.initNeuralNetwork(con, neuralNetworkName);
     }
 }

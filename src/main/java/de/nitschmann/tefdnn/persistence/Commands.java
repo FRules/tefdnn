@@ -2,8 +2,6 @@ package de.nitschmann.tefdnn.persistence;
 
 import de.nitschmann.tefdnn.application.Layer;
 import de.nitschmann.tefdnn.application.NeuralNetwork;
-import de.nitschmann.tefdnn.application.NeuralNetworkType;
-import de.nitschmann.tefdnn.application.TrainingEnvironment;
 import de.nitschmann.tefdnn.application.training.ActivationFunctionType;
 import de.nitschmann.tefdnn.application.training.TrainingType;
 
@@ -22,15 +20,6 @@ public class Commands {
     public static void initializeTables(Connection con) {
         try {
             Statement stmt = con.createStatement();
-
-            stmt.executeUpdate("" +
-                    "CREATE TABLE IF NOT EXISTS TrainingEnvironment (" +
-                    "id INT IDENTITY, " +
-                    "name VARCHAR(50) UNIQUE, " +
-                    "feedForwardId INT NOT NULL, " +
-                    "autoEncoderId INT, " +
-                    "PRIMARY KEY(id)); "
-            );
 
             stmt.executeUpdate("" +
                     "CREATE TABLE IF NOT EXISTS NeuralNetwork (" +
@@ -74,9 +63,7 @@ public class Commands {
             stmt.executeUpdate("" +
                 "CREATE TABLE iF NOT EXISTS Test (" +
                     "id INT IDENTITY NOT NULL, " +
-                    "trainingEnvironmentId INT, " +
-                    "feedForwardId INT, " +
-                    "autoEncoderId INT, " +
+                    "neuralNetworkId INT, " +
                     "testPath VARCHAR(255), " +
                     "result VARCHAR(255), " +
                     "PRIMARY KEY (id))"
@@ -90,115 +77,27 @@ public class Commands {
     /**
      * saves the results of a trained network to the database
      * @param con
-     * @param trainingEnvironment
+     * @param neuralNetwork
      * @param pathToImage
      * @param result
      * @return
      */
-    public static boolean saveResults(Connection con, TrainingEnvironment trainingEnvironment, String pathToImage, String result) {
+    public static boolean saveResults(Connection con, NeuralNetwork neuralNetwork, String pathToImage, String result) {
         try {
-            int ffId, aeId = -1, teId;
-            ffId = getNeuralNetworkId(con, trainingEnvironment.getFeedForwardNetwork().getName());
-            if (trainingEnvironment.getAutoEncoderNetwork() != null) {
-                aeId = getNeuralNetworkId(con, trainingEnvironment.getAutoEncoderNetwork().getName());
-            }
-            teId = getTrainingEnvironmentId(con, trainingEnvironment.getName());
+            int neuralNetworkId;
+            neuralNetworkId = getNeuralNetworkId(con, neuralNetwork.getName());
 
-            if (ffId == -1 && teId == -1) {
-                System.out.println("Couldnt save results because training environment isn't saved in the database.");
+            if (neuralNetworkId == -1) {
+                System.out.println("Couldnt save results because neural network isn't saved in the database.");
                 return false;
             }
 
-            PreparedStatement pStmt = con.prepareStatement("INSERT INTO Test (trainingEnvironmentId, feedForwardId, autoEncoderId, testPath, result) VALUES (?, ?, ?, ?, ?)");
-            pStmt.setInt(1, teId);
-            pStmt.setInt(2, ffId);
-            pStmt.setInt(3, aeId);
-            pStmt.setString(4, pathToImage);
-            pStmt.setString(5, result);
+            PreparedStatement pStmt = con.prepareStatement("INSERT INTO Test (neuralNetworkId, testPath, result) VALUES (?, ?, ?, ?, ?)");
+            pStmt.setInt(1, neuralNetworkId);
+            pStmt.setString(2, pathToImage);
+            pStmt.setString(3, result);
 
             pStmt.executeUpdate();
-        } catch (SQLException e) {
-            e.printStackTrace();
-            return false;
-        }
-
-        return true;
-    }
-
-    /**
-     * saves just the feedfoward network to the database
-     * @param con
-     * @param trainingEnvironment
-     * @return
-     */
-    public static boolean saveTrainingEnvironmentJustFeedforward(Connection con, TrainingEnvironment trainingEnvironment) {
-        try {
-            int ffId = saveNeuralNetwork(con, trainingEnvironment.getFeedForwardNetwork());
-            if (ffId == -1) {
-                System.out.println("Feedforward network couldn't be saved");
-                return false;
-            }
-
-            saveInputLayer(con, ffId);
-            int lastHiddenLayerIndexFF = saveHiddenLayers(con, trainingEnvironment.getFeedForwardNetwork(), ffId);
-            saveOutputLayer(con, ffId, lastHiddenLayerIndexFF);
-            saveNeurons(con, ffId, trainingEnvironment.getFeedForwardNetwork());
-
-            PreparedStatement pStmt = con.prepareStatement("INSERT INTO TrainingEnvironment (name, feedForwardId) VALUES (?, ?)");
-            pStmt.setString(1, trainingEnvironment.getName());
-            pStmt.setInt(2, ffId);
-            pStmt.executeUpdate();
-
-        } catch (SQLIntegrityConstraintViolationException x) {
-            System.out.println("There's already a training environment with the specified name in the database. Please choose another one.");
-            return false;
-        } catch (SQLException e) {
-            e.printStackTrace();
-            return false;
-        }
-
-        return true;
-    }
-
-    /**
-     * saves the training environment to the database
-     * @param con
-     * @param trainingEnvironment
-     * @return
-     */
-    public static boolean saveTrainingEnvironment(Connection con, TrainingEnvironment trainingEnvironment) {
-        try {
-            int ffId = saveNeuralNetwork(con, trainingEnvironment.getFeedForwardNetwork());
-            if (ffId == -1) {
-                System.out.println("Feedforward network couldn't be saved");
-                return false;
-            }
-
-            saveInputLayer(con, ffId);
-            int lastHiddenLayerIndexFF = saveHiddenLayers(con, trainingEnvironment.getFeedForwardNetwork(), ffId);
-            saveOutputLayer(con, ffId, lastHiddenLayerIndexFF);
-            saveNeurons(con, ffId, trainingEnvironment.getFeedForwardNetwork());
-
-            int aeId = saveNeuralNetwork(con, trainingEnvironment.getAutoEncoderNetwork());
-            if (aeId == -1) {
-                System.out.println("Autoencoder couldn't be saved");
-                return false;
-            }
-
-            saveInputLayer(con, aeId);
-            int lastHiddenLayerIndexAE = saveHiddenLayers(con, trainingEnvironment.getAutoEncoderNetwork(), aeId);
-            saveOutputLayer(con, aeId, lastHiddenLayerIndexAE);
-            saveNeurons(con, aeId, trainingEnvironment.getAutoEncoderNetwork());
-
-            PreparedStatement pStmt = con.prepareStatement("INSERT INTO TrainingEnvironment (name, feedForwardId, autoEncoderId) VALUES (?, ?, ?)");
-            pStmt.setString(1, trainingEnvironment.getName());
-            pStmt.setInt(2, ffId);
-            pStmt.setInt(3, aeId);
-            pStmt.executeUpdate();
-
-        } catch (SQLIntegrityConstraintViolationException x) {
-            System.out.println("There's already a training environment with the specified name in the database. Please choose another one.");
-            return false;
         } catch (SQLException e) {
             e.printStackTrace();
             return false;
@@ -210,10 +109,10 @@ public class Commands {
     /**
      * saves the neural network and returns the id which was given by the database
      * @param con           database connection
-     * @param neuralNetwork specified network (feedforward or autoencoder)
+     * @param neuralNetwork specified network
      * @return id of the network in the neuralnetwork table
      */
-    private static int saveNeuralNetwork(Connection con, NeuralNetwork neuralNetwork) {
+    public static boolean saveNeuralNetwork(Connection con, NeuralNetwork neuralNetwork) {
         try {
             PreparedStatement pStmt;
             ResultSet rs;
@@ -258,13 +157,23 @@ public class Commands {
             if (rs.next()) {
                 ffId = rs.getInt(1);
             }
-            return ffId;
+            if (ffId == -1) {
+                System.out.println("Network could be saved but not the corresponding layers... The identity of the network could not be determined.");
+                return false;
+            }
+
+            saveInputLayer(con, ffId);
+            int lastHiddenLayerIndexFF = saveHiddenLayers(con, neuralNetwork, ffId);
+            saveOutputLayer(con, ffId, lastHiddenLayerIndexFF);
+            saveNeurons(con, ffId, neuralNetwork);
+
+            return true;
         } catch (SQLIntegrityConstraintViolationException x) {
             System.out.println("There's already a neural network with the specified name in the database. Please choose another one.");
-            return -1;
+            return false;
         } catch (SQLException e) {
             e.printStackTrace();
-            return -1;
+            return false;
         }
     }
 
@@ -409,78 +318,19 @@ public class Commands {
     /**
      * loads just a feedforward network from the database
      * @param con
-     * @param feedforwardName
+     * @param neuralNetworkName
      * @return
      */
-    public static TrainingEnvironment initTrainingEnvironmentJustFeedforward(Connection con, String feedforwardName) {
-        int feedForwardId = getNeuralNetworkId(con, feedforwardName);
+    public static NeuralNetwork initNeuralNetwork(Connection con, String neuralNetworkName) {
+        int neuralNetworkId = getNeuralNetworkId(con, neuralNetworkName);
 
-        if (feedForwardId == -1) {
+        if (neuralNetworkId == -1) {
             System.out.println("Couldn't find neural network in database");
             return null;
         }
 
-        NeuralNetwork feedForwardNetwork = initNeuralNetwork(con, feedForwardId);
-        feedForwardNetwork.setNeuralNetworkType(NeuralNetworkType.FEEDFORWARD);
-        return new TrainingEnvironment(feedForwardNetwork);
-    }
-
-    /**
-     * loads a training environment by the environment name from the database
-     * @param con
-     * @param systemName
-     * @return
-     */
-    public static TrainingEnvironment initTrainingEnvironment(Connection con, String systemName) {
-        try {
-            PreparedStatement pStmt = con.prepareStatement("SELECT feedForwardId, autoEncoderId FROM TrainingEnvironment WHERE name = ?");
-            pStmt.setString(1, systemName);
-            ResultSet rs = pStmt.executeQuery();
-            int feedForwardId = -1;
-            int autoEncoderId = -1;
-            while (rs.next()) {
-                feedForwardId = rs.getInt(1);
-                autoEncoderId = rs.getInt(2);
-            }
-
-            if (feedForwardId == -1 || autoEncoderId == -1) {
-                System.out.println("Couldn't find neural network in database");
-                return null;
-            }
-
-            NeuralNetwork feedForwardNetwork = initNeuralNetwork(con, feedForwardId);
-            feedForwardNetwork.setNeuralNetworkType(NeuralNetworkType.FEEDFORWARD);
-            NeuralNetwork autoEncoderNetwork = initNeuralNetwork(con, autoEncoderId);
-            autoEncoderNetwork.setNeuralNetworkType(NeuralNetworkType.AUTOENCODER);
-            return new TrainingEnvironment(systemName, feedForwardNetwork, autoEncoderNetwork);
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
-
-    /**
-     * loads a training environment by the feedforward and autoencoder name from the database
-     * @param con
-     * @param feedForwardName
-     * @param autoEncoderName
-     * @return
-     */
-    public static TrainingEnvironment initTrainingEnvironment(Connection con, String feedForwardName, String autoEncoderName) {
-        int feedForwardId = getNeuralNetworkId(con, feedForwardName);
-        int autoEncoderId = getNeuralNetworkId(con, autoEncoderName);
-
-        if (feedForwardId == -1 || autoEncoderId == -1) {
-            System.out.println("Couldn't find neural network in database");
-            return null;
-        }
-
-        NeuralNetwork feedForwardNetwork = initNeuralNetwork(con, feedForwardId);
-        feedForwardNetwork.setNeuralNetworkType(NeuralNetworkType.FEEDFORWARD);
-        NeuralNetwork autoEncoderNetwork = initNeuralNetwork(con, autoEncoderId);
-        autoEncoderNetwork.setNeuralNetworkType(NeuralNetworkType.AUTOENCODER);
-        return new TrainingEnvironment(feedForwardNetwork, autoEncoderNetwork);
+        NeuralNetwork neuralNetwork = initNeuralNetwork(con, neuralNetworkId);
+        return neuralNetwork;
     }
 
     /**
@@ -492,28 +342,6 @@ public class Commands {
     private static int getNeuralNetworkId(Connection con, String name) {
         try {
             PreparedStatement pStmt = con.prepareStatement("SELECT id FROM NeuralNetwork WHERE name = ?");
-            pStmt.setString(1, name);
-            ResultSet rs = pStmt.executeQuery();
-            int id = -1;
-            while (rs.next()) {
-                id = rs.getInt(1);
-            }
-            return id;
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return -1;
-    }
-
-    /**
-     * returns the training environment id by specifying the string from the database
-     * @param con
-     * @param name
-     * @return
-     */
-    private static int getTrainingEnvironmentId(Connection con, String name) {
-        try {
-            PreparedStatement pStmt = con.prepareStatement("SELECT id FROM TrainingEnvironment WHERE name = ?");
             pStmt.setString(1, name);
             ResultSet rs = pStmt.executeQuery();
             int id = -1;

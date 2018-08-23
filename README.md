@@ -1,9 +1,6 @@
 # Training Environment for Deep Neural Networks
 
-This project is a simple training environment for deep neural networks. The supported neural network types are autoencoders and typical fully connected feedforward networks. The application contains an hsqldb database where training environments can be saved. A training environment can either contain a fully connected feedforward network or both an autoencoder and a fully connected feedforward network. 
-
-**Right now, you should only use the fully connected feedforward network because results with attached autoencoder were poor when I tested it.**
-
+This project is a simple training environment for deep neural networks. The supported neural network type is a  typical fully connected feedforward network. The application contains an hsqldb database where training environments can be saved.
 ## Usage
 
 You can control the application via CLI. There are several commands available.
@@ -63,9 +60,7 @@ integers. You can see which integer belongs to which real value
 ### Initialization
 ```
 init [-n:] [-cIN:] [-cHN:] [-cON:] [-cHL:] -[cHNAE:]
-init [-nS:]
 init [-nFF:]
-init [-nFF:] [-nAE:]
 ````
 
 #### Clean Initialization
@@ -78,26 +73,22 @@ These switches should be used when you want to initialize a completely empty tra
 | cHN    | Number of neurons on hidden layers |
 | cON    | Number of output neurons, should equal number of classes trained |
 | cHL    | Number of hidden layers |
-| cHNAE  | Number of hidden neurons on autoencoder network |
 
 #### Loading a training environment
 These switches should be used when you want to load a training environment from the database. Of course it is necessary you already created a training environment and saved it to the database (we discuss this later)
 
 | Switch | Effect |
 | ------ | -------|
-| nS     | Name of the training environment you want to load |
 | nFF    | Name of the fully connected feedforward network you want to load |
-| nAE    | Name of the autoencoder network you want to load |
 
 ### Configuration
 After a training environment is initialized, it is possible to configure it. You can adjust parameters like learning rate and momentum here.
 ```
-conf [-nff] [-lr:] [-tt:] [-af:] [-me:] [-tl:] [-mom:]
+conf [-lr:] [-tt:] [-af:] [-me:] [-tl:] [-mom:]
 ```
 
 | Switch | Effect |
 | ------ | -------|
-| nff    | Configures not the entire training environment but just the fully connected feed forward network |
 | lr     | Learning rate, double |
 | tt     | Training Type. Right now, only backpropagation is supported and its bound to integer 1 |
 | af     | Activation function. Right now, three activation functions are implemented which are ReLU (1), Sigmoid (2) and Tanh (3). |
@@ -138,17 +129,12 @@ test [-gui]
 Since training can sometimes take a while, it is smart to save a training environment. Afterwards, you can just load it and feed it with test images or finetune your hyperparameters.
 
 ```
-save [-nFF:] [-nAE:] [-nS:]
-save [-nFF:] [-nAE:]
 save [-nFF:] 
-save [-nS:]
 ```
 
 | Switch | Effect |
 | ------ | -------|
 | nFF    | Name of the fully connected feedforward network |
-| nAE    | Name of the autoencoder network |
-| nS     | Name of the training environment |
 
 ## Example #1 
 
@@ -158,6 +144,9 @@ In the repository, there's a data folder which contains examples for classifying
 # Initialize a new neural network which has 784 input neurons, 40 hidden neurons, 2 output neurons and 1 hidden 
 # layer. Name it "BusVsPkwNetwork"
 init -n: "BusVsPkwNetwork" -cIN: 784 -cHN: 40 -cON: 2 -cHL: 1
+
+# Configure it
+conf -lr: 0.001 -tt: 1 -af: 2 - me: 40 -tl: 0.005 -mom: 0.95
 
 # Add training path. Neuron 0 fires when busses are recognized, neuron 1 if cars are recognized. Start training.
 train -pTD: "/path/to/repo/data/bus/Training" -tN: 0
@@ -171,8 +160,7 @@ test -pTD: "/path/to/repo/data/bus/Test"
 # Now, we can also bring the gui to front to drag & drop images to it and test single images
 test -gui
 
-# If we're done and the results were good, we want to save it to the database. We only save the fully
-# connected feedforward network, since autoencoder doesn't have good results yet
+# If we're done and the results were good, we want to save it to the database
 save -nFF: "BusVsPkwNetwork"
 ```
 

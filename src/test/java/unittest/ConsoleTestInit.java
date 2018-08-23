@@ -1,6 +1,6 @@
 package unittest;
 
-import de.nitschmann.tefdnn.application.TrainingEnvironment;
+import de.nitschmann.tefdnn.application.NeuralNetwork;
 import de.nitschmann.tefdnn.persistence.Database;
 import de.nitschmann.tefdnn.presentation.Console;
 import org.junit.After;
@@ -17,11 +17,11 @@ import java.util.Collection;
 public class ConsoleTestInit {
 
     private String initString;
-    private TrainingEnvironment expectedResult;
+    private NeuralNetwork expectedResult;
     private Database db;
     private Console c;
 
-    public ConsoleTestInit(String initString, TrainingEnvironment expectedResult) {
+    public ConsoleTestInit(String initString, NeuralNetwork expectedResult) {
         this.initString = initString;
         this.expectedResult = expectedResult;
     }
@@ -42,13 +42,12 @@ public class ConsoleTestInit {
     @Parameterized.Parameters
     public static Collection initStrings() {
         return Arrays.asList(new Object[][] {
-                {"init     -n:Name       -cIN:5   -cHN: 5 -cON:   5 -cHL:   3   -cHNAE: 3", new TrainingEnvironment()},
-                {"init     -n:Name        -cIND:5   -cHN: 5 -cON:   5 -cHL:   3   -cHNAE: 3", null},
-                {"init    -cHN:  5 -cON:   5 -cIN:5   -cHL:3   -cHNAE:   3", new TrainingEnvironment()},
-                {"init    cHN:  5 -cON:   5 -cIN:5   -cHL:3   -cHNAE:   3", null},
-                {"init -nF: NameFeedforwardNetwork   -nAE: NameAutoencoderNetzwerkBla     ", null},
-                {"init -nS: notexistingenv", null},
-                {"init -nFF: notexistingff -nAE: notexistingae", null}
+                {"init     -n:Name       -cIN:5   -cHN: 5 -cON:   5 -cHL:   3  ", new NeuralNetwork()},
+                {"init     -n:Name        -cIND:5   -cHN: 5 -cON:   5 -cHL:   3", null},
+                {"init    -cHN:  5 -cON:   5 -cIN:5   -cHL:3   ", new NeuralNetwork()},
+                {"init    cHN:  5 -cON:   5 -cIN:5   -cHL:3   ", null},
+                {"init -nF: NameFeedforwardNetwork ", null},
+                {"init -nFF: notexistingff ", null}
 
         });
     }
