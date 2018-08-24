@@ -1,6 +1,6 @@
 package de.nitschmann.tefdnn.persistence;
 
-import de.nitschmann.tefdnn.application.TrainingEnvironment;
+import de.nitschmann.tefdnn.application.NeuralNetwork;
 
 import java.sql.*;
 
@@ -56,7 +56,7 @@ public class Database {
     }
 
     public void dropTables() {
-        String dropString = "DROP TABLE IF EXISTS TrainingEnvironment; DROP TABLE IF EXISTS NeuralNetwork; DROP TABLE IF EXISTS Layer; DROP TABLE IF EXISTS Neuron; " +
+        String dropString = "DROP TABLE IF EXISTS NeuralNetwork; DROP TABLE IF EXISTS Layer; DROP TABLE IF EXISTS Neuron; " +
                 "DROP TABLE IF EXISTS Weight; DROP TABLE IF EXISTS TEST";
         try {
             Statement stmt = con.createStatement();
@@ -68,7 +68,7 @@ public class Database {
     }
 
     public void clearDatabase() {
-        String deleteString = "DELETE FROM TrainingEnvironment; DELETE FROM NeuralNetwork; DELETE FROM Layer; DELETE FROM Neuron; DELETE FROM Weight;";
+        String deleteString = "DELETE FROM NeuralNetwork; DELETE FROM Layer; DELETE FROM Neuron; DELETE FROM Weight;";
         try {
             Statement stmt = con.createStatement();
 
@@ -78,27 +78,15 @@ public class Database {
         }
     }
 
-    public boolean saveResult(TrainingEnvironment trainingEnvironment, String pathToImage, String result) {
-        return Commands.saveResults(con, trainingEnvironment, pathToImage, result);
+    public boolean saveResult(NeuralNetwork neuralNetwork, String pathToImage, String result) {
+        return Commands.saveResults(con, neuralNetwork, pathToImage, result);
     }
 
-    public boolean save(TrainingEnvironment trainingEnvironment) {
-        return Commands.saveTrainingEnvironment(con, trainingEnvironment);
+    public boolean save(NeuralNetwork neuralNetwork) {
+        return Commands.saveNeuralNetwork(con, neuralNetwork);
     }
 
-    public boolean saveJustFeedforward(TrainingEnvironment trainingEnvironment) {
-        return Commands.saveTrainingEnvironmentJustFeedforward(con, trainingEnvironment);
-    }
-
-    public TrainingEnvironment initTrainingEnvironment(String systemName) {
-        return Commands.initTrainingEnvironment(con, systemName);
-    }
-
-    public TrainingEnvironment initTrainingEnvironmentJustFeedforward(String feedforwardName) {
-        return Commands.initTrainingEnvironmentJustFeedforward(con, feedforwardName);
-    }
-
-    public TrainingEnvironment initTrainingEnvironment(String feedForwardName, String autoEncoderName) {
-        return Commands.initTrainingEnvironment(con, feedForwardName, autoEncoderName);
+    public NeuralNetwork initNeuralNetwork(String neuralNetworkName) {
+        return Commands.initNeuralNetwork(con, neuralNetworkName);
     }
 }

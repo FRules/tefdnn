@@ -1,7 +1,6 @@
 package unittest;
 
 import de.nitschmann.tefdnn.application.NeuralNetwork;
-import de.nitschmann.tefdnn.application.NeuralNetworkType;
 import de.nitschmann.tefdnn.application.training.ActivationFunctionType;
 import de.nitschmann.tefdnn.application.training.TrainingType;
 import init.Initialization;
@@ -82,7 +81,6 @@ public class BackpropagationTest {
         nn.initNetwork(weights.getOutputsInInput(), weights.getWeightInHidden(), weights.getWeightInOutput());
         // set training type to backpropagation
         nn.setTrainingType(TrainingType.BACKPROPAGATION);
-        nn.setNeuralNetworkType(NeuralNetworkType.FEEDFORWARD);
         nn.setActivationFunction(ActivationFunctionType.SIGMOID);
         nn.setLearningRate(1.0);
         // important! Sets the output value of the input neurons
@@ -108,7 +106,6 @@ public class BackpropagationTest {
         NeuralNetwork nn = new NeuralNetwork();
         nn.initNetwork(weights.getOutputsInInput(), weights.getWeightInHidden(), weights.getWeightInOutput());
         nn.setTrainingType(TrainingType.BACKPROPAGATION);
-        nn.setNeuralNetworkType(NeuralNetworkType.FEEDFORWARD);
         nn.setActivationFunction(ActivationFunctionType.SIGMOID);
         nn.setLearningRate(0.3);
         nn.setMomentum(0.5);

@@ -1,7 +1,7 @@
 package de.nitschmann.tefdnn.presentation.gui;
 
+import de.nitschmann.tefdnn.application.NeuralNetwork;
 import de.nitschmann.tefdnn.application.Neuron;
-import de.nitschmann.tefdnn.application.TrainingEnvironment;
 import de.nitschmann.tefdnn.application.io.ImageLoader;
 
 import javax.imageio.ImageIO;
@@ -22,7 +22,7 @@ public class TestingView extends JFrame implements ActionListener {
     private JPanel panel;
     private JButton testButton;
     private JTextField inputField;
-    private TrainingEnvironment trainedEnvironment;
+    private NeuralNetwork trainedNeuralNetwork;
     private ImageLoader imageLoader;
     private JLabel imagePreview;
     private GridBagConstraints c = new GridBagConstraints();
@@ -32,9 +32,10 @@ public class TestingView extends JFrame implements ActionListener {
     private final int widthOfImage = 600;
     private final int heightOfImage = 200;
 
-    public TestingView(TrainingEnvironment trainedEnvironment) {
-        this.trainedEnvironment = trainedEnvironment;
-        this.imageLoader = new ImageLoader(trainedEnvironment.getFeedForwardNetwork());
+    public TestingView(NeuralNetwork trainedNeuralNetwork) {
+        this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        this.trainedNeuralNetwork = trainedNeuralNetwork;
+        this.imageLoader = new ImageLoader(trainedNeuralNetwork);
 
         this.inputField = new JTextField();
         this.inputField.setText("Enter path to image or drag and drop...");
@@ -206,11 +207,11 @@ public class TestingView extends JFrame implements ActionListener {
         if (!imageLoader.setTestImage(path)) {
             return;
         }
-        double[] testData = imageLoader.getTestImage(trainedEnvironment.getFeedForwardNetwork().getMeanImage());
+        double[] testData = imageLoader.getTestImage(trainedNeuralNetwork.getMeanImage());
 
-        trainedEnvironment.getFeedForwardNetwork().setInput(trainedEnvironment.getFeedForwardNetwork(), testData);
-        ArrayList<Double> result = trainedEnvironment.getFeedForwardNetwork().test(trainedEnvironment.getFeedForwardNetwork());
-        ArrayList<Neuron> outputNeurons = trainedEnvironment.getFeedForwardNetwork().getOutputLayer().getNeurons();
+        trainedNeuralNetwork.setInput(trainedNeuralNetwork, testData);
+        ArrayList<Double> result = trainedNeuralNetwork.test(trainedNeuralNetwork);
+        ArrayList<Neuron> outputNeurons = trainedNeuralNetwork.getOutputLayer().getNeurons();
         for (int i = 0; i < result.size(); i++) {
             JLabel neuronNumber = new JLabel(outputNeurons.get(i).getName());
             JLabel neuronValue = new JLabel(String.format("%.4f", result.get(i) * 100) + " %");

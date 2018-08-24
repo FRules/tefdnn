@@ -69,6 +69,9 @@ public class Backpropagation {
             meanLoss = loss / nn.getTrainSet().length;
             System.out.println("Epoch: " + epoch + ", Mean Loss: " + meanLoss);
             epoch++;
+            if (meanLoss < nn.getTargetLoss()) {
+                System.out.println("Training finished!");
+            }
         }
         return nn;
 

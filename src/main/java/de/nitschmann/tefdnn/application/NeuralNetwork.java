@@ -24,7 +24,6 @@ public class NeuralNetwork {
     private double learningRate;
     private double momentum;
     private double meanImage;
-    private NeuralNetworkType neuralNetworkType;
 
     /**
      * Since we have a copy constructor we need this to initialize an empty neural network
@@ -488,14 +487,6 @@ public class NeuralNetwork {
         return this.name;
     }
 
-    public void setNeuralNetworkType(NeuralNetworkType type) {
-        this.neuralNetworkType = type;
-    }
-
-    public NeuralNetworkType getNeuralNetworkType() {
-        return this.neuralNetworkType;
-    }
-
     /**
      * Tests the forward pass of the neural network.
      * @param nn
@@ -518,6 +509,70 @@ public class NeuralNetwork {
             outputs.add(neuron.getOutputValue());
         }
         return outputs;
+    }
+
+    public boolean equalsStructureAndConfiguration(Object o) {
+        NeuralNetwork nn;
+        try {
+            nn = (NeuralNetwork) o;
+        } catch (ClassCastException c) {
+            return false;
+        }
+
+        if (nn.getHiddenLayers().size() != this.hiddenLayers.size()) {
+            return false;
+        }
+
+        if (nn.getInputLayer().getCountOfNeurons() != this.inputLayer.getCountOfNeurons()) {
+            return false;
+        }
+
+        for (int i = 0; i < nn.getHiddenLayers().size(); i++) {
+            if (nn.getHiddenLayers().get(i).getCountOfNeurons() !=  this.getHiddenLayers().get(i).getCountOfNeurons()) {
+                return false;
+            }
+        }
+
+        if (nn.getOutputLayer().getCountOfNeurons() != this.outputLayer.getCountOfNeurons()) {
+            return false;
+        }
+
+        if (nn.getActivationFunctionType() != null && this.activationFunctionType != null) {
+            if (nn.getActivationFunctionType() != this.activationFunctionType) {
+                return false;
+            }
+        } else if (nn.getActivationFunctionType() == null && this.activationFunctionType == null);
+
+        else {
+            return true;
+        }
+
+        if (nn.getTrainingType() != null && this.trainingType != null) {
+            if (nn.getTrainingType().toString() != this.trainingType.toString()) {
+                return false;
+            }
+        } else if (nn.getTrainingType() == null && this.trainingType == null);
+        else {
+            return true;
+        }
+
+        if (nn.getLearningRate() != this.learningRate) {
+            return false;
+        }
+
+        if (nn.getMaxEpoch() != this.maxEpoch) {
+            return false;
+        }
+
+        if (nn.getMomentum() != this.momentum) {
+            return false;
+        }
+
+        if (nn.getTargetLoss() != this.targetLoss) {
+            return false;
+        }
+
+        return true;
     }
 
     @Override

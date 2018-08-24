@@ -1,0 +1,31 @@
+{
+    "startTrainingImmediately": false,
+    "openGuiAfterTrainingIsCompleted": false,
+    "initialization": {
+        "name": "Test",
+        "countOfInputNeurons": 784,
+        "countOfHiddenNeurons": 40,
+        "countOfOutputNeurons": 3,
+        "countOfHiddenLayers": 1
+    },
+    "configuration": {
+        "learningRate": 0.001,
+        "trainingType": 1,
+        "activationFunction": 2,
+        "maximumNumberOfEpochs": 40,   
+        "targetLoss": 0.005,
+        "momentum": 0.95
+    },
+    "trainingData": [
+        {
+            "pathToDirectory": "data/bus/Training",
+            "targetNeuron": 0,
+            "name": "Bus"
+        },
+        {
+            "pathToDirectory": "data/pkw/Training",
+            "targetNeuron": 1,
+            "name": "PKW"
+        }
+    ]
+}

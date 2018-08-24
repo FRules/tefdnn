@@ -1,7 +1,6 @@
 package de.nitschmann.tefdnn.presentation;
 
 import de.nitschmann.tefdnn.application.NeuralNetwork;
-import de.nitschmann.tefdnn.application.TrainingEnvironment;
 import de.nitschmann.tefdnn.application.training.ActivationFunctionType;
 import de.nitschmann.tefdnn.application.training.TrainingType;
 import static de.nitschmann.tefdnn.presentation.Parser.parseDouble;
@@ -10,109 +9,78 @@ import static de.nitschmann.tefdnn.presentation.Parser.parseInt;
 public class Configurator {
 
     /**
-     * sets the learning rate of the training environment or just the feedforward network
+     * sets the learning rate of the neural network
      * @param learningRate
-     * @param trainingEnvironment
-     * @param onlyFF
+     * @param neuralNetwork
      */
-    private void setLearningRate(double learningRate, TrainingEnvironment trainingEnvironment, boolean onlyFF) {
-        trainingEnvironment.getFeedForwardNetwork().setLearningRate(learningRate);
-        if (!onlyFF) {
-            trainingEnvironment.getAutoEncoderNetwork().setLearningRate(learningRate);
-        }
-        System.out.printf("Successfully set learning rate for training environment to %f\n", learningRate);
+    private void setLearningRate(double learningRate, NeuralNetwork neuralNetwork) {
+        neuralNetwork.setLearningRate(learningRate);
+        System.out.printf("Successfully set learning rate for neural network to %f\n", learningRate);
     }
 
     /**
-     * sets the training type of the training environment or just the feedforward network
+     * sets the training type of the neural network
      * @param trainingType
-     * @param trainingEnvironment
-     * @param onlyFF
+     * @param neuralNetwork
      */
-    private void setTrainingType(TrainingType trainingType, TrainingEnvironment trainingEnvironment, boolean onlyFF) {
-        trainingEnvironment.getFeedForwardNetwork().setTrainingType(trainingType);
-        if (!onlyFF) {
-            trainingEnvironment.getAutoEncoderNetwork().setTrainingType(trainingType);
-        }
-        System.out.printf("Successfully set training type for training environment to %s\n", trainingType);
+    private void setTrainingType(TrainingType trainingType, NeuralNetwork neuralNetwork) {
+        neuralNetwork.setTrainingType(trainingType);
+        System.out.printf("Successfully set training type for neural network to %s\n", trainingType);
     }
 
     /**
-     * sets the activationFunctionType of the training environment or just the feedforward network
+     * sets the activationFunctionType of the neural network
      * @param activationFunctionType
-     * @param trainingEnvironment
-     * @param onlyFF
+     * @param neuralNetwork
      */
-    private void setActivationFunction(ActivationFunctionType activationFunctionType, TrainingEnvironment trainingEnvironment, boolean onlyFF) {
-        trainingEnvironment.getFeedForwardNetwork().setActivationFunction(activationFunctionType);
-        if (!onlyFF) {
-            trainingEnvironment.getAutoEncoderNetwork().setActivationFunction(activationFunctionType);
-        }
-        System.out.printf("Successfully set activation function for training environment to %s\n", activationFunctionType);
+    private void setActivationFunction(ActivationFunctionType activationFunctionType, NeuralNetwork neuralNetwork) {
+        neuralNetwork.setActivationFunction(activationFunctionType);
+        System.out.printf("Successfully set activation function for neural network to %s\n", activationFunctionType);
     }
 
     /**
-     * sets the maxEpoch of the training environment or just the feedforward network
+     * sets the maxEpoch of the neural network
      * @param maxEpoch
-     * @param trainingEnvironment
-     * @param onlyFF
+     * @param neuralNetwork
      */
-    private void setMaxEpoch(int maxEpoch, TrainingEnvironment trainingEnvironment, boolean onlyFF) {
-        trainingEnvironment.getFeedForwardNetwork().setMaxEpoch(maxEpoch);
-        if (!onlyFF) {
-            trainingEnvironment.getAutoEncoderNetwork().setMaxEpoch(maxEpoch);
-        }
-        System.out.printf("Successfully set max epoch for training environment to %d\n", maxEpoch);
+    private void setMaxEpoch(int maxEpoch, NeuralNetwork neuralNetwork) {
+        neuralNetwork.setMaxEpoch(maxEpoch);
+        System.out.printf("Successfully set max epoch for neural network to %d\n", maxEpoch);
     }
 
     /**
-     * sets the targetLoss of the training environment or just the feedforward network
+     * sets the targetLoss of the neural network
      * @param targetLoss
-     * @param trainingEnvironment
-     * @param onlyFF
+     * @param neuralNetwork
      */
-    private void setTargetLoss(double targetLoss, TrainingEnvironment trainingEnvironment, boolean onlyFF) {
-        trainingEnvironment.getFeedForwardNetwork().setTargetLoss(targetLoss);
-        if (!onlyFF) {
-            trainingEnvironment.getAutoEncoderNetwork().setTargetLoss(targetLoss);
-        }
-        System.out.printf("Successfully set target loss for training environment to %f\n", targetLoss);
+    private void setTargetLoss(double targetLoss, NeuralNetwork neuralNetwork) {
+        neuralNetwork.setTargetLoss(targetLoss);
+        System.out.printf("Successfully set target loss for neural network to %f\n", targetLoss);
     }
 
     /**
-     * sets the momentum of the training environment or just the feedforward network
+     * sets the momentum of the neural network
      * @param momentum
-     * @param trainingEnvironment
-     * @param onlyFF
+     * @param neuralNetwork
      */
-    private void setMomentum(double momentum, TrainingEnvironment trainingEnvironment, boolean onlyFF) {
-        trainingEnvironment.getFeedForwardNetwork().setMomentum(momentum);
-
-        if (!onlyFF) {
-            trainingEnvironment.getAutoEncoderNetwork().setMomentum(momentum);
-        }
-        System.out.printf("Successfully set momentum for training environment to %f\n", momentum);
+    private void setMomentum(double momentum, NeuralNetwork neuralNetwork) {
+        neuralNetwork.setMomentum(momentum);
+        System.out.printf("Successfully set momentum for neural network to %f\n", momentum);
     }
 
     /**
      * parses the configuration string and calls the required methods
      * @param input
-     * @param trainingEnvironment
+     * @param neuralNetwork
      * @return
      */
-    public boolean configureEnvironment(String input, TrainingEnvironment trainingEnvironment) {
-        boolean configOnlyFF = false;
-
-        if (input.contains("-nff")) {
-            configOnlyFF = true;
-        }
-
+    public boolean configureNeuralNetwork(String input, NeuralNetwork neuralNetwork) {
         boolean changed = false;
         input = input.toLowerCase().trim();
         if (input.contains("-lr:")) {
             double learningRate = parseDouble(input, "-lr:");
             if (learningRate != -1) {
-                setLearningRate(learningRate, trainingEnvironment, configOnlyFF);
+                setLearningRate(learningRate, neuralNetwork);
                 changed = true;
             }
         }
@@ -121,11 +89,11 @@ public class Configurator {
             if (trainingType != -1) {
                 switch (trainingType) {
                     case 1:
-                        setTrainingType(TrainingType.BACKPROPAGATION, trainingEnvironment, configOnlyFF);
+                        setTrainingType(TrainingType.BACKPROPAGATION, neuralNetwork);
                         break;
                     default:
-                        setTrainingType(TrainingType.BACKPROPAGATION, trainingEnvironment, configOnlyFF);
-                        System.out.println("Training type not found. Using default.");
+                        setTrainingType(TrainingType.BACKPROPAGATION, neuralNetwork);
+                        System.out.println("Training type not found. Using default: Backpropagation.");
                 }
                 changed = true;
             }
@@ -135,16 +103,16 @@ public class Configurator {
             if (activationFunction != -1) {
                 switch (activationFunction) {
                     case 1:
-                        setActivationFunction(ActivationFunctionType.RELU, trainingEnvironment, configOnlyFF);
+                        setActivationFunction(ActivationFunctionType.RELU, neuralNetwork);
                         break;
                     case 2:
-                        setActivationFunction(ActivationFunctionType.SIGMOID, trainingEnvironment, configOnlyFF);
+                        setActivationFunction(ActivationFunctionType.SIGMOID, neuralNetwork);
                         break;
                     case 3:
-                        setActivationFunction(ActivationFunctionType.TANH, trainingEnvironment, configOnlyFF);
+                        setActivationFunction(ActivationFunctionType.TANH, neuralNetwork);
                         break;
                     default:
-                        setActivationFunction(ActivationFunctionType.RELU, trainingEnvironment, configOnlyFF);
+                        setActivationFunction(ActivationFunctionType.RELU, neuralNetwork);
                         System.out.println("Training type not found. Using default.");
                 }
                 changed = true;
@@ -153,21 +121,21 @@ public class Configurator {
         if (input.contains("-me:")) {
             int maxEpoch = parseInt(input, "-me:");
             if (maxEpoch != -1) {
-                setMaxEpoch(maxEpoch, trainingEnvironment, configOnlyFF);
+                setMaxEpoch(maxEpoch, neuralNetwork);
                 changed = true;
             }
         }
         if (input.contains("-tl:")) {
             double targetLoss = parseDouble(input, "-tl:");
             if (targetLoss != -1) {
-                setTargetLoss(targetLoss, trainingEnvironment, configOnlyFF);
+                setTargetLoss(targetLoss, neuralNetwork);
                 changed = true;
             }
         }
         if (input.contains("-mom:")) {
             double momentum = parseDouble(input, "-mom:");
             if (momentum != -1) {
-                setMomentum(momentum, trainingEnvironment, configOnlyFF);
+                setMomentum(momentum, neuralNetwork);
                 changed = true;
             }
         }
@@ -179,71 +147,38 @@ public class Configurator {
         return changed;
     }
 
-    public boolean isProperlyConfigured(TrainingEnvironment env) {
+    public boolean isProperlyConfigured(NeuralNetwork neuralNetwork) {
         boolean isProperlyConfigured = true;
-        if (env.getAutoEncoderNetwork() != null) {
-            NeuralNetwork nn = env.getFeedForwardNetwork();
-            NeuralNetwork ae = env.getAutoEncoderNetwork();
-            if (nn.getLearningRate() == 0 || ae.getLearningRate() == 0) {
-                System.out.println("Learning rate must be set");
-                isProperlyConfigured = false;
-            }
-            if (nn.getTrainingType() == null || ae.getTrainingType() == null) {
-                System.out.println("Training type must be set");
-                isProperlyConfigured = false;
-            }
 
-            if (nn.getActivationFunctionType() == null || ae.getActivationFunctionType() == null) {
-                System.out.println("Activation function must be set");
-                isProperlyConfigured = false;
-            }
-
-            if (nn.getMomentum() == 0 || ae.getMomentum() == 0) {
-                System.out.println("Momentum must be set");
-                isProperlyConfigured = false;
-            }
-
-            if (nn.getMaxEpoch() == 0 || ae.getMaxEpoch() == 0) {
-                System.out.println("Max Epochs must be set");
-                isProperlyConfigured = false;
-            }
-
-            if (nn.getTargetLoss() == 0 || ae.getTargetLoss() == 0) {
-                System.out.println("Target loss must be set");
-                isProperlyConfigured = false;
-            }
-        } else {
-            /* just the feedforward network has to be configured */
-            NeuralNetwork nn = env.getFeedForwardNetwork();
-            if (nn.getLearningRate() == 0) {
-                System.out.println("Learning rate must be set");
-                isProperlyConfigured = false;
-            }
-            if (nn.getTrainingType() == null) {
-                System.out.println("Training type must be set");
-                isProperlyConfigured = false;
-            }
-
-            if (nn.getActivationFunctionType() == null) {
-                System.out.println("Activation function must be set");
-                isProperlyConfigured = false;
-            }
-
-            if (nn.getMomentum() == 0) {
-                System.out.println("Momentum must be set");
-                isProperlyConfigured = false;
-            }
-
-            if (nn.getMaxEpoch() == 0) {
-                System.out.println("Max Epochs must be set");
-                isProperlyConfigured = false;
-            }
-
-            if (nn.getTargetLoss() == 0) {
-                System.out.println("Target loss must be set");
-                isProperlyConfigured = false;
-            }
+        if (neuralNetwork.getLearningRate() == 0) {
+            System.out.println("Learning rate must be set");
+            isProperlyConfigured = false;
         }
+        if (neuralNetwork.getTrainingType() == null) {
+            System.out.println("Training type must be set");
+            isProperlyConfigured = false;
+        }
+
+        if (neuralNetwork.getActivationFunctionType() == null) {
+            System.out.println("Activation function must be set");
+            isProperlyConfigured = false;
+        }
+
+        if (neuralNetwork.getMomentum() == 0) {
+            System.out.println("Momentum must be set");
+            isProperlyConfigured = false;
+        }
+
+        if (neuralNetwork.getMaxEpoch() == 0) {
+            System.out.println("Max Epochs must be set");
+            isProperlyConfigured = false;
+        }
+
+        if (neuralNetwork.getTargetLoss() == 0) {
+            System.out.println("Target loss must be set");
+            isProperlyConfigured = false;
+        }
+
         return isProperlyConfigured;
     }
 
@@ -252,7 +187,6 @@ public class Configurator {
      */
     private void printHelp() {
         System.out.println("Parameters were wrong. Conf takes the following arguments which are all optional.");
-        System.out.println("   -nff\tconfigures only feedforward network");
         System.out.println("   -lr:\tLearning rate");
         System.out.println("   -tt:\tTraining Type");
         System.out.println("        Options: 1 = Backpropagation");
