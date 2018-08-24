@@ -30,6 +30,14 @@ public class JsonParser {
         this.openGuiAfterTrainingIsCompleted = config.getOpenGuiAfterTrainingIsCompleted();
     }
 
+    public JsonConfig getJsonConfig(String filename) throws IOException {
+        ObjectMapper objectMapper = new ObjectMapper();
+
+        byte[] jsonData = Files.readAllBytes(Paths.get(filename));
+
+        return objectMapper.readValue(jsonData, JsonConfig.class);
+    }
+
     private void generateLoadString(JsonConfig jsonConfig) {
         StringBuilder sb = new StringBuilder();
         sb.append("init -n: ");
@@ -47,7 +55,6 @@ public class JsonParser {
 
     private void generateConfigString(JsonConfig jsonConfig) {
         StringBuilder sb = new StringBuilder();
-        sb.append("conf -nff");
         sb.append(" -tt: ");
         sb.append(jsonConfig.getConfiguration().getTrainingType());
         sb.append(" -lr: ");

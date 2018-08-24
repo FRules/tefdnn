@@ -33,6 +33,7 @@ public class TestingView extends JFrame implements ActionListener {
     private final int heightOfImage = 200;
 
     public TestingView(NeuralNetwork trainedNeuralNetwork) {
+        this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         this.trainedNeuralNetwork = trainedNeuralNetwork;
         this.imageLoader = new ImageLoader(trainedNeuralNetwork);
 

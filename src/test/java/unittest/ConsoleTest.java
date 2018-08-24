@@ -127,7 +127,7 @@ public class ConsoleTest {
         String i = "init -cIN:784 -cHN:30 -cON:2 -cHL:1";
         NeuralNetwork neuralNetwork = c.init(i.toLowerCase());
 
-        String conf = "conf -me: 20 -tl:0.1 -af: 1 -lr: 0.001 -mom: 0.5 -tt: 1 -nff";
+        String conf = "conf -me: 20 -tl:0.1 -af: 1 -lr: 0.001 -mom: 0.5 -tt: 1";
         c.conf(conf, neuralNetwork);
 
         String tr1 = "train -ptd: " + pathTraining1 + " -tn: 0 -n: zero";
