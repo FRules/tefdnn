@@ -75,6 +75,79 @@ public class Commands {
     }
 
     /**
+     * Gets all neural networks
+     */
+    public static List<NeuralNetworkInformation> getNeuralNetworks(Connection con) {
+        try {
+            ArrayList<NeuralNetworkInformation> list = new ArrayList<>();
+            PreparedStatement pStmt = con.prepareStatement("SELECT id, name, learningRate, activationFunction, momentum, targetLoss, trainingType, maxEpoch FROM NeuralNetwork");
+            ResultSet rs = pStmt.executeQuery();
+            while (rs.next()) {
+                int id = rs.getInt("id");
+                String name = rs.getString("name");
+                double learningRate = rs.getDouble("learningRate");
+                int activationFunction = rs.getInt("activationFunction");
+                double momentum = rs.getDouble("momentum");
+                double targetLoss = rs.getDouble("targetLoss");
+                int trainingType = rs.getInt("trainingType");
+                int maxEpoch = rs.getInt("maxEpoch");
+
+                list.add(new NeuralNetworkInformation(id, name, learningRate, momentum, targetLoss, maxEpoch, activationFunction, trainingType));
+            }
+
+            for(NeuralNetworkInformation nn : list) {
+                pStmt = con.prepareStatement("SELECT count(id) as countHiddenLayers FROM Layer WHERE neuralNetworkId = ?");
+                pStmt.setInt(1, nn.getNeuralNetworkId());
+                rs = pStmt.executeQuery();
+                while (rs.next()) {
+                    nn.setNumberOfHiddenLayers(rs.getInt("countHiddenLayers") - 2);
+                }
+
+                pStmt = con.prepareStatement("SELECT id FROM Layer WHERE neuralNetworkId = ? ORDER BY position ASC");
+                pStmt.setInt(1, nn.getNeuralNetworkId());
+                rs = pStmt.executeQuery();
+                int i = 0;
+                while (rs.next()) {
+                    if (i == 0) {
+                        nn.setInputLayerId(rs.getInt("id"));
+                    } else if (i == nn.getNumberOfHiddenLayers() + 1) {
+                        nn.setOutputLayerId(rs.getInt("id"));
+                    } else {
+                        nn.setIdOfOneHiddenLayer(rs.getInt("id"));
+                    }
+                    i++;
+                }
+
+                pStmt = con.prepareStatement("SELECT count(id) as countInputNeurons FROM Neuron WHERE layerId = ?");
+                pStmt.setInt(1, nn.getInputLayerId());
+                rs = pStmt.executeQuery();
+                while (rs.next()) {
+                    nn.setNumberOfInputNeurons(rs.getInt("countInputNeurons"));
+                }
+
+                pStmt = con.prepareStatement("SELECT count(id) as countHiddenNeurons FROM Neuron WHERE layerId = ?");
+                pStmt.setInt(1, nn.getIdOfOneHiddenLayer());
+                rs = pStmt.executeQuery();
+                while (rs.next()) {
+                    nn.setNumberOfHiddenNeurons(rs.getInt("countHiddenNeurons"));
+                }
+
+                pStmt = con.prepareStatement("SELECT count(id) as countOutputNeurons FROM Neuron WHERE layerId = ?");
+                pStmt.setInt(1, nn.getOutputLayerId());
+                rs = pStmt.executeQuery();
+                while (rs.next()) {
+                    nn.setNumberOfOutputNeurons(rs.getInt("countOutputNeurons"));
+                }
+            }
+
+            return list;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    /**
      * saves the results of a trained network to the database
      * @param con
      * @param neuralNetwork
@@ -434,6 +507,11 @@ public class Commands {
                 nn.setActivationFunction(ActivationFunctionType.SIGMOID);
             }
             nn.initNetwork(outputsInputLayer, weightsHiddenLayer, weightsOutputLayer);
+
+            List<String> classes = getClasses(con, neuralNetworkId);
+            for(int j = 0; j < classes.size(); j++) {
+                nn.getOutputLayer().getNeurons().get(j).setName(classes.get(j));
+            }
             return nn;
         } catch (SQLException e) {
             e.printStackTrace();
@@ -527,6 +605,37 @@ public class Commands {
                 values.add(value);
             }
             return values;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    private static ArrayList<String> getClasses(Connection con, int neuralNetworkId) {
+        // Fetch the names of the classes
+        try {
+            PreparedStatement pStmt = con.prepareStatement("SELECT id FROM Layer WHERE neuralNetworkId = ? ORDER BY POSITION DESC");
+            pStmt.setInt(1, neuralNetworkId);
+            ResultSet rs = pStmt.executeQuery();
+            int outputLayerId = -1;
+            while (rs.next()) {
+                outputLayerId = rs.getInt("id");
+                break;
+            }
+            // Names can not be fetched
+            if (outputLayerId == -1) {
+                return null;
+            }
+
+            pStmt = con.prepareStatement("SELECT name FROM Neuron WHERE layerId = ? ORDER BY POSITION ASC");
+            pStmt.setInt(1, outputLayerId);
+            rs = pStmt.executeQuery();
+
+            ArrayList<String> list = new ArrayList<>();
+            while(rs.next()) {
+                list.add(rs.getString("name"));
+            }
+            return list;
         } catch (SQLException e) {
             e.printStackTrace();
         }

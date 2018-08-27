@@ -55,17 +55,20 @@ public class TestingView extends JFrame implements ActionListener {
         this.c.fill = GridBagConstraints.HORIZONTAL;
         this.c.gridx = 0;
         this.c.gridy = 0;
+        this.c.insets = new Insets(5, 10, 5, 10);
         this.panel.add(inputField, c);
 
         this.c.fill = GridBagConstraints.HORIZONTAL;
         this.c.gridx = 1;
         this.c.gridy = 0;
+        this.c.insets = new Insets(5, 10, 5, 10);
         this.panel.add(testButton, c);
 
         this.c.fill = GridBagConstraints.HORIZONTAL;
         this.c.gridwidth = 2;
         this.c.gridx = 0;
         this.c.gridy = 1;
+        this.c.insets = new Insets(5, 10, 5, 10);
         this.panel.add(imagePreview, c);
 
         new DropTarget(inputField, new DropTargetListener() {

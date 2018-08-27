@@ -3,6 +3,7 @@ package de.nitschmann.tefdnn.persistence;
 import de.nitschmann.tefdnn.application.NeuralNetwork;
 
 import java.sql.*;
+import java.util.List;
 
 public class Database {
 
@@ -24,7 +25,7 @@ public class Database {
             con = DriverManager.getConnection(
                     connectionString, user, password);
             if (overwrite) {
-                clearDatabase();
+                dropTables();
                 initDatabase();
             }
         }
@@ -67,15 +68,8 @@ public class Database {
         }
     }
 
-    public void clearDatabase() {
-        String deleteString = "DELETE FROM NeuralNetwork; DELETE FROM Layer; DELETE FROM Neuron; DELETE FROM Weight;";
-        try {
-            Statement stmt = con.createStatement();
-
-            stmt.executeUpdate(deleteString);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+    public List<NeuralNetworkInformation> getNeuralNetworks() {
+        return Commands.getNeuralNetworks(con);
     }
 
     public boolean saveResult(NeuralNetwork neuralNetwork, String pathToImage, String result) {

@@ -18,16 +18,24 @@ public class TrainingComponentInitializer implements IInitializer, ITrainingFini
     @Override
     public void initialize(StartView view) {
         this.view = view;
-        view.c = CustomGridBagConstraints.getCustomGridBagConstraints(GridBagConstraints.HORIZONTAL, 0, 6,
+
+        int startY = view.trainingStartY - 1;
+
+        view.c = CustomGridBagConstraints.getCustomGridBagConstraints(GridBagConstraints.HORIZONTAL, 0, startY,
                 new Insets(view.insetsTop, view.insetsLeft, view.insetsBottom, view.insetsRight));
         view.panelMain.add(view.labelTrainingClasses, view.c);
 
-        view.c = CustomGridBagConstraints.getCustomGridBagConstraints(GridBagConstraints.HORIZONTAL, 1, 6,
+        view.c = CustomGridBagConstraints.getCustomGridBagConstraints(GridBagConstraints.HORIZONTAL, 1, startY,
                 new Insets(view.insetsTop, view.insetsLeft, view.insetsBottom, view.insetsRight), 150, 2);
         view.panelMain.add(view.comboTrainingClasses, view.c);
         view.comboTrainingClasses.addActionListener(e -> {
             JComboBox cb = (JComboBox) e.getSource();
             generateTrainingComponents((int)cb.getSelectedItem());
+            if ((int)cb.getSelectedItem() == 0) {
+                view.buttonTrain.setEnabled(false);
+            } else {
+                view.buttonTrain.setEnabled(true);
+            }
         });
     }
 
@@ -35,7 +43,7 @@ public class TrainingComponentInitializer implements IInitializer, ITrainingFini
         ArrayList<DynamicTrainingComponentContent> cachedContent = cacheContentOfDynamicComponents();
         removeDynamicComponents();
 
-        int trainingComponentPositionY = 7;
+        int trainingComponentPositionY = view.trainingStartY;
         for(int i = 0; i < amountOfTrainingComponents; i++) {
             JLabel labelClassName = new JLabel("Class name");
             JLabel labelTargetNeuron = new JLabel("Target neuron");
@@ -85,6 +93,11 @@ public class TrainingComponentInitializer implements IInitializer, ITrainingFini
 
         view.panelMain.add(view.buttonTest, view.c);
         view.buttonTest.setEnabled(false);
+
+        view.c = CustomGridBagConstraints.getCustomGridBagConstraints(GridBagConstraints.HORIZONTAL, 0, trainingComponentPositionY + 7,
+                new Insets(view.insetsTop, view.insetsLeft, view.insetsBottom, view.insetsRight), 150, 7);
+        view.buttonSaveDb.setEnabled(false);
+        view.panelMain.add(view.buttonSaveDb, view.c);
 
         view.pack();
     }
@@ -152,5 +165,6 @@ public class TrainingComponentInitializer implements IInitializer, ITrainingFini
         view.neuralNetwork = neuralNetwork;
         view.buttonTrain.setEnabled(true);
         view.buttonTest.setEnabled(true);
+        view.buttonSaveDb.setEnabled(true);
     }
 }

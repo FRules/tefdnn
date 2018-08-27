@@ -2,6 +2,7 @@ package de.nitschmann.tefdnn.presentation.gui;
 
 import de.nitschmann.tefdnn.application.NeuralNetwork;
 import de.nitschmann.tefdnn.persistence.Database;
+import de.nitschmann.tefdnn.presentation.Console;
 import de.nitschmann.tefdnn.presentation.gui.console.MessageConsole;
 import de.nitschmann.tefdnn.presentation.gui.initialization.ConfigurationComponentInitializer;
 import de.nitschmann.tefdnn.presentation.gui.initialization.IInitializer;
@@ -22,7 +23,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 
-public class StartView extends JFrame {
+public class StartView extends JFrame implements INetworkLoadEvent {
 
     public NeuralNetwork neuralNetwork;
     public Database database;
@@ -40,6 +41,10 @@ public class StartView extends JFrame {
     public final int insetsLeft = 10;
     public final int insetsRight = 10;
     public final int insetsBottom = 5;
+
+    public final int initializationStartY = 3;
+    public final int configurationStartY = 3;
+    public final int trainingStartY = 9;
 
     // We dynamically add classes depending on how many classes the user wants to have in the neural network.
     // Therefore, we have to add them here in a list of list of components which has a structure like this:
@@ -93,6 +98,10 @@ public class StartView extends JFrame {
     /* Control Buttons */
     public JButton buttonTrain = new JButton("Train");
     public JButton buttonTest = new JButton("Test");
+    public JButton buttonLoadDb = new JButton("Load from database");
+    public JButton buttonSaveDb = new JButton("Save to database");
+
+    private LoadView loadView;
 
     // This is currently global but not really used. It might be necessary to implement a
     // kill switch on the thread. Then, the stop button has to have access to this thread
@@ -110,7 +119,7 @@ public class StartView extends JFrame {
         IInitializer confComponentInitializer = new ConfigurationComponentInitializer();
         IInitializer trainingComponentInitializer = new TrainingComponentInitializer();
 
-        this.prepareJsonComponents();
+        this.prepareLoadComponents();
 
         initComponentInitializer.initialize(this);
         confComponentInitializer.initialize(this);
@@ -129,9 +138,19 @@ public class StartView extends JFrame {
             testingView.toFront();
         });
 
+        this.buttonLoadDb.addActionListener((ActionEvent e) -> {
+            loadView = new LoadView(this.database, this);
+            loadView.toFront();
+        });
+
+        this.buttonSaveDb.addActionListener((ActionEvent e) -> {
+            Console console = new Console(this.database);
+            console.save("save -nff: " + this.textName.getText(), this.neuralNetwork);
+        });
+
 
         this.mc.redirectOut(null, System.out);
-        this.mc.redirectErr(Color.RED, null);
+        this.mc.redirectErr(Color.RED, System.out);
         this.mc.setMessageLines(5000);
         /* Final code */
         this.setTitle("Training Environment for Deep Neural Networks");
@@ -140,10 +159,9 @@ public class StartView extends JFrame {
         this.setVisible(true);
     }
 
-    private void prepareJsonComponents() {
+    private void prepareLoadComponents() {
         c = CustomGridBagConstraints.getCustomGridBagConstraints(GridBagConstraints.HORIZONTAL, 0, 0,
                 new Insets(insetsTop, insetsLeft, insetsBottom, insetsRight), 150, 7);
-        this.c.fill = GridBagConstraints.HORIZONTAL;
         this.buttonJson.addActionListener((ActionEvent e) -> {
             int result = fileChooserJson.showOpenDialog(this);
             if (result == JFileChooser.APPROVE_OPTION) {
@@ -162,6 +180,10 @@ public class StartView extends JFrame {
         FileNameExtensionFilter jsonFilter = new FileNameExtensionFilter("json files (*.json)", "json");
         this.fileChooserJson.setDialogTitle("Open json configuration");
         this.fileChooserJson.setFileFilter(jsonFilter);
+
+        c = CustomGridBagConstraints.getCustomGridBagConstraints(GridBagConstraints.HORIZONTAL, 0, 1,
+                new Insets(insetsTop, insetsLeft, insetsBottom, insetsRight), 150, 7);
+        this.panelMain.add(this.buttonLoadDb, c);
     }
 
     private void fillFieldsWithInformationFromJson(JsonConfig config) {
@@ -191,5 +213,32 @@ public class StartView extends JFrame {
             }
         }
         this.pack();
+    }
+
+    @Override
+    public void networkLoad(String name) {
+        Console console = new Console(this.database);
+        this.neuralNetwork = console.init("init -nff: " + name);
+
+        updateGui();
+
+        System.out.println("Network loaded");
+        loadView.dispose();
+    }
+
+    private void updateGui() {
+        this.textName.setText(this.neuralNetwork.getName());
+        this.textInputNeurons.setText(String.valueOf(this.neuralNetwork.getInputLayer().getCountOfNeurons() - 1));
+        this.textHiddenNeurons.setText(String.valueOf(this.neuralNetwork.getHiddenLayers().get(0).getCountOfNeurons() - 1));
+        this.textOutputNeurons.setText(String.valueOf(this.neuralNetwork.getOutputLayer().getCountOfNeurons()));
+        this.textHiddenLayers.setText(String.valueOf(this.neuralNetwork.getHiddenLayers().size()));
+        this.textLearningRate.setText(String.valueOf(this.neuralNetwork.getLearningRate()));
+        this.textMomentum.setText(String.valueOf(this.neuralNetwork.getMomentum()));
+        this.textTargetLoss.setText(String.valueOf(this.neuralNetwork.getTargetLoss()));
+        this.textMaxEpoch.setText(String.valueOf(this.neuralNetwork.getMaxEpoch()));
+        this.comboActivationFunction.setSelectedIndex(this.neuralNetwork.getActivationFunctionType().getValue() - 1);
+        this.comboTrainingType.setSelectedIndex(this.neuralNetwork.getTrainingType().getValue() - 1);
+        this.comboTrainingClasses.setSelectedIndex(0);
+        this.buttonTest.setEnabled(true);
     }
 }
