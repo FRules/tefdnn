@@ -6,7 +6,6 @@ public class Relu implements IActivationFunction {
         return value > 0 ? value : 0;
     }
 
-
     public double derivative(double value) {
         return value > 0 ? 1 : 0;
     }

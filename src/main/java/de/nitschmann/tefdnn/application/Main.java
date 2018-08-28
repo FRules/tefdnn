@@ -4,9 +4,6 @@ import de.nitschmann.tefdnn.persistence.Database;
 import de.nitschmann.tefdnn.presentation.Console;
 import de.nitschmann.tefdnn.presentation.Parser;
 import de.nitschmann.tefdnn.presentation.gui.StartView;
-import de.nitschmann.tefdnn.presentation.gui.TestingView;
-
-import java.util.Arrays;
 
 public class Main {
 

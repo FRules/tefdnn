@@ -4,7 +4,7 @@ public enum TrainingType {
     BACKPROPAGATION(1);
 
     private final int value;
-    private TrainingType(int value) {
+    TrainingType(int value) {
         this.value = value;
     }
 
