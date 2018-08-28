@@ -22,6 +22,7 @@ public class Console {
     private Database database;
     private Saver saver;
     private Loader loader;
+    private Cleaner cleaner;
     private Configurator configurator;
     private ImageLoader imageLoader;
     BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -38,6 +39,7 @@ public class Console {
         this.saver = new Saver();
         this.loader = new Loader();
         this.configurator = new Configurator();
+        this.cleaner = new Cleaner();
     }
 
     public boolean read() {
@@ -70,6 +72,13 @@ public class Console {
             System.out.println("Neural network initialized.");
         }
         return neuralNetwork;
+    }
+
+    public boolean delete(String input) {
+        if (input.contains("-nff:")) {
+            return this.cleaner.deleteNeuralNetwork(database, input);
+        }
+        return false;
     }
 
     private NeuralNetwork initJson(String input) {

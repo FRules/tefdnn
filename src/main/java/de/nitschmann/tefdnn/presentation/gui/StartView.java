@@ -23,7 +23,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 
-public class StartView extends JFrame implements INetworkLoadEvent {
+public class StartView extends JFrame implements INetworkLoadEvent, INetworkDeleteEvent {
 
     public NeuralNetwork neuralNetwork;
     public Database database;
@@ -36,7 +36,7 @@ public class StartView extends JFrame implements INetworkLoadEvent {
     public GridBagConstraints c;
     public String[] trainingTypes = { "Backpropagation" };
     public String[] activationFunctions = { "ReLU", "Sigmoid", "TanH" };
-    public Integer[] classes = { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
+    public Integer[] classes = { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
     public final int insetsTop = 5;
     public final int insetsLeft = 10;
     public final int insetsRight = 10;
@@ -44,7 +44,7 @@ public class StartView extends JFrame implements INetworkLoadEvent {
 
     public final int initializationStartY = 3;
     public final int configurationStartY = 3;
-    public final int trainingStartY = 9;
+    public final int trainingStartY = 10;
 
     // We dynamically add classes depending on how many classes the user wants to have in the neural network.
     // Therefore, we have to add them here in a list of list of components which has a structure like this:
@@ -139,7 +139,7 @@ public class StartView extends JFrame implements INetworkLoadEvent {
         });
 
         this.buttonLoadDb.addActionListener((ActionEvent e) -> {
-            loadView = new LoadView(this.database, this);
+            loadView = new LoadView(this.database, this, this);
             loadView.toFront();
         });
 
@@ -152,10 +152,18 @@ public class StartView extends JFrame implements INetworkLoadEvent {
         this.mc.redirectOut(null, System.out);
         this.mc.redirectErr(Color.RED, System.out);
         this.mc.setMessageLines(5000);
+
+        this.c = CustomGridBagConstraints.getCustomGridBagConstraints(GridBagConstraints.HORIZONTAL, 0, 9,
+                new Insets(this.insetsTop, this.insetsLeft, this.insetsBottom, this.insetsRight), 150, 7);
+        this.c.ipady = 150;
+        this.scrollPaneConsole = new JScrollPane(this.consoleArea);
+        this.panelMain.add(this.scrollPaneConsole, this.c);
+
         /* Final code */
         this.setTitle("Training Environment for Deep Neural Networks");
         this.add(this.panelMain);
         this.pack();
+        this.setMaximumSize(new Dimension(1000, 800));
         this.setVisible(true);
     }
 
@@ -224,6 +232,16 @@ public class StartView extends JFrame implements INetworkLoadEvent {
 
         System.out.println("Network loaded");
         loadView.dispose();
+    }
+
+    @Override
+    public void networkDelete(String name) {
+        Console console = new Console(this.database);
+        if (console.delete("delete -nff: " + name)) {
+            System.out.printf("Network %s deleted\n", name);
+            return;
+        }
+        System.out.printf("Network %s couldn't be deleted\n", name);
     }
 
     private void updateGui() {

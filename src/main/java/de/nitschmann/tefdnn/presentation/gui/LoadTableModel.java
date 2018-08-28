@@ -33,4 +33,22 @@ public class LoadTableModel extends AbstractTableModel {
     public Class getColumnClass(int c) {
         return getValueAt(0, c).getClass();
     }
+
+    public void removeRow(Integer row) {
+        Object[][] temp = new Object[data.length - 1][];
+        boolean rowRemoved = false;
+        for(int i = 0; i < data.length; i++) {
+            if (i == row) {
+                rowRemoved = true;
+                continue;
+            }
+            if (rowRemoved) {
+                temp[i-1] = data[i];
+            } else {
+                temp[i] = data[i];
+            }
+        }
+        data = temp;
+        this.fireTableDataChanged();
+    }
 }

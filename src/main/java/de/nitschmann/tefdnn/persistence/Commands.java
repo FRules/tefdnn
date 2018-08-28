@@ -407,6 +407,24 @@ public class Commands {
     }
 
     /**
+     * Removes a neural network from the database
+     * @param con
+     * @param name
+     * @return
+     */
+    public static boolean deleteNeuralNetwork(Connection con, String name) {
+        try {
+            PreparedStatement pStmt = con.prepareStatement("DELETE FROM NeuralNetwork WHERE name = ?");
+            pStmt.setString(1, name);
+            pStmt.execute();
+            return true;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    /**
      * returns the neural network id by specifying the string from the database
      * @param con
      * @param name

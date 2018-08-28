@@ -19,13 +19,11 @@ public class TrainingComponentInitializer implements IInitializer, ITrainingFini
     public void initialize(StartView view) {
         this.view = view;
 
-        int startY = view.trainingStartY - 1;
-
-        view.c = CustomGridBagConstraints.getCustomGridBagConstraints(GridBagConstraints.HORIZONTAL, 0, startY,
+        view.c = CustomGridBagConstraints.getCustomGridBagConstraints(GridBagConstraints.HORIZONTAL, 0, view.trainingStartY - 2,
                 new Insets(view.insetsTop, view.insetsLeft, view.insetsBottom, view.insetsRight));
         view.panelMain.add(view.labelTrainingClasses, view.c);
 
-        view.c = CustomGridBagConstraints.getCustomGridBagConstraints(GridBagConstraints.HORIZONTAL, 1, startY,
+        view.c = CustomGridBagConstraints.getCustomGridBagConstraints(GridBagConstraints.HORIZONTAL, 1, view.trainingStartY - 2,
                 new Insets(view.insetsTop, view.insetsLeft, view.insetsBottom, view.insetsRight), 150, 2);
         view.panelMain.add(view.comboTrainingClasses, view.c);
         view.comboTrainingClasses.addActionListener(e -> {
@@ -84,17 +82,11 @@ public class TrainingComponentInitializer implements IInitializer, ITrainingFini
 
         view.c = CustomGridBagConstraints.getCustomGridBagConstraints(GridBagConstraints.HORIZONTAL, 0, trainingComponentPositionY + 5,
                 new Insets(view.insetsTop, view.insetsLeft, view.insetsBottom, view.insetsRight), 150, 7);
-        view.c.ipady = 150;
-        view.scrollPaneConsole = new JScrollPane(view.consoleArea);
-        view.panelMain.add(view.scrollPaneConsole, view.c);
-
-        view.c = CustomGridBagConstraints.getCustomGridBagConstraints(GridBagConstraints.HORIZONTAL, 0, trainingComponentPositionY + 6,
-                new Insets(view.insetsTop, view.insetsLeft, view.insetsBottom, view.insetsRight), 150, 7);
 
         view.panelMain.add(view.buttonTest, view.c);
         view.buttonTest.setEnabled(false);
 
-        view.c = CustomGridBagConstraints.getCustomGridBagConstraints(GridBagConstraints.HORIZONTAL, 0, trainingComponentPositionY + 7,
+        view.c = CustomGridBagConstraints.getCustomGridBagConstraints(GridBagConstraints.HORIZONTAL, 0, trainingComponentPositionY + 6,
                 new Insets(view.insetsTop, view.insetsLeft, view.insetsBottom, view.insetsRight), 150, 7);
         view.buttonSaveDb.setEnabled(false);
         view.panelMain.add(view.buttonSaveDb, view.c);
@@ -135,9 +127,6 @@ public class TrainingComponentInitializer implements IInitializer, ITrainingFini
             for(DynamicTrainingComponent c : list) {
                 view.panelMain.remove(c.getComponent());
             }
-        }
-        if (view.scrollPaneConsole != null) {
-            view.panelMain.remove(view.scrollPaneConsole);
         }
         view.panelMain.remove(view.buttonTrain);
         view.panelMain.remove(view.buttonTest);

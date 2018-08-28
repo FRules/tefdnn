@@ -83,4 +83,8 @@ public class Database {
     public NeuralNetwork initNeuralNetwork(String neuralNetworkName) {
         return Commands.initNeuralNetwork(con, neuralNetworkName);
     }
+
+    public boolean deleteNeuralNetwork(String neuralNetworkName) {
+        return Commands.deleteNeuralNetwork(con, neuralNetworkName);
+    }
 }

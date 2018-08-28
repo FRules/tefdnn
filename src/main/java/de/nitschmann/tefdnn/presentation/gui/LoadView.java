@@ -5,9 +5,13 @@ import de.nitschmann.tefdnn.persistence.NeuralNetworkInformation;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.List;
+
+import static java.awt.Event.DELETE;
 
 public class LoadView extends JFrame {
 
@@ -18,12 +22,14 @@ public class LoadView extends JFrame {
     private JTable table;
     private JScrollPane scrollPaneTable;
     private INetworkLoadEvent networkLoadEvent;
+    private INetworkDeleteEvent networkDeleteEvent;
 
-    public LoadView(Database database, INetworkLoadEvent networkLoadEvent) {
+    public LoadView(Database database, INetworkLoadEvent networkLoadEvent, INetworkDeleteEvent networkDeleteEvent) {
         this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         this.setTitle("Load training environment from database");
         this.database = database;
         this.networkLoadEvent = networkLoadEvent;
+        this.networkDeleteEvent = networkDeleteEvent;
 
         List<NeuralNetworkInformation> list = database.getNeuralNetworks();
         if (list.size() == 0) {
@@ -49,6 +55,19 @@ public class LoadView extends JFrame {
                     networkLoadEvent.networkLoad((String)table.getValueAt(row, 1));
                 }
             }
+        });
+
+        InputMap inputMap = this.table.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW);
+        ActionMap actionMap = this.table.getActionMap();
+
+        inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_DELETE, 0), DELETE);
+        actionMap.put(DELETE, new AbstractAction() {
+           public void actionPerformed(ActionEvent e) {
+               JTable table = (JTable) e.getSource();
+               String name = (String)table.getValueAt(table.getSelectedRow(), 1);
+               networkDeleteEvent.networkDelete(name);
+               ((LoadTableModel)table.getModel()).removeRow(table.getSelectedRow());
+           }
         });
 
         this.pack();
