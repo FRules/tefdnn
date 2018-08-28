@@ -12,30 +12,30 @@ public class Main {
 
     public static void main(String[] args) {
         String str = argsToString(args).toLowerCase();
-        if (!str.contains("-initdb:")) {
-            printHelp();
-            return;
-        }
-
         Parser parser = new Parser();
-        String initDbString = parser.parseString(str, "-initdb:");
-        boolean initializeDatabase;
-        try {
-            initializeDatabase = Boolean.parseBoolean(initDbString.replace(":", ""));
-        } catch(Exception e) {
-            System.out.println("Couldn't parse initDb parameter to boolean. Make sure to specify true or false");
-            printHelp();
-            return;
+
+        boolean initializeDatabase = false;
+        if (str.contains("-initdb:")) {
+            String initDbString = parser.parseString(str, "-initdb:");
+            try {
+                initializeDatabase = Boolean.parseBoolean(initDbString.replace(":", ""));
+            } catch(Exception e) {
+                System.out.println("Couldn't parse '-initDb:' parameter to boolean. Using previous database.");
+            }
+        } else {
+            System.out.println("Parameter '-initDb:' not existing. Using previous database.");
         }
 
         Database db = new Database("jdbc:hsqldb:file:db/database;shutdown=true;", "SA", "", initializeDatabase);
 
-        if (str.contains("-gui")) {
+        if (!str.contains("-cli")) {
             /* Gui Mode */
+            System.out.println("Starting application in GUI mode");
             StartView v = new StartView(db);
             v.setVisible(true);
             return;
         }
+        System.out.println("Starting application in CLI mode");
 
         /* Console mode */
         Console console = new Console(db);
@@ -48,11 +48,6 @@ public class Main {
             }
         }
 
-    }
-    private static void printHelp() {
-        System.out.println("You have to provide arguments to the application. Following switches are possible:");
-        System.out.println("  -gui\t\t\t\tStarts the application in GUI mode, optional");
-        System.out.println("  -initDb: true | false\t\tTrue, if database should be initialized new, required");
     }
 
     private static String argsToString(String[] args) {

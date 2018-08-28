@@ -26,8 +26,10 @@ public class Database {
                     connectionString, user, password);
             if (overwrite) {
                 dropTables();
-                initDatabase();
             }
+            // Since we have "CREATE TABLE IF NOT EXISTS" commands here, it
+            // is good to init them here if they do not exist.
+            initDatabase();
         }
         catch ( SQLException e )
         {

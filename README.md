@@ -3,7 +3,16 @@
 This project is a simple training environment for deep neural networks. The supported neural network type is a  typical fully connected feedforward network. The application contains an hsqldb database where training environments can be saved.
 ## Usage
 
-You can control the application via CLI. There are several commands available.
+You can control the application via CLI and GUI. There are several commands available.
+
+```
+java -jar tefdnn.jar
+java -jar tefdnn.jar -cli
+java -jar tefdnn.jar -initDb: true
+```
+
+InitDb Parameter will reinitialize the whole database. It drops all tables and creates them again. Therefore, 
+all data will be lost. CLI starts the application in command line interface mode. Default is GUI mode.
 
 ### JSON Control
 The preferred and easiest method on how to use the application is to control it via a json configuration file.
