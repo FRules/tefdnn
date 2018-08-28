@@ -39,48 +39,43 @@ public class JsonParser {
     }
 
     private void generateLoadString(JsonConfig jsonConfig) {
-        StringBuilder sb = new StringBuilder();
-        sb.append("init -n: ");
-        sb.append(jsonConfig.getInitialization().getName());
-        sb.append(" -cin: ");
-        sb.append(jsonConfig.getInitialization().getCountOfInputNeurons());
-        sb.append(" -chn: ");
-        sb.append(jsonConfig.getInitialization().getCountOfHiddenNeurons());
-        sb.append(" -con: ");
-        sb.append(jsonConfig.getInitialization().getCountOfOutputNeurons());
-        sb.append(" -chl: ");
-        sb.append(jsonConfig.getInitialization().getCountOfHiddenLayers());
-        this.loadString = sb.toString();
+        this.loadString = "init -n: " +
+                jsonConfig.getInitialization().getName() +
+                " -cin: " +
+                jsonConfig.getInitialization().getCountOfInputNeurons() +
+                " -chn: " +
+                jsonConfig.getInitialization().getCountOfHiddenNeurons() +
+                " -con: " +
+                jsonConfig.getInitialization().getCountOfOutputNeurons() +
+                " -chl: " +
+                jsonConfig.getInitialization().getCountOfHiddenLayers();
     }
 
     private void generateConfigString(JsonConfig jsonConfig) {
-        StringBuilder sb = new StringBuilder();
-        sb.append(" -tt: ");
-        sb.append(jsonConfig.getConfiguration().getTrainingType());
-        sb.append(" -lr: ");
-        sb.append(jsonConfig.getConfiguration().getLearningRate());
-        sb.append(" -mom: ");
-        sb.append(jsonConfig.getConfiguration().getMomentum());
-        sb.append(" -af: ");
-        sb.append(jsonConfig.getConfiguration().getActivationFunction());
-        sb.append(" -me: ");
-        sb.append(jsonConfig.getConfiguration().getMaximumNumberOfEpochs());
-        sb.append(" -tl: ");
-        sb.append(jsonConfig.getConfiguration().getTargetLoss());
-        this.configString = sb.toString();
+        this.configString = " -tt: " +
+                jsonConfig.getConfiguration().getTrainingType() +
+                " -lr: " +
+                jsonConfig.getConfiguration().getLearningRate() +
+                " -mom: " +
+                jsonConfig.getConfiguration().getMomentum() +
+                " -af: " +
+                jsonConfig.getConfiguration().getActivationFunction() +
+                " -me: " +
+                jsonConfig.getConfiguration().getMaximumNumberOfEpochs() +
+                " -tl: " +
+                jsonConfig.getConfiguration().getTargetLoss();
     }
 
     private void generateTrainStrings(JsonConfig jsonConfig) {
         this.trainStrings = new String[jsonConfig.getTrainingData().size()];
         for(int i = 0; i < jsonConfig.getTrainingData().size(); i++) {
-            StringBuilder sb = new StringBuilder();
-            sb.append("train -ptd: ");
-            sb.append(jsonConfig.getTrainingData().get(i).getPathToDirectory());
-            sb.append(" -tn: ");
-            sb.append(jsonConfig.getTrainingData().get(i).getTargetNeuron());
-            sb.append(" -n: ");
-            sb.append(jsonConfig.getTrainingData().get(i).getName());
-            this.trainStrings[i] = sb.toString();
+            String sb = "train -ptd: " +
+                    jsonConfig.getTrainingData().get(i).getPathToDirectory() +
+                    " -tn: " +
+                    jsonConfig.getTrainingData().get(i).getTargetNeuron() +
+                    " -n: " +
+                    jsonConfig.getTrainingData().get(i).getName();
+            this.trainStrings[i] = sb;
         }
     }
 

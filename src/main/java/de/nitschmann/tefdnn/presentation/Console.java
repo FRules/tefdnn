@@ -11,7 +11,6 @@ import de.nitschmann.tefdnn.presentation.json.JsonParser;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -27,12 +26,10 @@ public class Console {
     private ImageLoader imageLoader;
     BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
-    private boolean openGuiAfterTrainingIsCompleted = false;
-
     /**
      * Initializes a new Console - therefore, a database connection is required as well as
      * saver, loader and configurator objects.
-     * @param database
+     * @param database database
      */
     public Console(Database database) {
         this.database = database;
@@ -42,6 +39,10 @@ public class Console {
         this.cleaner = new Cleaner();
     }
 
+    /**
+     * This method gets called in a loop and reads the current line
+     * @return false, if the user types :q to exit the cli, true otherwise
+     */
     public boolean read() {
         try {
             String s = br.readLine();
@@ -58,8 +59,8 @@ public class Console {
 
     /**
      * returns a neural network by the input string
-     * @param input
-     * @return
+     * @param input input
+     * @return initialized neural network
      */
     public NeuralNetwork init(String input) {
         if (input.contains("-json:")) {
@@ -74,11 +75,13 @@ public class Console {
         return neuralNetwork;
     }
 
+    /**
+     * Deletes a neural network
+     * @param input input string where user specifies name (-nff: name)
+     * @return true if removal was successful
+     */
     public boolean delete(String input) {
-        if (input.contains("-nff:")) {
-            return this.cleaner.deleteNeuralNetwork(database, input);
-        }
-        return false;
+        return input.contains("-nff:") && this.cleaner.deleteNeuralNetwork(database, input);
     }
 
     private NeuralNetwork initJson(String input) {
@@ -120,8 +123,8 @@ public class Console {
 
     /**
      * saves the neural network by the input string
-     * @param input
-     * @return
+     * @param input input
+     * @return true if the storing was successful
      */
     public boolean save(String input, NeuralNetwork neuralNetwork) {
         if (saver.saveNeuralNetwork(database, input, neuralNetwork)) {
@@ -133,9 +136,9 @@ public class Console {
 
     /**
      * trains the neural network and returns the trained one
-     * @param input
-     * @param neuralNetwork
-     * @return
+     * @param input input
+     * @param neuralNetwork neuralNetwork
+     * @return The trained neural network
      */
     public NeuralNetwork train(String input, NeuralNetwork neuralNetwork) {
         if (input.contains("-ptd:") && input.contains("-tn:") && input.contains("-n:")) {
@@ -189,9 +192,9 @@ public class Console {
 
     /**
      * saves the results of the specified neural network to the database
-     * @param neuralNetwork
-     * @param pathToImage
-     * @param result
+     * @param neuralNetwork neuralNetwork
+     * @param pathToImage path to the image
+     * @param result result as a string
      */
     public void saveResult(NeuralNetwork neuralNetwork, String pathToImage, String result) {
         if (saver.saveResult(database, neuralNetwork, pathToImage, result)) {
@@ -201,8 +204,8 @@ public class Console {
 
     /**
      * tests a neural network by the input string and saves the results to the database
-     * @param input
-     * @param trainedNeuralNetwork
+     * @param input input
+     * @param trainedNeuralNetwork the neural network that was trained via train method
      */
     public boolean test(String input, NeuralNetwork trainedNeuralNetwork) {
         if (input.contains("-ptd:")) {
@@ -214,9 +217,8 @@ public class Console {
             }
             Map<String, double[]> testData = imageLoader.getTestImages(imageLoader.getTrainingData().getMeanImage());
 
-            Iterator it = testData.entrySet().iterator();
-            while (it.hasNext()) {
-                Map.Entry pair = (Map.Entry) it.next();
+            for (Object o : testData.entrySet()) {
+                Map.Entry pair = (Map.Entry) o;
                 trainedNeuralNetwork.setInput(trainedNeuralNetwork, (double[]) pair.getValue());
                 List<Double> result = trainedNeuralNetwork.test(trainedNeuralNetwork);
                 System.out.println(pair.getKey());
@@ -264,21 +266,19 @@ public class Console {
     }
 
     /**
-     * configues the neural network by the input string
-     * @param input
-     * @param neuralNetwork
+     * configures the neural network by the input string
+     * @param input input
+     * @param neuralNetwork neural network
      */
-    public boolean conf(String input, NeuralNetwork neuralNetwork) {
+    public void conf(String input, NeuralNetwork neuralNetwork) {
         if (configurator.configureNeuralNetwork(input, neuralNetwork)) {
             System.out.println("Neural network configured.");
-            return true;
         }
-        return false;
     }
 
     /**
      * parses the user input and calls the required methods
-     * @param input
+     * @param input input
      */
     public void parse(String input) {
         input = input.trim().toLowerCase();

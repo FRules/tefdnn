@@ -88,9 +88,7 @@ public abstract class Layer {
         for(Map.Entry<Integer, List<Double>> entry : weights.entrySet()) {
             Neuron neuron = new Neuron();
             ArrayList<Double> weightInTemp = new ArrayList<>();
-            for(double weight : entry.getValue()) {
-                weightInTemp.add(weight);
-            }
+            weightInTemp.addAll(entry.getValue());
             neuron.setWeightIn(weightInTemp);
             neurons.add(neuron);
         }
@@ -100,6 +98,9 @@ public abstract class Layer {
 
     @Override
     public boolean equals(Object o) {
+        if (getClass() != o.getClass())
+            return false;
+
         Layer layer;
         try {
             layer = (Layer) o;

@@ -14,8 +14,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 public class TestingView extends JFrame implements ActionListener {
 
@@ -128,30 +128,30 @@ public class TestingView extends JFrame implements ActionListener {
             Transferable tr = dtde.getTransferable();
             DataFlavor[] flavors = tr.getTransferDataFlavors();
 
-            for (int i = 0; i < flavors.length; i++) {
-                if (flavors[i].isFlavorJavaFileListType()) {
+            for (DataFlavor flavor : flavors) {
+                if (flavor.isFlavorJavaFileListType()) {
                     dtde.acceptDrop(dtde.getDropAction());
                     @SuppressWarnings("unchecked")
-                    java.util.List<File> files = (java.util.List<File>) tr.getTransferData(flavors[i]);
+                    List<File> files = (List<File>) tr.getTransferData(flavor);
                     if (files.size() > 1) {
                         JOptionPane.showMessageDialog(panel, "Es kann nur eine einzelne Datei getestet werden.");
                         dtde.dropComplete(true);
                         return;
                     }
 
-                    for (int k = 0; k < files.size(); k++) {
-                        if (!files.get(k).toString().endsWith(".jpg") &&
-                                !files.get(k).toString().endsWith(".jpeg") &&
-                                !files.get(k).toString().endsWith(".bmp") &&
-                                !files.get(k).toString().endsWith(".gif") &&
-                                !files.get(k).toString().endsWith(".png")) {
+                    for (File file : files) {
+                        if (!file.toString().endsWith(".jpg") &&
+                                !file.toString().endsWith(".jpeg") &&
+                                !file.toString().endsWith(".bmp") &&
+                                !file.toString().endsWith(".gif") &&
+                                !file.toString().endsWith(".png")) {
                             JOptionPane.showMessageDialog(panel,
                                     "Fehler beim Lesen der Bilddatei. Vermutlich wurde ein falsches Dateiformat angegeben.\n" +
                                             "Unterstützte Formate: .jpg, .jpeg, .png, .bmp, .gif");
                             dtde.dropComplete(true);
                             return;
                         }
-                        inputField.setText(files.get(k).toString());
+                        inputField.setText(file.toString());
                     }
 
                     dtde.dropComplete(true);
@@ -160,9 +160,6 @@ public class TestingView extends JFrame implements ActionListener {
             BufferedImage img;
             try {
                 img = ImageIO.read(new File(inputField.getText()));
-            } catch (IOException e) {
-                JOptionPane.showMessageDialog(panel, e.getStackTrace());
-                return;
             } catch (Exception e) {
                 JOptionPane.showMessageDialog(panel, e.getStackTrace());
                 return;
@@ -244,7 +241,7 @@ public class TestingView extends JFrame implements ActionListener {
 
     public @Override
     void toFront() {
-        int sta = super.getExtendedState() & ~JFrame.ICONIFIED & JFrame.NORMAL;
+        int sta = 0;
 
         super.setExtendedState(sta);
         super.setAlwaysOnTop(true);

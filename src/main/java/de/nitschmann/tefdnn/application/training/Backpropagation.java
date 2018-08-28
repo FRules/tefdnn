@@ -12,7 +12,6 @@ import java.nio.file.Paths;
 public class Backpropagation {
 
     private IActivationFunction activationFunction;
-    private String sensitivityAnalysisDataPath;
 
     public Backpropagation(IActivationFunction activationFunction) {
         this.activationFunction = activationFunction;
@@ -87,11 +86,11 @@ public class Backpropagation {
      * @see NeuralNetwork
      */
     public NeuralNetwork sensitivityAnalysis(NeuralNetwork nn, String filename) throws IOException {
-        this.sensitivityAnalysisDataPath = Paths.get("sensitivityAnalysisData").toAbsolutePath().toString();
+        String sensitivityAnalysisDataPath = Paths.get("sensitivityAnalysisData").toAbsolutePath().toString();
         int epoch = 0;
         double meanLoss = Integer.MAX_VALUE;
 
-        String sensitivityData = "";
+        StringBuilder sensitivityData = new StringBuilder();
 
         while (meanLoss > nn.getTargetLoss()) {
 
@@ -135,17 +134,17 @@ public class Backpropagation {
             // We need to log the loss - this is the actual important part of this method.
             // The tests with R need the loss in a log file.
 
-            sensitivityData += meanLoss + ",";
+            sensitivityData.append(meanLoss).append(",");
 
             epoch++;
         }
         // Remove last comma
-        sensitivityData = sensitivityData.substring(0, sensitivityData.length() - 1);
+        sensitivityData = new StringBuilder(sensitivityData.substring(0, sensitivityData.length() - 1));
         // Add new line
-        sensitivityData += "\n";
+        sensitivityData.append("\n");
 
         FileWriter fileWriter = new FileWriter(sensitivityAnalysisDataPath + "\\" + filename);
-        fileWriter.write(sensitivityData);
+        fileWriter.write(sensitivityData.toString());
         fileWriter.flush();
         fileWriter.close();
 
@@ -259,29 +258,29 @@ public class Backpropagation {
      * This function backpropagates through the whole network and adjusts the weights to get closer to the desired
      * output.
      *
+     * The general backpropagation formula is
+     * DELTA W_ij = LearningRate * Delta_i * A_j
+     *
+     * DELTA W_ij is the value, which has to be added to the current weight of the connection between Neuron i and Neuron j
+     * Learning Rate is a constant of the neural network
+     * Delta_i is the delta of each neuron. The formula is notated below.
+     * A_j is the output of the neuron j
+     *
+     * There are two ways to calculate the delta of a neuron. It's a difference if the neuron is
+     * on the output or hidden layer.
+     *
+     * Output-Formula
+     * delta_i = f'(sum of inputs) * Error
+     *
+     * Hidden-Formula
+     * delta_i = f'(sum of inputs) * SUM_L [ delta_L * W_L_i ]
+     *
      * @param nn Neural network which should be used
      * @return Improved neural network
      * @see NeuralNetwork
      */
     public NeuralNetwork backpropagate(NeuralNetwork nn) {
-        /**
-         * The general backpropagation formula is
-         * DELTA W_ij = LearningRate * Delta_i * A_j
-         *
-         * DELTA W_ij is the value, which has to be added to the current weight of the connection between Neuron i and Neuron j
-         * Learning Rate is a constant of the neural network
-         * Delta_i is the delta of each neuron. The formula is notated below.
-         * A_j is the output of the neuron j
-         *
-         * There are two ways to calculate the delta of a neuron. It's a difference if the neuron is
-         * on the output or hidden layer.
-         *
-         * Output-Formula
-         * delta_i = f'(sum of inputs) * Error
-         *
-         * Hidden-Formula
-         * delta_i = f'(sum of inputs) * SUM_L [ delta_L * W_L_i ]
-         */
+
 
         // First, we loop through each neuron in the output layer.
         for (int neuron_i = 0; neuron_i < nn.getOutputLayer().getCountOfNeurons(); neuron_i++) {

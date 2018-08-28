@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 public class NeuralNetwork {
 
@@ -55,12 +56,12 @@ public class NeuralNetwork {
         try {
             this.setTrainSet(nn.getTrainSet().clone());
 
-        } catch (NullPointerException e) { }
+        } catch (NullPointerException ignored) { }
 
         try {
             this.setEstimatedResults(nn.getEstimatedResults().clone());
 
-        } catch (NullPointerException e) { }
+        } catch (NullPointerException ignored) { }
 
     }
 
@@ -235,9 +236,9 @@ public class NeuralNetwork {
 
         hiddenLayers = new ArrayList<>();
 
-        for(int i = 0; i < weightsHiddenLayer.size(); i++) {
+        for (Map<Integer, List<Double>> aWeightsHiddenLayer : weightsHiddenLayer) {
             hiddenLayer = new HiddenLayer();
-            hiddenLayer.setCountOfNeurons(weightsHiddenLayer.get(i).size());
+            hiddenLayer.setCountOfNeurons(aWeightsHiddenLayer.size());
             hiddenLayers.add(hiddenLayer);
         }
 
@@ -287,7 +288,7 @@ public class NeuralNetwork {
 
     /**
      * sets the activation function
-     * @param activationFunctionType
+     * @param activationFunctionType activation function type
      */
     public void setActivationFunction(ActivationFunctionType activationFunctionType) {
         this.activationFunctionType = activationFunctionType;
@@ -336,7 +337,7 @@ public class NeuralNetwork {
 
     /**
      * sets the mean image
-     * @param meanImage
+     * @param meanImage mean image
      */
     public void setMeanImage(double meanImage) {
         this.meanImage = meanImage;
@@ -344,7 +345,7 @@ public class NeuralNetwork {
 
     /**
      * returns the mean image
-     * @return
+     * @return mean image
      */
     public double getMeanImage() {
         return this.meanImage;
@@ -407,16 +408,13 @@ public class NeuralNetwork {
      * The neural network which should learn / which we need to fetch sensitivity data from
      * @param filename
      * The name of the generated csv file (scenario_01.csv for example)
-     * @return
-     * The trained neural network
      */
-    public NeuralNetwork sensitivityAnalysis(NeuralNetwork nn, String filename) throws IOException {
+    public void sensitivityAnalysis(NeuralNetwork nn, String filename) throws IOException {
         if (nn.getTrainingType() == TrainingType.BACKPROPAGATION) {
             Backpropagation backpropagation = new Backpropagation(this.activationFunction);
-            return new NeuralNetwork(backpropagation.sensitivityAnalysis(nn, filename));
+            new NeuralNetwork(backpropagation.sensitivityAnalysis(nn, filename));
         }
 
-        return null;
     }
 
     /**
@@ -528,7 +526,7 @@ public class NeuralNetwork {
         }
 
         for (int i = 0; i < nn.getHiddenLayers().size(); i++) {
-            if (nn.getHiddenLayers().get(i).getCountOfNeurons() !=  this.getHiddenLayers().get(i).getCountOfNeurons()) {
+            if (nn.getHiddenLayers().get(i).getCountOfNeurons() != this.getHiddenLayers().get(i).getCountOfNeurons()) {
                 return false;
             }
         }
@@ -541,42 +539,31 @@ public class NeuralNetwork {
             if (nn.getActivationFunctionType() != this.activationFunctionType) {
                 return false;
             }
-        } else if (nn.getActivationFunctionType() == null && this.activationFunctionType == null);
-
-        else {
-            return true;
+        } else if (nn.getActivationFunctionType() == null && this.activationFunctionType != null) {
+            return false;
         }
 
         if (nn.getTrainingType() != null && this.trainingType != null) {
-            if (nn.getTrainingType().toString() != this.trainingType.toString()) {
+            if (!Objects.equals(nn.getTrainingType().toString(), this.trainingType.toString())) {
                 return false;
             }
-        } else if (nn.getTrainingType() == null && this.trainingType == null);
-        else {
-            return true;
-        }
-
-        if (nn.getLearningRate() != this.learningRate) {
+        } else if (nn.getTrainingType() == null && this.trainingType != null) {
             return false;
         }
 
-        if (nn.getMaxEpoch() != this.maxEpoch) {
-            return false;
-        }
+        return !(nn.getLearningRate() != this.learningRate) &&
+                nn.getMaxEpoch() == this.maxEpoch &&
+                !(nn.getMomentum() != this.momentum) &&
+                !(nn.getTargetLoss() != this.targetLoss);
 
-        if (nn.getMomentum() != this.momentum) {
-            return false;
-        }
-
-        if (nn.getTargetLoss() != this.targetLoss) {
-            return false;
-        }
-
-        return true;
     }
 
     @Override
     public boolean equals(Object o) {
+        if (getClass() != o.getClass()) {
+            return false;
+        }
+
         NeuralNetwork nn;
         try {
             nn = (NeuralNetwork) o;
@@ -606,37 +593,21 @@ public class NeuralNetwork {
             if (nn.getActivationFunctionType() != this.activationFunctionType) {
                 return false;
             }
-        } else if (nn.getActivationFunctionType() == null && this.activationFunctionType == null);
-
-        else {
-            return true;
+        } else if (nn.getActivationFunctionType() == null && this.activationFunctionType != null) {
+            return false;
         }
 
         if (nn.getTrainingType() != null && this.trainingType != null) {
-            if (nn.getTrainingType().toString() != this.trainingType.toString()) {
+            if (!Objects.equals(nn.getTrainingType().toString(), this.trainingType.toString())) {
                 return false;
             }
-        } else if (nn.getTrainingType() == null && this.trainingType == null);
-        else {
-            return true;
-        }
-
-        if (nn.getLearningRate() != this.learningRate) {
+        } else if (nn.getTrainingType() == null && this.trainingType != null) {
             return false;
         }
 
-        if (nn.getMaxEpoch() != this.maxEpoch) {
-            return false;
-        }
-
-        if (nn.getMomentum() != this.momentum) {
-            return false;
-        }
-
-        if (nn.getTargetLoss() != this.targetLoss) {
-            return false;
-        }
-
-        return true;
+        return !(nn.getLearningRate() != this.learningRate) &&
+                nn.getMaxEpoch() == this.maxEpoch &&
+                !(nn.getMomentum() != this.momentum) &&
+                !(nn.getTargetLoss() != this.targetLoss);
     }
 }

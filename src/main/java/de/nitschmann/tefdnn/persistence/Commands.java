@@ -13,9 +13,21 @@ import java.util.Map;
 
 public class Commands {
 
+    public static void dropTables(Connection con) {
+        String dropString = "DROP TABLE IF EXISTS NeuralNetwork; DROP TABLE IF EXISTS Layer; DROP TABLE IF EXISTS Neuron; " +
+                "DROP TABLE IF EXISTS Weight; DROP TABLE IF EXISTS TEST";
+        try {
+            Statement stmt = con.createStatement();
+
+            stmt.executeUpdate(dropString);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
     /**
      * Initializes all needed tables in the database if they do not exist
-     * @param con
+     * @param con connection
      */
     public static void initializeTables(Connection con) {
         try {

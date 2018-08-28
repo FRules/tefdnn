@@ -59,15 +59,7 @@ public class Database {
     }
 
     public void dropTables() {
-        String dropString = "DROP TABLE IF EXISTS NeuralNetwork; DROP TABLE IF EXISTS Layer; DROP TABLE IF EXISTS Neuron; " +
-                "DROP TABLE IF EXISTS Weight; DROP TABLE IF EXISTS TEST";
-        try {
-            Statement stmt = con.createStatement();
-
-            stmt.executeUpdate(dropString);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+        Commands.dropTables(con);
     }
 
     public List<NeuralNetworkInformation> getNeuralNetworks() {

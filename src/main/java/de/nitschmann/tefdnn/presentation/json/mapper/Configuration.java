@@ -37,10 +37,6 @@ public class Configuration {
         return maximumNumberOfEpochs;
     }
 
-    public void setMaximumNumberOfEpochs(int maximumNumberOfEpochs) {
-        this.maximumNumberOfEpochs = maximumNumberOfEpochs;
-    }
-
     public double getTargetLoss() {
         return targetLoss;
     }

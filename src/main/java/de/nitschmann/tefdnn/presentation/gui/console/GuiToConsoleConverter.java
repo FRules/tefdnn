@@ -9,18 +9,16 @@ import java.util.ArrayList;
 public class GuiToConsoleConverter {
 
     public static String getInitializationPart(JTextField name, JTextField inputNeurons, JTextField hiddenNeurons, JTextField outputNeurons, JTextField hiddenLayers) {
-        StringBuilder sb = new StringBuilder();
-        sb.append("init -n: ");
-        sb.append(name.getText());
-        sb.append(" -cin: ");
-        sb.append(inputNeurons.getText());
-        sb.append(" -chn: ");
-        sb.append(hiddenNeurons.getText());
-        sb.append(" -con: ");
-        sb.append(outputNeurons.getText());
-        sb.append(" -chl: ");
-        sb.append(hiddenLayers.getText());
-        return sb.toString();
+        return "init -n: " +
+                name.getText() +
+                " -cin: " +
+                inputNeurons.getText() +
+                " -chn: " +
+                hiddenNeurons.getText() +
+                " -con: " +
+                outputNeurons.getText() +
+                " -chl: " +
+                hiddenLayers.getText();
     }
 
     public static String getConfigurationPart(JTextField learningRate, JTextField momentum, JTextField maxEpoch,

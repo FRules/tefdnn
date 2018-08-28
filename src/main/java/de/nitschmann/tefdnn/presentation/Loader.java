@@ -11,11 +11,11 @@ public class Loader {
     /**
      * Initializes a complete new neural network
      * @param name name of the neural network
-     * @param numberOfInputNeurons
-     * @param numberOfHiddenNeurons
-     * @param numberOfOutputNeurons
-     * @param numberOfHiddenLayers
-     * @return
+     * @param numberOfInputNeurons numberOfInputNeurons
+     * @param numberOfHiddenNeurons numberOfHiddenNeurons
+     * @param numberOfOutputNeurons numberOfOutputNeurons
+     * @param numberOfHiddenLayers numberOfHiddenLayers
+     * @return Initialized neural network
      */
     private NeuralNetwork init(String name, int numberOfInputNeurons, int numberOfHiddenNeurons, int numberOfOutputNeurons, int numberOfHiddenLayers) {
         NeuralNetwork neuralNetwork = new NeuralNetwork();
@@ -26,11 +26,11 @@ public class Loader {
 
     /**
      * Initializes a complete new neural network without specifying the name
-     * @param numberOfInputNeurons
-     * @param numberOfHiddenNeurons
-     * @param numberOfOutputNeurons
-     * @param numberOfHiddenLayers
-     * @return
+     * @param numberOfInputNeurons numberOfInputNeurons
+     * @param numberOfHiddenNeurons numberOfHiddenNeurons
+     * @param numberOfOutputNeurons numberOfOutputNeurons
+     * @param numberOfHiddenLayers numberOfHiddenLayers
+     * @return initialized neural network
      */
     private NeuralNetwork init(int numberOfInputNeurons, int numberOfHiddenNeurons, int numberOfOutputNeurons, int numberOfHiddenLayers) {
         NeuralNetwork neuralNetwork = new NeuralNetwork();
@@ -40,9 +40,9 @@ public class Loader {
 
     /**
      * loads the neural network by specifying the name of the feedforward network
-     * @param nameFeedforward
-     * @param database
-     * @return
+     * @param nameFeedforward nameFeedforward
+     * @param database database
+     * @return initialized neural network which was loaded from the database
      */
     private NeuralNetwork init(String nameFeedforward, Database database) {
         return database.initNeuralNetwork(nameFeedforward);
@@ -50,9 +50,9 @@ public class Loader {
 
     /**
      * parses the input string and calls the required init methods
-     * @param database
-     * @param input
-     * @return
+     * @param database database
+     * @param input input
+     * @return initialized neural network
      */
     public NeuralNetwork initNeuralNetwork(Database database, String input) {
         if (input.contains("-n:") || input.contains("-cin:") || input.contains("-chn:") || input.contains("-con:") || input.contains("-chl:")) {

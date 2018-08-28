@@ -71,7 +71,7 @@ public class Neuron {
 
     /**
      * Copy constructor
-     * @param neuron
+     * @param neuron neuron
      * Neuron which should be copied
      */
     public Neuron(Neuron neuron) {
@@ -79,15 +79,11 @@ public class Neuron {
         this.weightOut = new ArrayList<>();
 
         if (neuron.getWeightIn() != null) {
-            for (Double value : neuron.getWeightIn()) {
-                weightIn.add(value);
-            }
+            weightIn.addAll(neuron.getWeightIn());
         }
 
         if (neuron.getWeightOut() != null) {
-            for (Double value : neuron.getWeightOut()) {
-                weightOut.add(value);
-            }
+            weightOut.addAll(neuron.getWeightOut());
         }
 
         this.sumOfInputValues = neuron.sumOfInputValues;
@@ -97,14 +93,7 @@ public class Neuron {
     }
 
     /**
-     * @return A random value between 0 and 1
-     */
-    public double initNeuron() {
-        return ThreadLocalRandom.current().nextDouble();
-    }
-
-    /**
-     * @retunr A random value between (-1 / number of Input neurons) and (1 / number of Input neurons)
+     * @return A random value between (-1 / number of Input neurons) and (1 / number of Input neurons)
      * @param numberOfInputNeurons number of weights which go into the neuron
      */
     public double initNeuron(int numberOfInputNeurons) {
@@ -204,6 +193,10 @@ public class Neuron {
 
     @Override
     public boolean equals(Object o) {
+        if (getClass() != o.getClass()) {
+            return false;
+        }
+
         Neuron n;
         try {
             n = (Neuron) o;

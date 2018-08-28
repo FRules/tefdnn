@@ -22,15 +22,6 @@ public class LimitLinesDocumentListener implements DocumentListener
 
     /*
      *  Specify the number of lines to be stored in the Document.
-     *  Extra lines will be removed from the start of the Document.
-     */
-    public LimitLinesDocumentListener(int maximumLines)
-    {
-        this(maximumLines, true);
-    }
-
-    /*
-     *  Specify the number of lines to be stored in the Document.
      *  Extra lines will be removed from the start or end of the Document,
      *  depending on the boolean value specified.
      */
@@ -38,14 +29,6 @@ public class LimitLinesDocumentListener implements DocumentListener
     {
         setLimitLines(maximumLines);
         this.isRemoveFromStart = isRemoveFromStart;
-    }
-
-    /*
-     *  Return the maximum number of lines to be stored in the Document
-     */
-    public int getLimitLines()
-    {
-        return maximumLines;
     }
 
     /*
@@ -69,13 +52,7 @@ public class LimitLinesDocumentListener implements DocumentListener
         //  Changes to the Document can not be done within the listener
         //  so we need to add the processing to the end of the EDT
 
-        SwingUtilities.invokeLater( new Runnable()
-        {
-            public void run()
-            {
-                removeLines(e);
-            }
-        });
+        SwingUtilities.invokeLater(() -> removeLines(e));
     }
 
     public void removeUpdate(DocumentEvent e) {}

@@ -10,8 +10,8 @@ public class Configurator {
 
     /**
      * sets the learning rate of the neural network
-     * @param learningRate
-     * @param neuralNetwork
+     * @param learningRate learningRate
+     * @param neuralNetwork neuralNetwork
      */
     private void setLearningRate(double learningRate, NeuralNetwork neuralNetwork) {
         neuralNetwork.setLearningRate(learningRate);
@@ -20,8 +20,8 @@ public class Configurator {
 
     /**
      * sets the training type of the neural network
-     * @param trainingType
-     * @param neuralNetwork
+     * @param trainingType trainingType
+     * @param neuralNetwork neuralNetwork
      */
     private void setTrainingType(TrainingType trainingType, NeuralNetwork neuralNetwork) {
         neuralNetwork.setTrainingType(trainingType);
@@ -30,8 +30,8 @@ public class Configurator {
 
     /**
      * sets the activationFunctionType of the neural network
-     * @param activationFunctionType
-     * @param neuralNetwork
+     * @param activationFunctionType activation function type
+     * @param neuralNetwork neuralNetwork
      */
     private void setActivationFunction(ActivationFunctionType activationFunctionType, NeuralNetwork neuralNetwork) {
         neuralNetwork.setActivationFunction(activationFunctionType);
@@ -40,8 +40,8 @@ public class Configurator {
 
     /**
      * sets the maxEpoch of the neural network
-     * @param maxEpoch
-     * @param neuralNetwork
+     * @param maxEpoch max amount of epochs
+     * @param neuralNetwork neuralNetwork
      */
     private void setMaxEpoch(int maxEpoch, NeuralNetwork neuralNetwork) {
         neuralNetwork.setMaxEpoch(maxEpoch);
@@ -50,8 +50,8 @@ public class Configurator {
 
     /**
      * sets the targetLoss of the neural network
-     * @param targetLoss
-     * @param neuralNetwork
+     * @param targetLoss target loss
+     * @param neuralNetwork neuralNetwork
      */
     private void setTargetLoss(double targetLoss, NeuralNetwork neuralNetwork) {
         neuralNetwork.setTargetLoss(targetLoss);
@@ -60,8 +60,8 @@ public class Configurator {
 
     /**
      * sets the momentum of the neural network
-     * @param momentum
-     * @param neuralNetwork
+     * @param momentum momentum
+     * @param neuralNetwork neuralNetwork
      */
     private void setMomentum(double momentum, NeuralNetwork neuralNetwork) {
         neuralNetwork.setMomentum(momentum);
@@ -70,9 +70,9 @@ public class Configurator {
 
     /**
      * parses the configuration string and calls the required methods
-     * @param input
-     * @param neuralNetwork
-     * @return
+     * @param input input string which looks like conf -lr: ...
+     * @param neuralNetwork neuralNetwork
+     * @return true, if some property changed, otherwise false
      */
     public boolean configureNeuralNetwork(String input, NeuralNetwork neuralNetwork) {
         boolean changed = false;
@@ -147,6 +147,12 @@ public class Configurator {
         return changed;
     }
 
+    /**
+     * Checks if the neural network is properly configured and now
+     * needed parameters are missing
+     * @param neuralNetwork neuralNetwork
+     * @return true if it is properly configured, otherwise false
+     */
     public boolean isProperlyConfigured(NeuralNetwork neuralNetwork) {
         boolean isProperlyConfigured = true;
 

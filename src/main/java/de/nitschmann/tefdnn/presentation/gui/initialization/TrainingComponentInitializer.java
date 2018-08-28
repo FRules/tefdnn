@@ -47,7 +47,7 @@ public class TrainingComponentInitializer implements IInitializer, ITrainingFini
             JLabel labelTargetNeuron = new JLabel("Target neuron");
             JLabel labelDirectoryPath = new JLabel("Path to training data directory");
             JTextField textClassName = new JTextField();
-            JComboBox<Integer> comboTargetNeuron = new JComboBox(view.classes);
+            JComboBox comboTargetNeuron = new JComboBox(view.classes);
             comboTargetNeuron.setSelectedItem(i);
             JTextField textDirectoryPath = new JTextField();
 

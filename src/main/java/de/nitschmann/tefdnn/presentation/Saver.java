@@ -12,7 +12,7 @@ public class Saver {
      * @param neuralNetworkName desired name of the neural network
      * @param neuralNetwork specified neural network
      * @param database database connection which should be used
-     * @return
+     * @return true if storing was successful
      */
     private boolean save(String neuralNetworkName, NeuralNetwork neuralNetwork, Database database) {
         neuralNetwork.setName(neuralNetworkName);
@@ -24,7 +24,7 @@ public class Saver {
      * @param database database connection which should be used
      * @param input input string which will be parsed
      * @param neuralNetwork specified neural network
-     * @return
+     * @return true if storing was successful
      */
     public boolean saveNeuralNetwork(Database database, String input, NeuralNetwork neuralNetwork) {
         if (input.contains("-nff:")) {
@@ -41,7 +41,7 @@ public class Saver {
      * @param neuralNetwork specified neural network
      * @param pathToImage path to image which was tested
      * @param result result string of the output layer
-     * @return
+     * @return true if storing the result was successful
      */
     public boolean saveResult(Database database, NeuralNetwork neuralNetwork, String pathToImage, String result) {
         return database.saveResult(neuralNetwork, pathToImage, result);

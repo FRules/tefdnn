@@ -82,14 +82,14 @@ public class StartView extends JFrame implements INetworkLoadEvent, INetworkDele
 
     public JTextField textTargetLoss = new JTextField();
     public JTextField textMaxEpoch = new JTextField();
-    public JComboBox<String> comboTrainingType = new JComboBox(trainingTypes);
-    public JComboBox<String> comboActivationFunction = new JComboBox(activationFunctions);
+    public JComboBox<String> comboTrainingType = new JComboBox<>(trainingTypes);
+    public JComboBox<String> comboActivationFunction = new JComboBox<>(activationFunctions);
     public JTextField textLearningRate = new JTextField();
     public JTextField textMomentum = new JTextField();
 
     /* Training elements */
     public JLabel labelTrainingClasses = new JLabel("Amount of classes");
-    public JComboBox<Integer> comboTrainingClasses = new JComboBox(classes);
+    public JComboBox<Integer> comboTrainingClasses = new JComboBox<>(classes);
 
     /* JSON */
     public JButton buttonJson = new JButton("Load configuration from JSON");
@@ -109,7 +109,7 @@ public class StartView extends JFrame implements INetworkLoadEvent, INetworkDele
     public TrainThread trainThread;
 
     public StartView(Database database) {
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         this.database = database;
 
         this.panelMain = new JPanel();

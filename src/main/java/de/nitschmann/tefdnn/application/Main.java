@@ -2,18 +2,18 @@ package de.nitschmann.tefdnn.application;
 
 import de.nitschmann.tefdnn.persistence.Database;
 import de.nitschmann.tefdnn.presentation.Console;
-import de.nitschmann.tefdnn.presentation.Parser;
 import de.nitschmann.tefdnn.presentation.gui.StartView;
+
+import static de.nitschmann.tefdnn.presentation.Parser.parseString;
 
 public class Main {
 
     public static void main(String[] args) {
         String str = argsToString(args).toLowerCase();
-        Parser parser = new Parser();
 
         boolean initializeDatabase = false;
         if (str.contains("-initdb:")) {
-            String initDbString = parser.parseString(str, "-initdb:");
+            String initDbString = parseString(str, "-initdb:");
             try {
                 initializeDatabase = Boolean.parseBoolean(initDbString.replace(":", ""));
             } catch(Exception e) {
@@ -39,7 +39,7 @@ public class Main {
         System.out.println("Console initialized.");
 
         while (true) {
-            if (console.read() == false) {
+            if (!console.read()) {
                 System.out.println("Application quit.");
                 return;
             }

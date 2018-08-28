@@ -15,21 +15,11 @@ import static java.awt.Event.DELETE;
 
 public class LoadView extends JFrame {
 
-    private Database database;
-    private final String[] columnNames = {"Id", "Name", "Input neurons", "Hidden neurons", "Output neurons", "Hidden layers",
-                                            "Learning rate", "Momentum", "Target loss", "Max epoch", "Activation function", "Training type"};
-
     private JTable table;
-    private JScrollPane scrollPaneTable;
-    private INetworkLoadEvent networkLoadEvent;
-    private INetworkDeleteEvent networkDeleteEvent;
 
     public LoadView(Database database, INetworkLoadEvent networkLoadEvent, INetworkDeleteEvent networkDeleteEvent) {
         this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         this.setTitle("Load training environment from database");
-        this.database = database;
-        this.networkLoadEvent = networkLoadEvent;
-        this.networkDeleteEvent = networkDeleteEvent;
 
         List<NeuralNetworkInformation> list = database.getNeuralNetworks();
         if (list.size() == 0) {
@@ -39,12 +29,14 @@ public class LoadView extends JFrame {
         }
 
         Object[][] data = convertListOfNeuralNetworkInformationTo2DObject(list);
+        String[] columnNames = {"Id", "Name", "Input neurons", "Hidden neurons", "Output neurons", "Hidden layers",
+                "Learning rate", "Momentum", "Target loss", "Max epoch", "Activation function", "Training type"};
         this.table = new JTable(new LoadTableModel(columnNames, data));
         this.table.setPreferredScrollableViewportSize(new Dimension(1300, 300));
         this.table.setFont(new Font("Serif", Font.PLAIN, 14));
         this.setColumnWidths();
-        this.scrollPaneTable = new JScrollPane(table);
-        this.add(this.scrollPaneTable);
+        JScrollPane scrollPaneTable = new JScrollPane(table);
+        this.add(scrollPaneTable);
 
         this.table.addMouseListener(new MouseAdapter() {
             public void mousePressed(MouseEvent mouseEvent) {
@@ -83,7 +75,7 @@ public class LoadView extends JFrame {
     }
 
     private Object[] convertNeuralNetworkInformationToObject(NeuralNetworkInformation nni) {
-        Object[] object = {
+        return new Object[]{
                 nni.getNeuralNetworkId(),
                 nni.getName(),
                 nni.getNumberOfInputNeurons(),
@@ -97,8 +89,6 @@ public class LoadView extends JFrame {
                 nni.getActivationFunction(),
                 nni.getTrainingType()
         };
-
-        return object;
     }
 
     private void setColumnWidths() {

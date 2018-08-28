@@ -4,9 +4,9 @@ public class Parser {
 
     /**
      * parses the input string and returns the searched parameter as a string
-     * @param input
-     * @param parameter
-     * @return
+     * @param input input
+     * @param parameter parameter
+     * @return integer which was parsed or -1 if it couldn't be parsed
      */
     public static int parseInt(String input, String parameter) {
         int pos = input.indexOf(parameter) + parameter.length();
@@ -28,9 +28,9 @@ public class Parser {
 
     /**
      * parses the input string and returns the searched parameter as a double
-     * @param input
-     * @param parameter
-     * @return
+     * @param input  input
+     * @param parameter parameter
+     * @return double which was parsed or -1 if it couldn't be parsed
      */
     public static double parseDouble(String input, String parameter) {
         int pos = input.indexOf(parameter) + parameter.length();
@@ -52,9 +52,9 @@ public class Parser {
 
     /**
      * parses the input string and returns the searched parameter as a string
-     * @param input
-     * @param parameter
-     * @return
+     * @param input input
+     * @param parameter parameter
+     * @return string which was parsed
      */
     public static String parseString(String input, String parameter) {
         int pos = input.indexOf(parameter) + parameter.length();
