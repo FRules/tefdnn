@@ -1,0 +1,19 @@
+{
+	"startTrainingImmediately": true,
+	"openGuiAfterTrainingIsCompleted": true,
+	"initialization": {
+		"name": "Test",
+		"countOfInputNeurons": 784,
+		"countOfHiddenNeurons": 40,
+		"countOfOutputNeurons": 3,
+		"countOfHiddenLayers": 1
+	},
+	"configuration": {
+		"learningRate": 0.001,
+		"trainingType": 1,
+		"activationFunction": 2,
+		"maximumNumberOfEpochs": 20,
+		"targetLoss": 0.005,
+		"momentum": 0.95
+	}
+}

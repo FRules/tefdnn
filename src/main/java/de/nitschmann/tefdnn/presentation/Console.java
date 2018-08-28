@@ -7,6 +7,7 @@ import de.nitschmann.tefdnn.application.io.TrainingData;
 import de.nitschmann.tefdnn.persistence.Database;
 import de.nitschmann.tefdnn.presentation.gui.TestingView;
 import de.nitschmann.tefdnn.presentation.json.JsonParser;
+import de.nitschmann.tefdnn.presentation.json.JsonValidator;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -88,6 +89,10 @@ public class Console {
         String filename = Parser.parseString(input, "-json:");
         filename = filename.replace("\"", "");
         JsonParser jsonParser = new JsonParser();
+        if (!JsonValidator.isValid(filename)) {
+            System.out.println("JSON is not valid!");
+            return null;
+        }
         try {
             jsonParser.parse(filename);
         } catch (IOException e) {

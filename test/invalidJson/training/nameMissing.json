@@ -1,0 +1,35 @@
+{
+	"startTrainingImmediately": true,
+	"openGuiAfterTrainingIsCompleted": true,
+	"initialization": {
+		"name": "Test",
+		"countOfInputNeurons": 784,
+		"countOfHiddenNeurons": 40,
+		"countOfOutputNeurons": 3,
+		"countOfHiddenLayers": 1
+	},
+	"configuration": {
+		"learningRate": 0.001,
+		"trainingType": 1,
+		"activationFunction": 2,
+		"maximumNumberOfEpochs": 20,
+		"targetLoss": 0.005,
+		"momentum": 0.95
+	},
+	"trainingData": [
+		{
+			"pathToDirectory": "C:\\Users\\nitschmann\\Documents\\Repositories\\tefdnn\\data\\bus\\Training",
+			"targetNeuron": 0
+		},
+		{
+			"pathToDirectory": "C:\\Users\\nitschmann\\Documents\\Repositories\\tefdnn\\data\\pkw\\Training",
+			"targetNeuron": 1,
+			"name": "PKW"
+		},
+		{
+			"pathToDirectory": "C:\\Users\\nitschmann\\Documents\\Repositories\\tefdnn\\data\\minibus\\Training",
+			"targetNeuron": 2,
+			"name": "Minibus"
+		}
+	]
+}

@@ -12,6 +12,7 @@ import de.nitschmann.tefdnn.presentation.gui.wrapper.CustomGridBagConstraints;
 import de.nitschmann.tefdnn.presentation.gui.wrapper.DynamicTrainingComponent;
 import de.nitschmann.tefdnn.presentation.gui.wrapper.TrainingComponentType;
 import de.nitschmann.tefdnn.presentation.json.JsonParser;
+import de.nitschmann.tefdnn.presentation.json.JsonValidator;
 import de.nitschmann.tefdnn.presentation.json.mapper.JsonConfig;
 import de.nitschmann.tefdnn.presentation.json.mapper.TrainingData;
 
@@ -176,6 +177,10 @@ public class StartView extends JFrame implements INetworkLoadEvent, INetworkDele
                 File file = fileChooserJson.getSelectedFile();
                 try {
                     JsonParser parser = new JsonParser();
+                    if (!JsonValidator.isValid(file.getAbsolutePath())) {
+                        System.out.println("JSON is not valid!");
+                        return;
+                    }
                     JsonConfig config = parser.getJsonConfig(file.getAbsolutePath());
                     fillFieldsWithInformationFromJson(config);
                 } catch (IOException ex) {
