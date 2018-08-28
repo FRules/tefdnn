@@ -21,6 +21,7 @@ public class LoadTableModel extends AbstractTableModel {
         return columnNames.length;
     }
 
+    @Override
     public String getColumnName(int col) {
         return columnNames[col];
     }
@@ -30,10 +31,11 @@ public class LoadTableModel extends AbstractTableModel {
         return data[rowIndex][columnIndex];
     }
 
+    @Override
     public Class getColumnClass(int c) {
         return getValueAt(0, c).getClass();
     }
-
+    
     public void removeRow(Integer row) {
         Object[][] temp = new Object[data.length - 1][];
         boolean rowRemoved = false;
